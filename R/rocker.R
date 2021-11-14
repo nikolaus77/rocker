@@ -2,8 +2,29 @@
 #' Database Interface Class
 #'
 #' @description
-#' \link{R6} interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
+#' \link{R6} class interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
 #' @format \link[R6:R6Class]{R6Class}
+#' @examples
+#' # New database handling object
+#' db <- rocker::newDB()
+#'
+#' # Setup SQLite database
+#' db$setupSQLite()
+#'
+#' # Open connection
+#' db$connect()
+#'
+#' # Write table
+#' db$writeTable("mtcars", mtcars)
+#'
+#' # Get query
+#' output <- db$getQuery("SELECT * FROM mtcars;")
+#'
+#' # Close connection
+#' db$disconnect()
+#'
+#' # Reset database handling object
+#' db$unloadDriver()
 #' @export
 rocker <- R6::R6Class(
 
@@ -230,7 +251,7 @@ rocker <- R6::R6Class(
 
     #' @description
     #' Retrieve SQL query from database.
-    #' Combination of functions sendQuery, fetch and clearResult.
+    #' Combination of functions sendQuery(), fetch() and clearResult().
     #' If required, database is automatically connected and disconnected.
     #' @param statement SQL query (\code{SELECT})
     #' @param n Number of record to be fetched at once. All records will be fetched.

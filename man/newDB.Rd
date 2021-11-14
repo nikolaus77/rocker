@@ -9,7 +9,13 @@ newDB(...)
 \arguments{
 \item{...}{Not used yet}
 }
+\value{
+New instance of rocker class
+}
 \description{
 Function generates a new \link{R6} database handling interface with \link{DBI} backend.
 For more information, see \link[rocker:rocker]{rocker} class description.
+}
+\examples{
+db <- rocker::newDB()
 }

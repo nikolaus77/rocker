@@ -1,6 +1,6 @@
-# **r**ocke**r** <img src='man/figures/logo.png' align="right" height="138" />
+# rocker <img src='man/figures/logo.png' align="right" height="138" />
 
-'**r**ocke**r**' is a 'R6' interface for handling database connections using 'DBI' package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite. The purpose is having an intuitive object allowing straightforward handling of databases. 
+'R6' class interface for handling database connections using 'DBI' package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite. The purpose is having an intuitive object allowing straightforward handling of databases. 
 
 ## Installation
 
@@ -17,9 +17,9 @@ install.packages("devtools")
 devtools::install_github("nikolaus77/rocker")
 ```
 
-## New '**r**ocke**r**' class object
+## New 'rocker' class object
 
-Create new '**r**ocke**r**' database handling object.
+Create new 'rocker' database handling object.
 
 ```R
 # Option 1
@@ -31,7 +31,7 @@ db <- rocker::rocker$new()
 
 ## Additional packages and database types
 
-The listed packages are required for some functions of '**r**ocke**r**'.
+The listed packages are required for some functions of 'rocker'.
 
 ### 'crayon' package
 
@@ -71,7 +71,7 @@ Structure of terminal output.
 ### 'RSQLite' package
 
 Package for handling SQLite database connections.
-It is required for the 'setupSQLite' function of '**r**ocke**r**' class.
+It is required for the setupSQLite() function of 'rocker' class.
 
 ```R
 install.packages("RSQLite")
@@ -98,7 +98,7 @@ db$unloadDriver()
 ### 'RPostgres' package
 
 Package for handling PostgreSQL database connections.
-It is required for the 'setupPostgreSQL' function of '**r**ocke**r**' class.
+It is required for the setupPostgreSQL() function of 'rocker' class.
 
 ```R
 install.packages("RPostgres")
@@ -128,7 +128,7 @@ db$unloadDriver()
 ### 'RMariaDB' package
 
 Package for handling MariaDB and MySQL database connections.
-It is required for the 'setupMariaDB' function of '**r**ocke**r**' class.
+It is required for the setupMariaDB() function of 'rocker' class.
 
 ```R
 install.packages("RMariaDB")
@@ -286,7 +286,7 @@ db$disconnect()
 
 #### Example 3
 
-Get query is a combination of send query, fetch and clear result.
+Function getQuery() is a combination of functions sendQuery(), fetch() and clearResult().
 *(do also run pre and post code block)*
 
 ```R
@@ -416,7 +416,7 @@ db$unloadDriver()
 
 ## 'DBI' objects
 
-'**r**ocke**r**' class encapsulates the 'DBI' objects driver, connection and result.
+'rocker' class encapsulates the 'DBI' objects driver, connection and result.
 If required, these objects can be directly used with 'DBI' functions.
 **However, it is recommended to use this option with care. Direct usage of 'DBI' functions, may disrupt proper function of 'rocker' class. Many 'DBI' functions are implemented in 'rocker' class. Whenever possible, use the 'rocker' class functions.**
 
@@ -440,7 +440,7 @@ db$setupSQLite()
 db$.drv
 #> <SQLiteDriver>
 
-# Direct usage of DBI function on rocker class
+# Direct usage of 'DBI' function on rocker class
 DBI::dbIsValid(db$.drv)
 #> TRUE
 
@@ -459,7 +459,7 @@ db$.con
 #>   Path: :memory:
 #>   Extensions: TRUE
 
-# Direct usage of DBI function on rocker class
+# Direct usage of 'DBI' function on rocker class
 DBI::dbIsValid(db$.con)
 #> TRUE
 ```
@@ -481,7 +481,7 @@ db$.res
 #>   ROWS Fetched: 0 [incomplete]
 #>        Changed: 0
 
-# Direct usage of DBI function on rocker class
+# Direct usage of 'DBI' function on rocker class
 DBI::dbIsValid(db$.res)
 #> TRUE
 ```
@@ -622,7 +622,7 @@ db$unloadDriver()
 
 ## Further help
 
-Please read the documentation of '**r**ocke**r**' class.
+Please read the documentation of 'rocker' class.
 
 ```R
 help(rocker)
@@ -630,5 +630,5 @@ help(rocker)
 
 Reading of 'DBI' package documentation is also recommended.
 
-* [CRAN](https://cran.r-project.org/web/packages/DBI/index.html)
+* [CRAN](https://cran.r-project.org/package=DBI)
 * [github](https://github.com/r-dbi/DBI)

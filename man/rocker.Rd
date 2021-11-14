@@ -7,7 +7,29 @@
 \link[R6:R6Class]{R6Class}
 }
 \description{
-\link{R6} interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
+\link{R6} class interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
+}
+\examples{
+# New database handling object
+db <- rocker::newDB()
+
+# Setup SQLite database
+db$setupSQLite()
+
+# Open connection
+db$connect()
+
+# Write table
+db$writeTable("mtcars", mtcars)
+
+# Get query
+output <- db$getQuery("SELECT * FROM mtcars;")
+
+# Close connection
+db$disconnect()
+
+# Reset database handling object
+db$unloadDriver()
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -348,7 +370,7 @@ Invisible self
 \if{latex}{\out{\hypertarget{method-getQuery}{}}}
 \subsection{Method \code{getQuery()}}{
 Retrieve SQL query from database.
-Combination of functions sendQuery, fetch and clearResult.
+Combination of functions sendQuery(), fetch() and clearResult().
 If required, database is automatically connected and disconnected.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{rocker$getQuery(statement, n = -1, ...)}\if{html}{\out{</div>}}

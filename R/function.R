@@ -5,6 +5,9 @@
 #' @description Function generates a new \link{R6} database handling interface with \link{DBI} backend.
 #' For more information, see \link[rocker:rocker]{rocker} class description.
 #' @param ... Not used yet
+#' @return New instance of rocker class
+#' @examples
+#' db <- rocker::newDB()
 #' @export
 newDB <- function(...)
   return(rocker$new(...))
