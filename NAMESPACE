@@ -2,3 +2,6 @@
 
 export(newDB)
 export(rocker)
+import(DBI)
+import(R6)
+import(safer)
