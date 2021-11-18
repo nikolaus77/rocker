@@ -1,5 +1,11 @@
 # rocker <img src='man/figures/logo.png' align="right" height="138" />
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9001-yellow.svg)](https://github.com/rocker)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
+
 'R6' class interface for handling database connections using 'DBI' package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite. The purpose is having an intuitive object allowing straightforward handling of databases. 
 
 ## Installation
@@ -10,7 +16,7 @@ Installation of current released version from CRAN.
 install.packages("rocker")
 ```
 
-Installation of current development version from github.
+Installation of current development version from GitHub.
 
 ```R
 install.packages("devtools")
@@ -631,4 +637,4 @@ help(rocker)
 Reading of 'DBI' package documentation is also recommended.
 
 * [CRAN](https://cran.r-project.org/package=DBI)
-* [github](https://github.com/r-dbi/DBI)
+* [GitHub](https://github.com/r-dbi/DBI)
