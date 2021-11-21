@@ -199,7 +199,9 @@ rocker <- R6::R6Class(
       private$check("drv", TRUE)
       testParameter(list(...), "drv")
       SETTINGS <- c(list(drv = private$..drv), private$settingsRead(), list(...))
-      return(do.call(DBI::dbCanConnect, SETTINGS))
+      OUTPUT <- do.call(DBI::dbCanConnect, SETTINGS)
+      private$note(sprintf("Can connect %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
+      return(OUTPUT)
     },
 
     #' @description
@@ -374,7 +376,9 @@ rocker <- R6::R6Class(
     columnInfo = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
-      return(DBI::dbColumnInfo(private$..res, ...))
+      OUTPUT <- DBI::dbColumnInfo(private$..res, ...)
+      private$note(sprintf("Column info %s", private$textColor(1, paste(sprintf("%s (%s)", OUTPUT$name, OUTPUT$type), collapse = ", "))))
+      return(OUTPUT)
     },
 
     #' @description
@@ -384,7 +388,9 @@ rocker <- R6::R6Class(
     getStatement = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
-      return(DBI::dbGetStatement(private$..res, ...))
+      OUTPUT <- DBI::dbGetStatement(private$..res, ...)
+      private$note(sprintf("Statement %s", private$textColor(1, OUTPUT)))
+      return(OUTPUT)
     },
 
     #' @description
@@ -462,7 +468,11 @@ rocker <- R6::R6Class(
     getInfoDrv = function(...) {
       private$check("drv", TRUE)
       testParameter(list(...), "dbObj")
-      return(DBI::dbGetInfo(private$..drv, ...))
+      OUTPUT <- DBI::dbGetInfo(private$..drv, ...)
+      TXT <- NULL
+      for(i in names(OUTPUT)) TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
+      private$note(sprintf("Driver info %s", private$textColor(1, paste(TXT, collapse = ", "))))
+      return(OUTPUT)
     },
 
     #' @description
@@ -472,7 +482,11 @@ rocker <- R6::R6Class(
     getInfoCon = function(...) {
       private$check("con", TRUE)
       testParameter(list(...), "dbObj")
-      return(DBI::dbGetInfo(private$..con, ...))
+      OUTPUT <- DBI::dbGetInfo(private$..con, ...)
+      TXT <- NULL
+      for(i in names(OUTPUT)) TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
+      private$note(sprintf("Connection info %s", private$textColor(1, paste(TXT, collapse = ", "))))
+      return(OUTPUT)
     },
 
     #' @description
@@ -482,7 +496,11 @@ rocker <- R6::R6Class(
     getInfoRes = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "dbObj")
-      return(DBI::dbGetInfo(private$..res, ...))
+      OUTPUT <- DBI::dbGetInfo(private$..res, ...)
+      TXT <- NULL
+      for(i in names(OUTPUT)) TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
+      private$note(sprintf("Result info %s", private$textColor(1, paste(TXT, collapse = ", "))))
+      return(OUTPUT)
     },
 
     #' @description
@@ -500,6 +518,7 @@ rocker <- R6::R6Class(
       } else {
         OUTPUT <- FALSE
       }
+      private$note(sprintf("Driver valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
       return(OUTPUT)
     },
 
@@ -518,6 +537,7 @@ rocker <- R6::R6Class(
       } else {
         OUTPUT <- FALSE
       }
+      private$note(sprintf("Connection valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
       return(OUTPUT)
     },
 
@@ -536,6 +556,7 @@ rocker <- R6::R6Class(
       } else {
         OUTPUT <- FALSE
       }
+      private$note(sprintf("Result valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
       return(OUTPUT)
     },
 
@@ -552,6 +573,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       DBI::dbCreateTable(private$..con, name, fields, ...)
+      private$note(sprintf("Create table %s columns %s", private$textColor(1, name), private$textColor(1, paste(colnames(fields), collapse = ", "))))
       return(invisible(self))
     },
 
@@ -566,6 +588,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       ROWS <- DBI::dbAppendTable(private$..con, name, value, ...)
+      private$note(sprintf("Append table %s rows %s", private$textColor(1, name), private$textColor(1, as.character(ROWS))))
       return(invisible(ROWS))
     },
 
@@ -580,6 +603,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       DBI::dbWriteTable(private$..con, name, value, ...)
+      private$note(sprintf("Write table %s columns %s rows %s", private$textColor(1, name), private$textColor(1, paste(colnames(value), collapse = ", ")), private$textColor(1, as.character(nrow(value)))))
       return(invisible(self))
     },
 
@@ -593,6 +617,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       TAB <- DBI::dbReadTable(private$..con, name, ...)
+      private$note(sprintf("Read table %s columns %s rows %s", private$textColor(1, name), private$textColor(1, as.character(ncol(TAB))), private$textColor(1, as.character(nrow(TAB)))))
       return(TAB)
     },
 
@@ -606,6 +631,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       DBI::dbRemoveTable(private$..con, name, ...)
+      private$note(sprintf("Remove table %s", private$textColor(1, name)))
       return(invisible(self))
     },
 
@@ -619,6 +645,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       EXISTS <- DBI::dbExistsTable(private$..con, name, ...)
+      private$note(sprintf("Exists %s table %s",  private$textColor(1, name), private$textColor(1, ifelse(EXISTS, "true", "false"))))
       return(EXISTS)
     },
 
@@ -634,6 +661,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       COLUMNS <- DBI::dbListFields(private$..con, name, ...)
+      private$note(sprintf("Table %s fields %s", private$textColor(1, name), private$textColor(1, paste(COLUMNS, collapse = ", "))))
       return(COLUMNS)
     },
 
@@ -646,6 +674,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       OBJECTS <- DBI::dbListObjects(private$..con, ...)
+      private$note(sprintf("Objects %s", private$textColor(1, nrow(OBJECTS))))
       return(OBJECTS)
     },
 
@@ -658,6 +687,7 @@ rocker <- R6::R6Class(
       private$check("res", FALSE)
       testParameter(list(...), "conn")
       TABLES <- DBI::dbListTables(private$..con, ...)
+      private$note(sprintf("Tables %s", private$textColor(1, paste(TABLES, collapse = ", "))))
       return(TABLES)
     }
 
@@ -780,6 +810,8 @@ rocker <- R6::R6Class(
     # check --------------------------------------------------------------------
 
     check = function(PAR, STATUS, WARNING = FALSE) {
+      VERBOSE <- private$.verbose
+      private$.verbose <- FALSE
       TEST <- TRUE
       if (PAR == "drv") {
         if (self$isValidDrv() != STATUS) {
@@ -802,6 +834,7 @@ rocker <- R6::R6Class(
           TEST <- FALSE
         }
       }
+      private$.verbose <- VERBOSE
       return(invisible(TEST))
     },
 

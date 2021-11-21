@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
-[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9002-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9003-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
