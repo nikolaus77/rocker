@@ -4,9 +4,11 @@
 \alias{newDB}
 \title{newDB}
 \usage{
-newDB(...)
+newDB(verbose = TRUE, ...)
 }
 \arguments{
+\item{verbose}{TRUE or FALSE. Switch text output on / off.}
+
 \item{...}{Not used yet}
 }
 \value{

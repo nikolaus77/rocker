@@ -40,16 +40,21 @@ rocker <- R6::R6Class(
 
     #' @description
     #' Generate new instance of class.
+    #' @param verbose TRUE or FALSE. Switch text output on / off.
     #' @param ... Not used yet
     #' @return New instance of class
-    initialize = function(...)
-      private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite")),
+    initialize = function(verbose = TRUE, ...) {
+      private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
+      self$verbose <- verbose
+      private$.id <- uuid::UUIDgenerate()
+      private$note(sprintf("Object id %s", private$textColor(1, private$.id)))
+    },
 
     #' @description
     #' Print object information.
     #' @return Invisible self
     print = function() {
-      TXT <- NULL
+      TXT <- c("id", private$textColor(1, private$.id))
       for (i in names(private$.info))
         TXT <- rbind(TXT, c(i, ifelse(is.null(private$.info[[i]]), private$textColor(2, "null"), private$textColor(1, private$.info[[i]]))))
       TXT <- rbind(
@@ -470,7 +475,8 @@ rocker <- R6::R6Class(
       testParameter(list(...), "dbObj")
       OUTPUT <- DBI::dbGetInfo(private$..drv, ...)
       TXT <- NULL
-      for(i in names(OUTPUT)) TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
+      for (i in names(OUTPUT))
+        TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
       private$note(sprintf("Driver info %s", private$textColor(1, paste(TXT, collapse = ", "))))
       return(OUTPUT)
     },
@@ -484,7 +490,8 @@ rocker <- R6::R6Class(
       testParameter(list(...), "dbObj")
       OUTPUT <- DBI::dbGetInfo(private$..con, ...)
       TXT <- NULL
-      for(i in names(OUTPUT)) TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
+      for (i in names(OUTPUT))
+        TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
       private$note(sprintf("Connection info %s", private$textColor(1, paste(TXT, collapse = ", "))))
       return(OUTPUT)
     },
@@ -498,7 +505,8 @@ rocker <- R6::R6Class(
       testParameter(list(...), "dbObj")
       OUTPUT <- DBI::dbGetInfo(private$..res, ...)
       TXT <- NULL
-      for(i in names(OUTPUT)) TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
+      for (i in names(OUTPUT))
+        TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
       private$note(sprintf("Result info %s", private$textColor(1, paste(TXT, collapse = ", "))))
       return(OUTPUT)
     },
@@ -721,6 +729,11 @@ rocker <- R6::R6Class(
 
     # other --------------------------------------------------------------------
 
+    #' @field id
+    #' Read only object UUID.
+    id = function(VALUE)
+      return(private$readOnly("id", VALUE)),
+
     #' @field transaction
     #' Read only TRUE or FALSE.
     #' Information on pending transaction.
@@ -757,6 +770,7 @@ rocker <- R6::R6Class(
     ..con = NULL,
     ..res = NULL,
 
+    .id = NULL,
     .transaction = FALSE,
     .info = NULL,
     .verbose = TRUE,
@@ -781,14 +795,15 @@ rocker <- R6::R6Class(
 
     note = function(TEXT) {
       if (private$.verbose) {
-        INFO <- private$textColor(4, paste0("[", paste(private$.info, collapse = " | ") ,"]"))
+        # INFO <- private$textColor(4, paste0("[", paste(private$.info, collapse = " | ") ,"]"))
+        INFO <- private$textColor(4, private$.id)
         STATUS <- paste0(
           ifelse(is.null(private$..drv), private$textColor(2, "d"), private$textColor(3, "D")),
           ifelse(is.null(private$..con), private$textColor(2, "c"), private$textColor(3, "C")),
           ifelse(private$.transaction, private$textColor(3, "T"), private$textColor(2, "t")),
           ifelse(is.null(private$..res), private$textColor(2, "r"), private$textColor(3, "R"))
         )
-        cat(INFO, STATUS, TEXT, "\n")
+        cat(INFO, "|", STATUS, "|", TEXT, "\n")
       }
     },
 

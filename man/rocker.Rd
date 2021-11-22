@@ -46,6 +46,8 @@ For advanced user, object can be used for direct execution of functions from DBI
 It is recommended not to use this object!
 For advanced user, object can be used for direct execution of functions from DBI package.}
 
+\item{\code{id}}{Read only object UUID.}
+
 \item{\code{transaction}}{Read only TRUE or FALSE.
 Information on pending transaction.}
 
@@ -105,12 +107,14 @@ Information on pending transaction.}
 \subsection{Method \code{new()}}{
 Generate new instance of class.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$new(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$new(verbose = TRUE, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{verbose}}{TRUE or FALSE. Switch text output on / off.}
+
 \item{\code{...}}{Not used yet}
 }
 \if{html}{\out{</div>}}
