@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
 [![GitHub
-version](https://img.shields.io/badge/devel%20version-0.1.2.9004-yellow.svg)](https://github.com/nikolaus77/rocker)
+version](https://img.shields.io/badge/devel%20version-0.1.2.9005-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -41,14 +41,14 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> b1281cce-6582-496a-9ce6-82bb70b8877b | dctr | Object id b1281cce-6582-496a-9ce6-82bb70b8877b
+#> 0d7311b5-e55d-4acd-ab27-e2ae21e3dfa2 | dctr | Object id 0d7311b5-e55d-4acd-ab27-e2ae21e3dfa2
 ```
 
 Option 2
 
 ``` r
 db <- rocker::rocker$new() # New database handling object
-#> d985e5da-c205-46d1-a850-c273e01384ad | dctr | Object id d985e5da-c205-46d1-a850-c273e01384ad
+#> 35e4de23-8d94-4c54-8702-a366cbc62dd6 | dctr | Object id 35e4de23-8d94-4c54-8702-a366cbc62dd6
 ```
 
 ## Additional packages and database types
@@ -68,7 +68,7 @@ Controlling terminal output.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 2bf5d627-5a1f-47e7-bb0e-ef45b66a4f16 | dctr | Object id 2bf5d627-5a1f-47e7-bb0e-ef45b66a4f16
+#> b65abb6a-2511-49c7-b52c-1caa972a23fe | dctr | Object id b65abb6a-2511-49c7-b52c-1caa972a23fe
 db$verbose <- FALSE # Terminal output off
 db$verbose <- TRUE # Terminal output on (default)
 ```
@@ -99,27 +99,27 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 182d733d-97b4-4aa4-aa2c-29322f354c84 | dctr | Object id 182d733d-97b4-4aa4-aa2c-29322f354c84
+#> a53a73b1-95a2-46b5-a5e7-13123596e1a3 | dctr | Object id a53a73b1-95a2-46b5-a5e7-13123596e1a3
 db$setupSQLite( # Setup SQLite database
   dbname = ":memory:"
 )
-#> 182d733d-97b4-4aa4-aa2c-29322f354c84 | Dctr | Driver load RSQLite
+#> a53a73b1-95a2-46b5-a5e7-13123596e1a3 | Dctr | Driver load RSQLite
 db$unloadDriver() # Reset database handling object
-#> 182d733d-97b4-4aa4-aa2c-29322f354c84 | dctr | Driver unload RSQLite
+#> a53a73b1-95a2-46b5-a5e7-13123596e1a3 | dctr | Driver unload RSQLite
 ```
 
 Option 2
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 44683daf-a91c-4baa-a488-7d7656ee09f3 | dctr | Object id 44683daf-a91c-4baa-a488-7d7656ee09f3
+#> 3a97e04f-744d-442d-adc2-b289b4876416 | dctr | Object id 3a97e04f-744d-442d-adc2-b289b4876416
 db$setupDriver( # Setup SQLite database
   drv = RSQLite::SQLite(),
   dbname = ":memory:"
 )
-#> 44683daf-a91c-4baa-a488-7d7656ee09f3 | Dctr | Driver load RSQLite
+#> 3a97e04f-744d-442d-adc2-b289b4876416 | Dctr | Driver load RSQLite
 db$unloadDriver() # Reset database handling object
-#> 44683daf-a91c-4baa-a488-7d7656ee09f3 | dctr | Driver unload RSQLite
+#> 3a97e04f-744d-442d-adc2-b289b4876416 | dctr | Driver unload RSQLite
 ```
 
 ### ‘RPostgres’ package
@@ -137,29 +137,29 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> ed04e14c-cf24-4b3e-85f0-b8747787eec2 | dctr | Object id ed04e14c-cf24-4b3e-85f0-b8747787eec2
+#> a127e6d7-2d39-4efc-b929-5507c3ac9338 | dctr | Object id a127e6d7-2d39-4efc-b929-5507c3ac9338
 db$setupPostgreSQL( # Setup PostgreSQL database
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password"
 )
-#> ed04e14c-cf24-4b3e-85f0-b8747787eec2 | Dctr | Driver load RPostgres
+#> a127e6d7-2d39-4efc-b929-5507c3ac9338 | Dctr | Driver load RPostgres
 db$unloadDriver() # Reset database handling object
-#> ed04e14c-cf24-4b3e-85f0-b8747787eec2 | dctr | Driver unload RPostgres
+#> a127e6d7-2d39-4efc-b929-5507c3ac9338 | dctr | Driver unload RPostgres
 ```
 
 Option 2
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 4e0a1cec-526a-42bb-a57e-498133956c5c | dctr | Object id 4e0a1cec-526a-42bb-a57e-498133956c5c
+#> 9d28b48c-fe70-4d0f-a187-47a67e52beb4 | dctr | Object id 9d28b48c-fe70-4d0f-a187-47a67e52beb4
 db$setupDriver( # Setup PostgreSQL database
   drv = RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password"
 )
-#> 4e0a1cec-526a-42bb-a57e-498133956c5c | Dctr | Driver load RPostgres
+#> 9d28b48c-fe70-4d0f-a187-47a67e52beb4 | Dctr | Driver load RPostgres
 db$unloadDriver() # Reset database handling object
-#> 4e0a1cec-526a-42bb-a57e-498133956c5c | dctr | Driver unload RPostgres
+#> 9d28b48c-fe70-4d0f-a187-47a67e52beb4 | dctr | Driver unload RPostgres
 ```
 
 ### ‘RMariaDB’ package
@@ -177,29 +177,29 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> c4af1db7-f6d7-46b6-84e5-94a67ea8abb1 | dctr | Object id c4af1db7-f6d7-46b6-84e5-94a67ea8abb1
+#> c91e0608-7825-48a3-8871-01454c1465a2 | dctr | Object id c91e0608-7825-48a3-8871-01454c1465a2
 db$setupMariaDB( # Setup MariaDB database
   host = "127.0.0.1", port = "3306", dbname = "mydb",
   user = "root", password = "password"
 )
-#> c4af1db7-f6d7-46b6-84e5-94a67ea8abb1 | Dctr | Driver load RMariaDB
+#> c91e0608-7825-48a3-8871-01454c1465a2 | Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
-#> c4af1db7-f6d7-46b6-84e5-94a67ea8abb1 | dctr | Driver unload RMariaDB
+#> c91e0608-7825-48a3-8871-01454c1465a2 | dctr | Driver unload RMariaDB
 ```
 
 Option 2
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 390611e5-6bcb-4c77-8b0b-37e1d4684e0b | dctr | Object id 390611e5-6bcb-4c77-8b0b-37e1d4684e0b
+#> 633c58a3-6358-4ef8-9af3-25726291da4c | dctr | Object id 633c58a3-6358-4ef8-9af3-25726291da4c
 db$setupDriver( # Setup MariaDB database
   drv = RMariaDB::MariaDB(),
   host = "127.0.0.1", port = "3306", dbname = "mydb",
   user = "root", password = "password"
 )
-#> 390611e5-6bcb-4c77-8b0b-37e1d4684e0b | Dctr | Driver load RMariaDB
+#> 633c58a3-6358-4ef8-9af3-25726291da4c | Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
-#> 390611e5-6bcb-4c77-8b0b-37e1d4684e0b | dctr | Driver unload RMariaDB
+#> 633c58a3-6358-4ef8-9af3-25726291da4c | dctr | Driver unload RMariaDB
 ```
 
 ## Database connection
@@ -211,15 +211,15 @@ executed first. *(pre code block)*
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> dd3a559d-a64e-4706-a118-318475ce2011 | dctr | Object id dd3a559d-a64e-4706-a118-318475ce2011
+#> ca1017fa-c06b-48db-b400-7ac94871519d | dctr | Object id ca1017fa-c06b-48db-b400-7ac94871519d
 db$setupSQLite(dbname = tempfile()) # Setup SQLite database
-#> dd3a559d-a64e-4706-a118-318475ce2011 | Dctr | Driver load RSQLite
+#> ca1017fa-c06b-48db-b400-7ac94871519d | Dctr | Driver load RSQLite
 db$connect() # Open connection
-#> dd3a559d-a64e-4706-a118-318475ce2011 | DCtr | Database connected
+#> ca1017fa-c06b-48db-b400-7ac94871519d | DCtr | Database connected
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> dd3a559d-a64e-4706-a118-318475ce2011 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> ca1017fa-c06b-48db-b400-7ac94871519d | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 db$disconnect() # Close connection
-#> dd3a559d-a64e-4706-a118-318475ce2011 | Dctr | Database disconnected
+#> ca1017fa-c06b-48db-b400-7ac94871519d | Dctr | Database disconnected
 ```
 
 After running the following examples this code block needs to be
@@ -227,7 +227,7 @@ executed. *(post code block)*
 
 ``` r
 db$unloadDriver() # Reset database handling object
-#> dd3a559d-a64e-4706-a118-318475ce2011 | dctr | Driver unload RSQLite
+#> ca1017fa-c06b-48db-b400-7ac94871519d | dctr | Driver unload RSQLite
 ```
 
 ### Different ways to connect and to get data
@@ -239,13 +239,13 @@ and post code block)*
 
 ``` r
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | DCtr | Database connected 
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | DCtR | Send query 21 characters 
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | DCtR | Rows fetched 32 
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | DCtR | Has completed yes 
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | DCtr | Clear result 
-#> 09952785-5e47-4115-8e90-1f1e85fc4ae2 | Dctr | Database disconnected
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | DCtr | Database connected 
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | DCtR | Send query 21 characters 
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | DCtR | Rows fetched 32 
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | DCtR | Has completed yes 
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | DCtr | Clear result 
+#> c955e932-ca6e-47bf-9ad3-2963cd62d69a | Dctr | Database disconnected
 ```
 
 Get query with automatic connection / disconnection. *(full example;
@@ -253,25 +253,25 @@ including pre and post code blocks)*
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | dctr | Object id 18daded4-aa77-46a4-8891-5b5a0f51342f
+#> ceef531d-ec59-4ec9-a541-8c007547afca | dctr | Object id ceef531d-ec59-4ec9-a541-8c007547afca
 db$setupSQLite(dbname = tempfile()) # Setup SQLite database
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | Dctr | Driver load RSQLite
+#> ceef531d-ec59-4ec9-a541-8c007547afca | Dctr | Driver load RSQLite
 db$connect() # Open connection
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtr | Database connected
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtr | Database connected
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 db$disconnect() # Close connection
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | Dctr | Database disconnected
+#> ceef531d-ec59-4ec9-a541-8c007547afca | Dctr | Database disconnected
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtr | Database connected 
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtR | Send query 21 characters 
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtR | Rows fetched 32 
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtR | Has completed yes 
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | DCtr | Clear result 
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | Dctr | Database disconnected
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtr | Database connected 
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtR | Send query 21 characters 
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtR | Rows fetched 32 
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtR | Has completed yes 
+#> ceef531d-ec59-4ec9-a541-8c007547afca | DCtr | Clear result 
+#> ceef531d-ec59-4ec9-a541-8c007547afca | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 18daded4-aa77-46a4-8891-5b5a0f51342f | dctr | Driver unload RSQLite
+#> ceef531d-ec59-4ec9-a541-8c007547afca | dctr | Driver unload RSQLite
 ```
 
 #### Example 2
@@ -281,21 +281,27 @@ post code block)*
 
 ``` r
 db$connect() # Open connection
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtr | Database connected
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtr | Database connected
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Send query 21 characters 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Rows fetched 32 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Has completed yes 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtr | Clear result
-output2 <- db$getQuery("SELECT * FROM mtcars;", 60) # Get query 2
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Send query 21 characters 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Fetch rows 60 -> Received 32 rows, 11 columns, 4824 bytes 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Rows fetched 32 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtR | Has completed yes 
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | DCtr | Clear result
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Send query 21 characters 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Rows fetched 32 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Has completed yes 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtr | Clear result
+output2 <- db$getQuery("SELECT * FROM mtcars;", 15) # Get query 2
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Send query 21 characters 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Rows fetched 15 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Has completed no 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Rows fetched 30 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Has completed no 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Fetch rows 15 -> Received 2 rows, 11 columns, 2184 bytes 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Rows fetched 32 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtR | Has completed yes 
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | DCtr | Clear result
 db$disconnect() # Close connection
-#> 7459a250-5cb5-48c6-9a8c-40d2e9d48b23 | Dctr | Database disconnected
+#> 0d9acf8c-3fcd-48f2-938b-a320068f09c9 | Dctr | Database disconnected
 ```
 
 #### Example 3
@@ -305,15 +311,15 @@ and clearResult(). *(do also run pre and post code block)*
 
 ``` r
 db$connect() # Open connection
-#> a0ee1585-d8f5-4aab-bf13-0b67098b08c0 | DCtr | Database connected
+#> 1ab65e6e-49e2-4003-adec-1ee3fd31791e | DCtr | Database connected
 db$sendQuery("SELECT * FROM mtcars;") # Send query
-#> a0ee1585-d8f5-4aab-bf13-0b67098b08c0 | DCtR | Send query 21 characters
+#> 1ab65e6e-49e2-4003-adec-1ee3fd31791e | DCtR | Send query 21 characters
 output <- db$fetch() # Fetch result
-#> a0ee1585-d8f5-4aab-bf13-0b67098b08c0 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+#> 1ab65e6e-49e2-4003-adec-1ee3fd31791e | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
 db$clearResult() # Clean up result
-#> a0ee1585-d8f5-4aab-bf13-0b67098b08c0 | DCtr | Clear result
+#> 1ab65e6e-49e2-4003-adec-1ee3fd31791e | DCtr | Clear result
 db$disconnect() # Close connection
-#> a0ee1585-d8f5-4aab-bf13-0b67098b08c0 | Dctr | Database disconnected
+#> 1ab65e6e-49e2-4003-adec-1ee3fd31791e | Dctr | Database disconnected
 ```
 
 ## Password storage
@@ -325,36 +331,36 @@ access the password!**
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | dctr | Object id 84d73fd0-ba62-42ad-be5e-776c7999681c
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | dctr | Object id ab7fec0b-3d4d-401e-8756-4909ceda8761
 db$setupDriver( # Setup PostgreSQL database with stored password (password and user are hidden - default behavior)
   RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password",
   protect = c("password", "user")
 )
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | Dctr | Driver load RPostgres
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | Dctr | Driver load RPostgres
 db$connect() # Open connection 1; Password is stored in the class and does not need to be provided.
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtr | Database connected
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtr | Database connected
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Send query 21 characters 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Rows fetched 32 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Has completed yes 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtr | Clear result
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Send query 21 characters 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Rows fetched 32 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Has completed yes 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtr | Clear result
 db$disconnect() # Close connection 1
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | Dctr | Database disconnected
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | Dctr | Database disconnected
 db$connect() # Open connection 2; Password is stored in the class and does not need to be provided.
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtr | Database connected
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtr | Database connected
 output2 <- db$getQuery("SELECT * FROM mtcars;") # Get query 2
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Send query 21 characters 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Rows fetched 32 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtR | Has completed yes 
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | DCtr | Clear result
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Send query 21 characters 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Rows fetched 32 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtR | Has completed yes 
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | DCtr | Clear result
 db$disconnect() # Close connection 2
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | Dctr | Database disconnected
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 84d73fd0-ba62-42ad-be5e-776c7999681c | dctr | Driver unload RPostgres
+#> ab7fec0b-3d4d-401e-8756-4909ceda8761 | dctr | Driver unload RPostgres
 ```
 
 In case you do not want to store the password in the class, you will
@@ -362,35 +368,35 @@ need to provide it each time a connection is opened.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | dctr | Object id fe45993c-5bd2-4d47-b597-f05bf8ce652e
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | dctr | Object id 02731d51-de7b-4f2e-82fd-81b3aea39df7
 db$setupDriver( # Setup PostgreSQL database without stored password
   RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres"
 )
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | Dctr | Driver load RPostgres
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | Dctr | Driver load RPostgres
 db$connect(password = "password") # Open connection 1; Password needs to be provided.
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtr | Database connected
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtr | Database connected
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Send query 21 characters 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Rows fetched 32 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Has completed yes 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtr | Clear result
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Send query 21 characters 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Rows fetched 32 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Has completed yes 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtr | Clear result
 db$disconnect() # Close connection 1
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | Dctr | Database disconnected
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | Dctr | Database disconnected
 db$connect(password = "password") # Open connection 2; Password needs to be provided.
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtr | Database connected
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtr | Database connected
 output2 <- db$getQuery("SELECT * FROM mtcars;") # Get query 2
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Send query 21 characters 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Rows fetched 32 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtR | Has completed yes 
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | DCtr | Clear result
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Send query 21 characters 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Rows fetched 32 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtR | Has completed yes 
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | DCtr | Clear result
 db$disconnect() # Close connection 2
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | Dctr | Database disconnected
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> fe45993c-5bd2-4d47-b597-f05bf8ce652e | dctr | Driver unload RPostgres
+#> 02731d51-de7b-4f2e-82fd-81b3aea39df7 | dctr | Driver unload RPostgres
 ```
 
 ## ‘DBI’ objects
@@ -406,7 +412,7 @@ DBIDriver-class
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | dctr | Object id 9c6c0647-1dc9-4516-b531-3e62129e7012
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | dctr | Object id 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3
 db$.drv # Empty driver
 #> NULL
 db$.con # Empty connection
@@ -414,7 +420,7 @@ db$.con # Empty connection
 db$.res # Empty result
 #> NULL
 db$setupSQLite() # Setup SQLite database
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | Dctr | Driver load RSQLite
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | Dctr | Driver load RSQLite
 db$.drv # 'DBI' DBIDriver-class
 #> <SQLiteDriver>
 DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on rocker class
@@ -429,7 +435,7 @@ DBIConnection-class
 
 ``` r
 db$connect() # Open connection
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | DCtr | Database connected
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | DCtr | Database connected
 db$.con # 'DBI' DBIConnection-class
 #> <SQLiteConnection>
 #>   Path: :memory:
@@ -455,9 +461,9 @@ DBIResult-class
 
 ``` r
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 db$sendQuery("SELECT * FROM mtcars;") # Send query
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | DCtR | Send query 21 characters
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | DCtR | Send query 21 characters
 db$.res # 'DBI' DBIResult-class
 #> <SQLiteResult>
 #>   SQL  SELECT * FROM mtcars;
@@ -481,15 +487,15 @@ Clean up
 
 ``` r
 db$clearResult() # Clean up result
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | DCtr | Clear result
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | DCtr | Clear result
 db$.res # Empty result
 #> NULL
 db$disconnect() # Close connection
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | Dctr | Database disconnected
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | Dctr | Database disconnected
 db$.con # Empty connection
 #> NULL
 db$unloadDriver() # Reset database handling object
-#> 9c6c0647-1dc9-4516-b531-3e62129e7012 | dctr | Driver unload RSQLite
+#> 5ea8db4c-a7ed-48cc-ac22-daaf424ddfe3 | dctr | Driver unload RSQLite
 db$.drv # Empty driver
 #> NULL
 ```
@@ -500,19 +506,19 @@ Setup database and a table with 32 rows.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | dctr | Object id 82a0f0d9-1696-4a69-a256-59b15ae3475f
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | dctr | Object id b45d4560-c6e3-4ac6-8466-81ac262b00fb
 db$setupSQLite() # Setup SQLite database
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | Dctr | Driver load RSQLite
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | Dctr | Driver load RSQLite
 db$connect() # Open connection
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Database connected
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Database connected
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 32 rows
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Send query 21 characters 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Rows fetched 32 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Has completed yes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Clear result
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Send query 21 characters 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Rows fetched 32 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Has completed yes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Clear result
 db$transaction # Transaction indicator
 #> [1] FALSE
 ```
@@ -522,23 +528,23 @@ and commit transaction. Operations results in a table with 17 rows.
 
 ``` r
 db$begin() # Start transaction 1
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTr | Transaction begin
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTr | Transaction begin
 db$transaction # Transaction indicator
 #> [1] TRUE
 AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 3;") # Modify table -> 15 rows
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Send statement 34 characters 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Rows affected 15 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTr | Clear result
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Send statement 34 characters 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Rows affected 15 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTr | Clear result
 db$commit() # Commit transaction 1
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Transaction commit
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Transaction commit
 db$transaction # Transaction indicator
 #> [1] FALSE
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Send query 21 characters 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Rows fetched 17 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Has completed yes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Clear result
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Send query 21 characters 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Rows fetched 17 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Has completed yes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Clear result
 ```
 
 Starting with a table with 17 rows, begin transaction 2. Delete 5 rows
@@ -546,38 +552,38 @@ and rollback transaction. Operations results in a table with 17 rows.
 
 ``` r
 db$begin() # Start transaction 2
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTr | Transaction begin
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTr | Transaction begin
 db$transaction # Transaction indicator
 #> [1] TRUE
 AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 5;") # Modify table -> 5 rows
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Send statement 34 characters 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Rows affected 5 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTr | Clear result
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Send statement 34 characters 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Rows affected 5 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTr | Clear result
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 12 rows
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Send query 21 characters 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Fetch rows all -> Received 12 rows, 11 columns, 3416 bytes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Rows fetched 12 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTR | Has completed yes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCTr | Clear result
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Send query 21 characters 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Fetch rows all -> Received 12 rows, 11 columns, 3416 bytes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Rows fetched 12 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTR | Has completed yes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCTr | Clear result
 db$rollback() # Rollback transaction 2
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Transaction rollback
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Transaction rollback
 db$transaction # Transaction indicator
 #> [1] FALSE
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Send query 21 characters 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Rows fetched 17 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtR | Has completed yes 
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | DCtr | Clear result
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Send query 21 characters 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Rows fetched 17 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtR | Has completed yes 
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | DCtr | Clear result
 ```
 
 Clean up.
 
 ``` r
 db$disconnect() # Close connection
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | Dctr | Database disconnected
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 82a0f0d9-1696-4a69-a256-59b15ae3475f | dctr | Driver unload RSQLite
+#> b45d4560-c6e3-4ac6-8466-81ac262b00fb | dctr | Driver unload RSQLite
 ```
 
 ## Further help
