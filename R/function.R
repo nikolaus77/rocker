@@ -68,3 +68,24 @@ testParameter <- function(PAR, FORBIDDEN = NULL, OBLIGATORY = NULL) {
         error(paste("Parameter obligatory:", paste(paste0("'", OBLIGATORY[!(OBLIGATORY %in% names(PAR))], "'"), collapse = ", ")))
   }
 }
+
+# id ---------------------------------------------------------------------------
+
+getTimeStamp <- function() {
+  TIME <- as.POSIXlt(Sys.time(), tz = "UTC")
+  BACKUP <- options(digits.secs=3)
+  TIME <- format(TIME, "%Y-%m-%d %H:%M:%OS")
+  options(BACKUP)
+  TIME <- gsub("[^0-9]", "", TIME)
+  return(as.numeric(TIME))
+}
+
+dec2base <- function(DEC, BASE = 36) { # BASE 2 to 36
+  REST <- NULL
+  while (DEC != 0) {
+    REST <- c(DEC %% BASE, REST)
+    DEC <- DEC %/% BASE
+  }
+  REST <- c(as.character(0:9), LETTERS)[REST+1]
+  return(paste(REST, collapse = ""))
+}

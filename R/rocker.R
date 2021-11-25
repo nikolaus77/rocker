@@ -46,7 +46,7 @@ rocker <- R6::R6Class(
     initialize = function(verbose = TRUE, ...) {
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
       self$verbose <- verbose
-      private$.id <- uuid::UUIDgenerate()
+      private$.id <- dec2base(getTimeStamp(), 36)
       private$note(sprintf("Object id %s", private$textColor(1, private$.id)))
     },
 

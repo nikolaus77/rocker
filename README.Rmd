@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
-[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9005-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9006-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
@@ -80,14 +80,14 @@ db$verbose <- TRUE # Terminal output on (default)
 Structure of terminal output.
 
 ```
-587a904a-1027-4717-b4a8-ed8e4b26f2b5 | Dctr | Driver load RSQLite
+5J08UQZ6E00 | Dctr | Driver load RSQLite
 
-587a904a-1027-4717-b4a8-ed8e4b26f2b5
-                                       D                          = Driver     (D = loaded,    d = not set)
-                                        c                         = Connection (C = opened,    c = closed)
-                                         t                        = Transation (T = active,    t = no tranastion)
-                                          r                       = Result     (R = available, r = no result)
-                                              Driver load RSQLite = Message text
+5J08UQZ6E00                              = Object ID
+              D                          = Driver     (D = loaded,    d = not set)
+               c                         = Connection (C = opened,    c = closed)
+                t                        = Transation (T = active,    t = no tranastion)
+                 r                       = Result     (R = available, r = no result)
+                     Driver load RSQLite = Message text
 
 ```
 
