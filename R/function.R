@@ -73,7 +73,7 @@ testParameter <- function(PAR, FORBIDDEN = NULL, OBLIGATORY = NULL) {
 
 getTimeStamp <- function() {
   TIME <- as.POSIXlt(Sys.time(), tz = "UTC")
-  BACKUP <- options(digits.secs=3)
+  BACKUP <- options(digits.secs = 3)
   TIME <- format(TIME, "%Y-%m-%d %H:%M:%OS")
   options(BACKUP)
   TIME <- gsub("[^0-9]", "", TIME)
@@ -81,10 +81,14 @@ getTimeStamp <- function() {
 }
 
 dec2base <- function(DEC, BASE = 36) { # BASE 2 to 36
-  REST <- NULL
-  while (DEC != 0) {
-    REST <- c(DEC %% BASE, REST)
-    DEC <- DEC %/% BASE
+  if (DEC > 0) {
+    REST <- NULL
+    while (DEC != 0) {
+      REST <- c(DEC %% BASE, REST)
+      DEC <- DEC %/% BASE
+    }
+  } else {
+    REST <- 0
   }
   REST <- c(as.character(0:9), LETTERS)[REST+1]
   return(paste(REST, collapse = ""))
