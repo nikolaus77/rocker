@@ -730,7 +730,7 @@ rocker <- R6::R6Class(
     # other --------------------------------------------------------------------
 
     #' @field id
-    #' Read only object UUID.
+    #' Read only object ID. UTC timestamp (including milliseconds) encoded as Base36.
     id = function(VALUE)
       return(private$readOnly("id", VALUE)),
 

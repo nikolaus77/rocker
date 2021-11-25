@@ -46,7 +46,7 @@ For advanced user, object can be used for direct execution of functions from DBI
 It is recommended not to use this object!
 For advanced user, object can be used for direct execution of functions from DBI package.}
 
-\item{\code{id}}{Read only object UUID.}
+\item{\code{id}}{Read only object ID. UTC timestamp (including milliseconds) encoded as Base36.}
 
 \item{\code{transaction}}{Read only TRUE or FALSE.
 Information on pending transaction.}
