@@ -8,7 +8,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
 [![GitHub
-version](https://img.shields.io/badge/devel%20version-0.1.2.9008-yellow.svg)](https://github.com/nikolaus77/rocker)
+version](https://img.shields.io/badge/devel%20version-0.1.2.9009-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![R-CMD-check](https://github.com/nikolaus77/rocker/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/R6/actions)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -41,14 +42,14 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7BO | dctr | Object id 5J08UR2L7BO
+#> 5J08VLU3M4K | dctr | Object id 5J08VLU3M4K
 ```
 
 Option 2
 
 ``` r
 db <- rocker::rocker$new() # New database handling object
-#> 5J08UR2L7C8 | dctr | Object id 5J08UR2L7C8
+#> 5J08VLU3M54 | dctr | Object id 5J08VLU3M54
 ```
 
 ## Additional packages and database types
@@ -68,7 +69,7 @@ Controlling terminal output.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7D0 | dctr | Object id 5J08UR2L7D0
+#> 5J08VLU3M5S | dctr | Object id 5J08VLU3M5S
 db$verbose <- FALSE # Terminal output off
 db$verbose <- TRUE # Terminal output on (default)
 ```
@@ -99,27 +100,27 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7DS | dctr | Object id 5J08UR2L7DS
+#> 5J08VLU3M6W | dctr | Object id 5J08VLU3M6W
 db$setupSQLite( # Setup SQLite database
   dbname = ":memory:"
 )
-#> 5J08UR2L7DS | Dctr | Driver load RSQLite
+#> 5J08VLU3M6W | Dctr | Driver load RSQLite
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7DS | dctr | Driver unload RSQLite
+#> 5J08VLU3M6W | dctr | Driver unload RSQLite
 ```
 
 Option 2
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7EW | dctr | Object id 5J08UR2L7EW
+#> 5J08VLU3M7W | dctr | Object id 5J08VLU3M7W
 db$setupDriver( # Setup SQLite database
   drv = RSQLite::SQLite(),
   dbname = ":memory:"
 )
-#> 5J08UR2L7EW | Dctr | Driver load RSQLite
+#> 5J08VLU3M7W | Dctr | Driver load RSQLite
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7EW | dctr | Driver unload RSQLite
+#> 5J08VLU3M7W | dctr | Driver unload RSQLite
 ```
 
 ### ‘RPostgres’ package
@@ -137,29 +138,29 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7GG | dctr | Object id 5J08UR2L7GG
+#> 5J08VLU3M94 | dctr | Object id 5J08VLU3M94
 db$setupPostgreSQL( # Setup PostgreSQL database
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password"
 )
-#> 5J08UR2L7GG | Dctr | Driver load RPostgres
+#> 5J08VLU3M94 | Dctr | Driver load RPostgres
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7GG | dctr | Driver unload RPostgres
+#> 5J08VLU3M94 | dctr | Driver unload RPostgres
 ```
 
 Option 2
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7HC | dctr | Object id 5J08UR2L7HC
+#> 5J08VLU3M9W | dctr | Object id 5J08VLU3M9W
 db$setupDriver( # Setup PostgreSQL database
   drv = RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password"
 )
-#> 5J08UR2L7HC | Dctr | Driver load RPostgres
+#> 5J08VLU3M9W | Dctr | Driver load RPostgres
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7HC | dctr | Driver unload RPostgres
+#> 5J08VLU3M9W | dctr | Driver unload RPostgres
 ```
 
 ### ‘RMariaDB’ package
@@ -177,149 +178,149 @@ Option 1
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7IK | dctr | Object id 5J08UR2L7IK
+#> 5J08VLU3MB4 | dctr | Object id 5J08VLU3MB4
 db$setupMariaDB( # Setup MariaDB database
   host = "127.0.0.1", port = "3306", dbname = "mydb",
   user = "root", password = "password"
 )
-#> 5J08UR2L7IK | Dctr | Driver load RMariaDB
+#> 5J08VLU3MB4 | Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7IK | dctr | Driver unload RMariaDB
+#> 5J08VLU3MB4 | dctr | Driver unload RMariaDB
 ```
 
 Option 2
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7JC | dctr | Object id 5J08UR2L7JC
+#> 5J08VLU3MBS | dctr | Object id 5J08VLU3MBS
 db$setupDriver( # Setup MariaDB database
   drv = RMariaDB::MariaDB(),
   host = "127.0.0.1", port = "3306", dbname = "mydb",
   user = "root", password = "password"
 )
-#> 5J08UR2L7JC | Dctr | Driver load RMariaDB
+#> 5J08VLU3MBS | Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7JC | dctr | Driver unload RMariaDB
+#> 5J08VLU3MBS | dctr | Driver unload RMariaDB
 ```
 
 ## Database connection
 
 ### About the following examples
 
-Before running the following examples this code block needs to be
-executed first. *(pre code block)*
+Before running the following examples, this code block <sup>*(pre code
+block)*</sup> needs to be executed first.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7K4 | dctr | Object id 5J08UR2L7K4
+#> 5J08VLU3MCK | dctr | Object id 5J08VLU3MCK
 db$setupSQLite(dbname = tempfile()) # Setup SQLite database
-#> 5J08UR2L7K4 | Dctr | Driver load RSQLite
+#> 5J08VLU3MCK | Dctr | Driver load RSQLite
 db$connect() # Open connection
-#> 5J08UR2L7K4 | DCtr | Database connected
+#> 5J08VLU3MCK | DCtr | Database connected
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 5J08UR2L7K4 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> 5J08VLU3MCK | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 db$disconnect() # Close connection
-#> 5J08UR2L7K4 | Dctr | Database disconnected
+#> 5J08VLU3MCK | Dctr | Database disconnected
 ```
 
-After running the following examples this code block needs to be
-executed. *(post code block)*
+After running the following examples, this code block <sup>*(post code
+block)*</sup> needs to be executed.
 
 ``` r
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7K4 | dctr | Driver unload RSQLite
+#> 5J08VLU3MCK | dctr | Driver unload RSQLite
 ```
 
 ### Different ways to connect and to get data
 
 #### Example 1
 
-Get query with automatic connection / disconnection. *(do also run pre
-and post code block)*
+Get query with automatic connection / disconnection. <sup>*(Do also run
+pre and post code blocks.)*</sup>
 
 ``` r
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-#> 5J08UR2L7NK | DCtr | Database connected 
-#> 5J08UR2L7NK | DCtR | Send query 21 characters 
-#> 5J08UR2L7NK | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L7NK | DCtR | Rows fetched 32 
-#> 5J08UR2L7NK | DCtR | Has completed yes 
-#> 5J08UR2L7NK | DCtr | Clear result 
-#> 5J08UR2L7NK | Dctr | Database disconnected
+#> 5J08VLU3MG0 | DCtr | Database connected 
+#> 5J08VLU3MG0 | DCtR | Send query 21 characters 
+#> 5J08VLU3MG0 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3MG0 | DCtR | Rows fetched 32 
+#> 5J08VLU3MG0 | DCtR | Has completed yes 
+#> 5J08VLU3MG0 | DCtr | Clear result 
+#> 5J08VLU3MG0 | Dctr | Database disconnected
 ```
 
-Get query with automatic connection / disconnection. *(full example;
-including pre and post code blocks)*
+Get query with automatic connection / disconnection. <sup>*(full
+example; including pre and post code blocks)*</sup>
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L7S0 | dctr | Object id 5J08UR2L7S0
+#> 5J08VLU3MKK | dctr | Object id 5J08VLU3MKK
 db$setupSQLite(dbname = tempfile()) # Setup SQLite database
-#> 5J08UR2L7S0 | Dctr | Driver load RSQLite
+#> 5J08VLU3MKK | Dctr | Driver load RSQLite
 db$connect() # Open connection
-#> 5J08UR2L7S0 | DCtr | Database connected
+#> 5J08VLU3MKK | DCtr | Database connected
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 5J08UR2L7S0 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> 5J08VLU3MKK | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 db$disconnect() # Close connection
-#> 5J08UR2L7S0 | Dctr | Database disconnected
+#> 5J08VLU3MKK | Dctr | Database disconnected
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-#> 5J08UR2L7S0 | DCtr | Database connected 
-#> 5J08UR2L7S0 | DCtR | Send query 21 characters 
-#> 5J08UR2L7S0 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L7S0 | DCtR | Rows fetched 32 
-#> 5J08UR2L7S0 | DCtR | Has completed yes 
-#> 5J08UR2L7S0 | DCtr | Clear result 
-#> 5J08UR2L7S0 | Dctr | Database disconnected
+#> 5J08VLU3MKK | DCtr | Database connected 
+#> 5J08VLU3MKK | DCtR | Send query 21 characters 
+#> 5J08VLU3MKK | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3MKK | DCtR | Rows fetched 32 
+#> 5J08VLU3MKK | DCtR | Has completed yes 
+#> 5J08VLU3MKK | DCtr | Clear result 
+#> 5J08VLU3MKK | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L7S0 | dctr | Driver unload RSQLite
+#> 5J08VLU3MKK | dctr | Driver unload RSQLite
 ```
 
 #### Example 2
 
-Get query with manual connection / disconnection. *(do also run pre and
-post code block)*
+Get query with manual connection / disconnection. <sup>*(Do also run pre
+and post code blocks.)*</sup>
 
 ``` r
 db$connect() # Open connection
-#> 5J08UR2L7U0 | DCtr | Database connected
+#> 5J08VLU3MMK | DCtr | Database connected
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> 5J08UR2L7U0 | DCtR | Send query 21 characters 
-#> 5J08UR2L7U0 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L7U0 | DCtR | Rows fetched 32 
-#> 5J08UR2L7U0 | DCtR | Has completed yes 
-#> 5J08UR2L7U0 | DCtr | Clear result
+#> 5J08VLU3MMK | DCtR | Send query 21 characters 
+#> 5J08VLU3MMK | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3MMK | DCtR | Rows fetched 32 
+#> 5J08VLU3MMK | DCtR | Has completed yes 
+#> 5J08VLU3MMK | DCtr | Clear result
 output2 <- db$getQuery("SELECT * FROM mtcars;", 15) # Get query 2
-#> 5J08UR2L7U0 | DCtR | Send query 21 characters 
-#> 5J08UR2L7U0 | DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
-#> 5J08UR2L7U0 | DCtR | Rows fetched 15 
-#> 5J08UR2L7U0 | DCtR | Has completed no 
-#> 5J08UR2L7U0 | DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
-#> 5J08UR2L7U0 | DCtR | Rows fetched 30 
-#> 5J08UR2L7U0 | DCtR | Has completed no 
-#> 5J08UR2L7U0 | DCtR | Fetch rows 15 -> Received 2 rows, 11 columns, 2184 bytes 
-#> 5J08UR2L7U0 | DCtR | Rows fetched 32 
-#> 5J08UR2L7U0 | DCtR | Has completed yes 
-#> 5J08UR2L7U0 | DCtr | Clear result
+#> 5J08VLU3MMK | DCtR | Send query 21 characters 
+#> 5J08VLU3MMK | DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
+#> 5J08VLU3MMK | DCtR | Rows fetched 15 
+#> 5J08VLU3MMK | DCtR | Has completed no 
+#> 5J08VLU3MMK | DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
+#> 5J08VLU3MMK | DCtR | Rows fetched 30 
+#> 5J08VLU3MMK | DCtR | Has completed no 
+#> 5J08VLU3MMK | DCtR | Fetch rows 15 -> Received 2 rows, 11 columns, 2184 bytes 
+#> 5J08VLU3MMK | DCtR | Rows fetched 32 
+#> 5J08VLU3MMK | DCtR | Has completed yes 
+#> 5J08VLU3MMK | DCtr | Clear result
 db$disconnect() # Close connection
-#> 5J08UR2L7U0 | Dctr | Database disconnected
+#> 5J08VLU3MMK | Dctr | Database disconnected
 ```
 
 #### Example 3
 
 Function getQuery() is a combination of functions sendQuery(), fetch()
-and clearResult(). *(do also run pre and post code block)*
+and clearResult(). <sup>*(Do also run pre and post code blocks.)*</sup>
 
 ``` r
 db$connect() # Open connection
-#> 5J08UR2L7XK | DCtr | Database connected
+#> 5J08VLU3MQG | DCtr | Database connected
 db$sendQuery("SELECT * FROM mtcars;") # Send query
-#> 5J08UR2L7XK | DCtR | Send query 21 characters
+#> 5J08VLU3MQG | DCtR | Send query 21 characters
 output <- db$fetch() # Fetch result
-#> 5J08UR2L7XK | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+#> 5J08VLU3MQG | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
 db$clearResult() # Clean up result
-#> 5J08UR2L7XK | DCtr | Clear result
+#> 5J08VLU3MQG | DCtr | Clear result
 db$disconnect() # Close connection
-#> 5J08UR2L7XK | Dctr | Database disconnected
+#> 5J08VLU3MQG | Dctr | Database disconnected
 ```
 
 ## Password storage
@@ -331,36 +332,36 @@ access the password!**
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L80K | dctr | Object id 5J08UR2L80K
+#> 5J08VLU3MTC | dctr | Object id 5J08VLU3MTC
 db$setupDriver( # Setup PostgreSQL database with stored password (password and user are hidden - default behavior)
   RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password",
   protect = c("password", "user")
 )
-#> 5J08UR2L80K | Dctr | Driver load RPostgres
+#> 5J08VLU3MTC | Dctr | Driver load RPostgres
 db$connect() # Open connection 1; Password is stored in the class and does not need to be provided.
-#> 5J08UR2L80K | DCtr | Database connected
+#> 5J08VLU3MTC | DCtr | Database connected
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> 5J08UR2L80K | DCtR | Send query 21 characters 
-#> 5J08UR2L80K | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L80K | DCtR | Rows fetched 32 
-#> 5J08UR2L80K | DCtR | Has completed yes 
-#> 5J08UR2L80K | DCtr | Clear result
+#> 5J08VLU3MTC | DCtR | Send query 21 characters 
+#> 5J08VLU3MTC | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3MTC | DCtR | Rows fetched 32 
+#> 5J08VLU3MTC | DCtR | Has completed yes 
+#> 5J08VLU3MTC | DCtr | Clear result
 db$disconnect() # Close connection 1
-#> 5J08UR2L80K | Dctr | Database disconnected
+#> 5J08VLU3MTC | Dctr | Database disconnected
 db$connect() # Open connection 2; Password is stored in the class and does not need to be provided.
-#> 5J08UR2L80K | DCtr | Database connected
+#> 5J08VLU3MTC | DCtr | Database connected
 output2 <- db$getQuery("SELECT * FROM mtcars;") # Get query 2
-#> 5J08UR2L80K | DCtR | Send query 21 characters 
-#> 5J08UR2L80K | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L80K | DCtR | Rows fetched 32 
-#> 5J08UR2L80K | DCtR | Has completed yes 
-#> 5J08UR2L80K | DCtr | Clear result
+#> 5J08VLU3MTC | DCtR | Send query 21 characters 
+#> 5J08VLU3MTC | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3MTC | DCtR | Rows fetched 32 
+#> 5J08VLU3MTC | DCtR | Has completed yes 
+#> 5J08VLU3MTC | DCtr | Clear result
 db$disconnect() # Close connection 2
-#> 5J08UR2L80K | Dctr | Database disconnected
+#> 5J08VLU3MTC | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L80K | dctr | Driver unload RPostgres
+#> 5J08VLU3MTC | dctr | Driver unload RPostgres
 ```
 
 In case you do not want to store the password in the class, you will
@@ -368,35 +369,35 @@ need to provide it each time a connection is opened.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L8AC | dctr | Object id 5J08UR2L8AC
+#> 5J08VLU3N5S | dctr | Object id 5J08VLU3N5S
 db$setupDriver( # Setup PostgreSQL database without stored password
   RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres"
 )
-#> 5J08UR2L8AC | Dctr | Driver load RPostgres
+#> 5J08VLU3N5S | Dctr | Driver load RPostgres
 db$connect(password = "password") # Open connection 1; Password needs to be provided.
-#> 5J08UR2L8AC | DCtr | Database connected
+#> 5J08VLU3N5S | DCtr | Database connected
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> 5J08UR2L8AC | DCtR | Send query 21 characters 
-#> 5J08UR2L8AC | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L8AC | DCtR | Rows fetched 32 
-#> 5J08UR2L8AC | DCtR | Has completed yes 
-#> 5J08UR2L8AC | DCtr | Clear result
+#> 5J08VLU3N5S | DCtR | Send query 21 characters 
+#> 5J08VLU3N5S | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3N5S | DCtR | Rows fetched 32 
+#> 5J08VLU3N5S | DCtR | Has completed yes 
+#> 5J08VLU3N5S | DCtr | Clear result
 db$disconnect() # Close connection 1
-#> 5J08UR2L8AC | Dctr | Database disconnected
+#> 5J08VLU3N5S | Dctr | Database disconnected
 db$connect(password = "password") # Open connection 2; Password needs to be provided.
-#> 5J08UR2L8AC | DCtr | Database connected
+#> 5J08VLU3N5S | DCtr | Database connected
 output2 <- db$getQuery("SELECT * FROM mtcars;") # Get query 2
-#> 5J08UR2L8AC | DCtR | Send query 21 characters 
-#> 5J08UR2L8AC | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L8AC | DCtR | Rows fetched 32 
-#> 5J08UR2L8AC | DCtR | Has completed yes 
-#> 5J08UR2L8AC | DCtr | Clear result
+#> 5J08VLU3N5S | DCtR | Send query 21 characters 
+#> 5J08VLU3N5S | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3N5S | DCtR | Rows fetched 32 
+#> 5J08VLU3N5S | DCtR | Has completed yes 
+#> 5J08VLU3N5S | DCtr | Clear result
 db$disconnect() # Close connection 2
-#> 5J08UR2L8AC | Dctr | Database disconnected
+#> 5J08VLU3N5S | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L8AC | dctr | Driver unload RPostgres
+#> 5J08VLU3N5S | dctr | Driver unload RPostgres
 ```
 
 ## ‘DBI’ objects
@@ -412,7 +413,7 @@ DBIDriver-class
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L8F8 | dctr | Object id 5J08UR2L8F8
+#> 5J08VLU3ND4 | dctr | Object id 5J08VLU3ND4
 db$.drv # Empty driver
 #> NULL
 db$.con # Empty connection
@@ -420,7 +421,7 @@ db$.con # Empty connection
 db$.res # Empty result
 #> NULL
 db$setupSQLite() # Setup SQLite database
-#> 5J08UR2L8F8 | Dctr | Driver load RSQLite
+#> 5J08VLU3ND4 | Dctr | Driver load RSQLite
 db$.drv # 'DBI' DBIDriver-class
 #> <SQLiteDriver>
 DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on rocker class
@@ -435,7 +436,7 @@ DBIConnection-class
 
 ``` r
 db$connect() # Open connection
-#> 5J08UR2L8F8 | DCtr | Database connected
+#> 5J08VLU3ND4 | DCtr | Database connected
 db$.con # 'DBI' DBIConnection-class
 #> <SQLiteConnection>
 #>   Path: :memory:
@@ -461,9 +462,9 @@ DBIResult-class
 
 ``` r
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 5J08UR2L8F8 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> 5J08VLU3ND4 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 db$sendQuery("SELECT * FROM mtcars;") # Send query
-#> 5J08UR2L8F8 | DCtR | Send query 21 characters
+#> 5J08VLU3ND4 | DCtR | Send query 21 characters
 db$.res # 'DBI' DBIResult-class
 #> <SQLiteResult>
 #>   SQL  SELECT * FROM mtcars;
@@ -487,15 +488,15 @@ Clean up
 
 ``` r
 db$clearResult() # Clean up result
-#> 5J08UR2L8F8 | DCtr | Clear result
+#> 5J08VLU3ND4 | DCtr | Clear result
 db$.res # Empty result
 #> NULL
 db$disconnect() # Close connection
-#> 5J08UR2L8F8 | Dctr | Database disconnected
+#> 5J08VLU3ND4 | Dctr | Database disconnected
 db$.con # Empty connection
 #> NULL
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L8F8 | dctr | Driver unload RSQLite
+#> 5J08VLU3ND4 | dctr | Driver unload RSQLite
 db$.drv # Empty driver
 #> NULL
 ```
@@ -506,19 +507,19 @@ Setup database and a table with 32 rows.
 
 ``` r
 db <- rocker::newDB() # New database handling object
-#> 5J08UR2L8J4 | dctr | Object id 5J08UR2L8J4
+#> 5J08VLU3NKO | dctr | Object id 5J08VLU3NKO
 db$setupSQLite() # Setup SQLite database
-#> 5J08UR2L8J4 | Dctr | Driver load RSQLite
+#> 5J08VLU3NKO | Dctr | Driver load RSQLite
 db$connect() # Open connection
-#> 5J08UR2L8J4 | DCtr | Database connected
+#> 5J08VLU3NKO | DCtr | Database connected
 db$writeTable("mtcars", mtcars) # Create table for testing
-#> 5J08UR2L8J4 | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+#> 5J08VLU3NKO | DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 32 rows
-#> 5J08UR2L8J4 | DCtR | Send query 21 characters 
-#> 5J08UR2L8J4 | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> 5J08UR2L8J4 | DCtR | Rows fetched 32 
-#> 5J08UR2L8J4 | DCtR | Has completed yes 
-#> 5J08UR2L8J4 | DCtr | Clear result
+#> 5J08VLU3NKO | DCtR | Send query 21 characters 
+#> 5J08VLU3NKO | DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+#> 5J08VLU3NKO | DCtR | Rows fetched 32 
+#> 5J08VLU3NKO | DCtR | Has completed yes 
+#> 5J08VLU3NKO | DCtr | Clear result
 db$transaction # Transaction indicator
 #> [1] FALSE
 ```
@@ -528,23 +529,23 @@ and commit transaction. Operations results in a table with 17 rows.
 
 ``` r
 db$begin() # Start transaction 1
-#> 5J08UR2L8J4 | DCTr | Transaction begin
+#> 5J08VLU3NKO | DCTr | Transaction begin
 db$transaction # Transaction indicator
 #> [1] TRUE
 AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 3;") # Modify table -> 15 rows
-#> 5J08UR2L8J4 | DCTR | Send statement 34 characters 
-#> 5J08UR2L8J4 | DCTR | Rows affected 15 
-#> 5J08UR2L8J4 | DCTr | Clear result
+#> 5J08VLU3NKO | DCTR | Send statement 34 characters 
+#> 5J08VLU3NKO | DCTR | Rows affected 15 
+#> 5J08VLU3NKO | DCTr | Clear result
 db$commit() # Commit transaction 1
-#> 5J08UR2L8J4 | DCtr | Transaction commit
+#> 5J08VLU3NKO | DCtr | Transaction commit
 db$transaction # Transaction indicator
 #> [1] FALSE
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
-#> 5J08UR2L8J4 | DCtR | Send query 21 characters 
-#> 5J08UR2L8J4 | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
-#> 5J08UR2L8J4 | DCtR | Rows fetched 17 
-#> 5J08UR2L8J4 | DCtR | Has completed yes 
-#> 5J08UR2L8J4 | DCtr | Clear result
+#> 5J08VLU3NKO | DCtR | Send query 21 characters 
+#> 5J08VLU3NKO | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
+#> 5J08VLU3NKO | DCtR | Rows fetched 17 
+#> 5J08VLU3NKO | DCtR | Has completed yes 
+#> 5J08VLU3NKO | DCtr | Clear result
 ```
 
 Starting with a table with 17 rows, begin transaction 2. Delete 5 rows
@@ -552,38 +553,38 @@ and rollback transaction. Operations results in a table with 17 rows.
 
 ``` r
 db$begin() # Start transaction 2
-#> 5J08UR2L8J4 | DCTr | Transaction begin
+#> 5J08VLU3NKO | DCTr | Transaction begin
 db$transaction # Transaction indicator
 #> [1] TRUE
 AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 5;") # Modify table -> 5 rows
-#> 5J08UR2L8J4 | DCTR | Send statement 34 characters 
-#> 5J08UR2L8J4 | DCTR | Rows affected 5 
-#> 5J08UR2L8J4 | DCTr | Clear result
+#> 5J08VLU3NKO | DCTR | Send statement 34 characters 
+#> 5J08VLU3NKO | DCTR | Rows affected 5 
+#> 5J08VLU3NKO | DCTr | Clear result
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 12 rows
-#> 5J08UR2L8J4 | DCTR | Send query 21 characters 
-#> 5J08UR2L8J4 | DCTR | Fetch rows all -> Received 12 rows, 11 columns, 3416 bytes 
-#> 5J08UR2L8J4 | DCTR | Rows fetched 12 
-#> 5J08UR2L8J4 | DCTR | Has completed yes 
-#> 5J08UR2L8J4 | DCTr | Clear result
+#> 5J08VLU3NKO | DCTR | Send query 21 characters 
+#> 5J08VLU3NKO | DCTR | Fetch rows all -> Received 12 rows, 11 columns, 3416 bytes 
+#> 5J08VLU3NKO | DCTR | Rows fetched 12 
+#> 5J08VLU3NKO | DCTR | Has completed yes 
+#> 5J08VLU3NKO | DCTr | Clear result
 db$rollback() # Rollback transaction 2
-#> 5J08UR2L8J4 | DCtr | Transaction rollback
+#> 5J08VLU3NKO | DCtr | Transaction rollback
 db$transaction # Transaction indicator
 #> [1] FALSE
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
-#> 5J08UR2L8J4 | DCtR | Send query 21 characters 
-#> 5J08UR2L8J4 | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
-#> 5J08UR2L8J4 | DCtR | Rows fetched 17 
-#> 5J08UR2L8J4 | DCtR | Has completed yes 
-#> 5J08UR2L8J4 | DCtr | Clear result
+#> 5J08VLU3NKO | DCtR | Send query 21 characters 
+#> 5J08VLU3NKO | DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
+#> 5J08VLU3NKO | DCtR | Rows fetched 17 
+#> 5J08VLU3NKO | DCtR | Has completed yes 
+#> 5J08VLU3NKO | DCtr | Clear result
 ```
 
 Clean up.
 
 ``` r
 db$disconnect() # Close connection
-#> 5J08UR2L8J4 | Dctr | Database disconnected
+#> 5J08VLU3NKO | Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
-#> 5J08UR2L8J4 | dctr | Driver unload RSQLite
+#> 5J08VLU3NKO | dctr | Driver unload RSQLite
 ```
 
 ## Further help

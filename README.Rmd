@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
-[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9008-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9009-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![R-CMD-check](https://github.com/nikolaus77/rocker/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/R6/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
@@ -195,8 +196,7 @@ db$unloadDriver() # Reset database handling object
 
 ### About the following examples
 
-Before running the following examples this code block needs to be executed first.
-*(pre code block)*
+Before running the following examples, this code block ^*(pre code block)*^ needs to be executed first.
 
 ```{r}
 db <- rocker::newDB() # New database handling object
@@ -206,8 +206,7 @@ db$writeTable("mtcars", mtcars) # Create table for testing
 db$disconnect() # Close connection
 ```
 
-After running the following examples this code block needs to be executed.
-*(post code block)*
+After running the following examples, this code block ^*(post code block)*^ needs to be executed.
 
 ```{r}
 db$unloadDriver() # Reset database handling object
@@ -233,7 +232,7 @@ post_code_block <- function(db){
 #### Example 1
 
 Get query with automatic connection / disconnection.
-*(do also run pre and post code block)*
+^*(Do also run pre and post code blocks.)*^
 
 ```{r, include = FALSE}
   db <- pre_code_block()
@@ -248,7 +247,7 @@ output <- db$getQuery("SELECT * FROM mtcars;") # Get query
 ```
 
 Get query with automatic connection / disconnection.
-*(full example; including pre and post code blocks)*
+^*(full example; including pre and post code blocks)*^
 
 ```{r}
 db <- rocker::newDB() # New database handling object
@@ -263,7 +262,7 @@ db$unloadDriver() # Reset database handling object
 #### Example 2
 
 Get query with manual connection / disconnection.
-*(do also run pre and post code block)*
+^*(Do also run pre and post code blocks.)*^
 
 ```{r, include = FALSE}
   db <- pre_code_block()
@@ -283,7 +282,7 @@ db$disconnect() # Close connection
 #### Example 3
 
 Function getQuery() is a combination of functions sendQuery(), fetch() and clearResult().
-*(do also run pre and post code block)*
+^*(Do also run pre and post code blocks.)*^
 
 ```{r, include = FALSE}
   db <- pre_code_block()
