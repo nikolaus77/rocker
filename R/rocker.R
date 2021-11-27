@@ -44,6 +44,7 @@ rocker <- R6::R6Class(
     #' @param ... Not used yet
     #' @return New instance of class
     initialize = function(verbose = TRUE, ...) {
+      private$check("drv", FALSE)
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
       self$verbose <- verbose
       private$.id <- dec2base(getTimeStamp(), 36)

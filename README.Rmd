@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
-[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9009-yellow.svg)](https://github.com/nikolaus77/rocker)
-[![R-CMD-check](https://github.com/nikolaus77/rocker/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/R6/actions)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9010-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
@@ -343,7 +343,7 @@ db$unloadDriver() # Reset database handling object
 
 'rocker' class encapsulates the 'DBI' objects driver, connection and result.
 If required, these objects can be directly used with 'DBI' functions.
-**However, it is recommended to use this option with care. Direct usage of 'DBI' functions, may disrupt proper function of 'rocker' class. Many 'DBI' functions are implemented in 'rocker' class. Whenever possible, use the 'rocker' class functions.**
+**However, it is recommended to use this option with care!** Direct usage of 'DBI' functions, may disrupt proper function of 'rocker' class. Many 'DBI' functions are implemented in 'rocker' class. Whenever possible, use the 'rocker' class functions.
 
 DBIDriver-class
 
@@ -385,6 +385,87 @@ db$.con # Empty connection
 db$unloadDriver() # Reset database handling object
 db$.drv # Empty driver
 ```
+
+## 'DBI' functions in 'rocker'
+
+Generally, 'rocker' function names are related to 'DBI' function names. In 'rocker' functions, the leading *db* is removed.
+
+### 'DBI' example
+
+```{r}
+drv <- RSQLite::SQLite() # SQLite driver
+con <- DBI::dbConnect( # Open connection
+  drv = drv,
+  dbname = ":memory:"
+)
+DBI::dbWriteTable(con, "mtcars", mtcars) # Create table for testing
+res <- DBI::dbSendQuery(con, "SELECT * FROM mtcars;") # Send query
+output <- DBI::dbFetch(res) # Fetch result
+DBI::dbClearResult(res) # Clean up result
+DBI::dbDisconnect(con) # Close connection
+DBI::dbUnloadDriver(drv) # Unload driver
+```
+
+### 'rocker' example
+
+```{r}
+db <- rocker::newDB() # New database handling object
+db$setupDriver( # Setup SQLite database
+  drv = RSQLite::SQLite(),
+  dbname = ":memory:"
+)
+db$connect() # Open connection
+db$writeTable("mtcars", mtcars) # Create table for testing
+db$sendQuery("SELECT * FROM mtcars;") # Send query
+output <- db$fetch() # Fetch result
+db$clearResult() # Clean up result
+db$disconnect() # Close connection
+db$unloadDriver() # Reset database handling object
+```
+
+### List of functions
+
+| 'rocker' function | Corresponding 'DBI' function | 'DBI' object used | Comment |
+| --- | --- | --- | --- |
+| initialize() | *none* | *none* | |
+| print() | *none* | *none* | |
+| setupDriver() | *none* | *none* | |
+| setupPostgreSQL() | *none* | *none* | RPostgres::Postgres() is used with 'rocker' function setupDriver() |
+| setupMariaDB() | *none* | *none* | RMariaDB::MariaDB() is used with 'rocker' function setupDriver() |
+| setupSQLite() | *none* | *none* | RSQLite::SQLite() is used with 'rocker' function setupDriver() |
+| unloadDriver() | dbUnloadDriver() | driver | |
+| canConnect() | dbCanConnect() | driver | |
+| connect() | dbConnect() | driver | |
+| disconnect() | dbDisconnect() | connection | |
+| sendQuery() | dbSendQuery() | connection | |
+| getQuery() | Is **not** using dbGetQuery(), but has the same function | connection | Especially, combination of 'rocker' functions sendQuery(), fetch() and clearResult()  |
+| sendStatement() | dbSendStatement() | connection | |
+| execute() | Is **not** using dbExecute(), but has the same function | connection | Especially, combination of 'rocker' functions sendStatement() and clearResult() |
+| fetch() | dbFetch() | result | |
+| hasCompleted() | dbHasCompleted() | result | |
+| getRowsAffected() | dbGetRowsAffected() | result | |
+| getRowCount() | dbGetRowCount() | result | |
+| columnInfo() | dbColumnInfo() | result | |
+| getStatement() | dbGetStatement() | result | |
+| clearResult() | dbClearResult() | result | |
+| begin() | dbBegin() | connection | |
+| commit() | dbCommit() | connection | |
+| rollback() | dbRollback() | connection | |
+| getInfoDrv() | dbGetInfo() | driver | |
+| getInfoCon() | dbGetInfo() | connection | |
+| getInfoRes() | dbGetInfo() | result | |
+| isValidDrv() | dbIsValid() | driver | |
+| isValidCon() | dbIsValid() | connection | |
+| isValidRes() | dbIsValid() | result | |
+| createTable() | dbCreateTable() | connection | |
+| appendTable() | dbAppendTable() | connection | |
+| writeTable() | dbWriteTable | connection | |
+| readTable() | dbReadTable | connection | |
+| removeTable() | dbRemoveTable() | connection | |
+| existsTable() | dbExistsTable() | connection | |
+| listFields() | dbListFields() | connection | |
+| listObjects() | dbListObjects() | connection | |
+| listTables() | dbListTables() | connection | |
 
 ## Transaction
 
