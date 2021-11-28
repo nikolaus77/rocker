@@ -1,5 +1,8 @@
 ---
-output: github_document
+output:
+  github_document:
+    toc: true
+    toc_depth: 2
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -13,11 +16,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# rocker <img src='man/figures/logo.png' align="right" height="138" />
+# rocker - R6 database interface class wrapping DBI
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
-[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9011-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9012-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -26,7 +29,7 @@ knitr::opts_chunk$set(
 The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
 The purpose is having an intuitive object allowing straightforward handling of databases. 
 
-## Installation
+# Installation
 
 Installation of current released version from CRAN.
 
@@ -41,7 +44,7 @@ install.packages("devtools")
 devtools::install_github("nikolaus77/rocker")
 ```
 
-## New 'rocker' class object
+# New 'rocker' class object
 
 Create new 'rocker' database handling object.
 
@@ -57,11 +60,11 @@ Option 2
 db <- rocker::rocker$new() # New database handling object
 ```
 
-## Additional packages and database types
+# Additional packages and database types
 
 The listed packages are required for some functions of 'rocker'.
 
-### 'crayon' package
+## 'crayon' package
 
 The package is required for colored terminal output.
 If missing terminal output is monochrome.
@@ -92,7 +95,7 @@ Structure of terminal output.
 
 ```
 
-### 'RSQLite' package
+## 'RSQLite' package
 
 Package for handling SQLite database connections.
 It is required for the setupSQLite() function of 'rocker' class.
@@ -101,7 +104,7 @@ It is required for the setupSQLite() function of 'rocker' class.
 install.packages("RSQLite")
 ```
 
-#### Setup database
+**Setup database**
 
 Option 1
 
@@ -124,7 +127,7 @@ db$setupDriver( # Setup SQLite database
 db$unloadDriver() # Reset database handling object
 ```
 
-### 'RPostgres' package
+## 'RPostgres' package
 
 Package for handling PostgreSQL database connections.
 It is required for the setupPostgreSQL() function of 'rocker' class.
@@ -133,7 +136,7 @@ It is required for the setupPostgreSQL() function of 'rocker' class.
 install.packages("RPostgres")
 ```
 
-#### Setup database
+**Setup database**
 
 Option 1
 
@@ -158,7 +161,7 @@ db$setupDriver( # Setup PostgreSQL database
 db$unloadDriver() # Reset database handling object
 ```
 
-### 'RMariaDB' package
+## 'RMariaDB' package
 
 Package for handling MariaDB and MySQL database connections.
 It is required for the setupMariaDB() function of 'rocker' class.
@@ -167,7 +170,7 @@ It is required for the setupMariaDB() function of 'rocker' class.
 install.packages("RMariaDB")
 ```
 
-#### Setup database
+**Setup database**
 
 Option 1
 
@@ -192,9 +195,9 @@ db$setupDriver( # Setup MariaDB database
 db$unloadDriver() # Reset database handling object
 ```
 
-## Database connection
+# Database connection
 
-### About the following examples
+**About the following examples**
 
 Before running the following examples, this code block ^*(pre code block)*^ needs to be executed first.
 
@@ -227,9 +230,9 @@ post_code_block <- function(db){
 }
 ```
 
-### Different ways to connect and to get data
+**Different ways to connect and to get data**
 
-#### Example 1
+**Example 1**
 
 Get query with automatic connection / disconnection.
 ^*(Do also run pre and post code blocks.)*^
@@ -259,7 +262,7 @@ output <- db$getQuery("SELECT * FROM mtcars;") # Get query
 db$unloadDriver() # Reset database handling object
 ```
 
-#### Example 2
+**Example 2**
 
 Get query with manual connection / disconnection.
 ^*(Do also run pre and post code blocks.)*^
@@ -279,7 +282,7 @@ db$disconnect() # Close connection
   post_code_block(db)
 ```
 
-#### Example 3
+**Example 3**
 
 Function getQuery() is a combination of functions sendQuery(), fetch() and clearResult().
 ^*(Do also run pre and post code blocks.)*^
@@ -300,7 +303,7 @@ db$disconnect() # Close connection
   post_code_block(db)
 ```
 
-## Password storage
+# Password storage
 
 Some efforts were undertaken to encrypt and to protect the password in the private area of the class. The class stores the password hidden and inaccessible. **Please let me know, in case you discover a way how to access the password!**
 
@@ -339,7 +342,7 @@ db$disconnect() # Close connection 2
 db$unloadDriver() # Reset database handling object
 ```
 
-## 'DBI' objects
+# 'DBI' objects
 
 'rocker' class encapsulates the 'DBI' objects driver, connection and result.
 If required, these objects can be directly used with 'DBI' functions.
@@ -354,7 +357,7 @@ db$.con # Empty connection
 db$.res # Empty result
 ```
 
-**DBIDriver-class**
+## DBIDriver-class
 
 ```{r}
 db$setupSQLite() # Setup SQLite database
@@ -365,7 +368,7 @@ db$.drv # 'DBI' DBIDriver-class
 DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on rocker class
 ```
 
-**DBIConnection-class**
+## DBIConnection-class
 
 ```{r}
 db$connect() # Open connection
@@ -382,7 +385,7 @@ Prepare table
 db$writeTable("mtcars", mtcars) # Create table for testing
 ```
 
-**DBIResult-class**
+## DBIResult-class
 
 ```{r}
 db$sendQuery("SELECT * FROM mtcars;") # Send query
@@ -404,13 +407,13 @@ db$unloadDriver() # Reset database handling object
 db$.drv # Empty driver
 ```
 
-## 'DBI' functions in 'rocker'
+# 'DBI' functions in 'rocker'
 
 Generally, 'rocker' function names are related to 'DBI' function names. In 'rocker' functions, the leading *db* is removed.
 
 In 'DBI' most functions need to be supplied with a driver ^(drv)^, connection ^(conn)^ or result ^(res)^ object. In 'rocker', functions automatically access the corresponding objects ^(.drv,^ ^.con^ ^and^ ^.res)^ stored in the class. 
 
-### 'DBI' example
+**'DBI' example**
 
 ```{r}
 drv <- RSQLite::SQLite() # SQLite driver
@@ -430,7 +433,7 @@ DBI::dbDisconnect(con) # Close connection
 DBI::dbUnloadDriver(drv) # Unload driver
 ```
 
-### 'rocker' example
+**'rocker' example**
 
 ```{r}
 db <- rocker::newDB(verbose = FALSE) # New database handling object
@@ -448,7 +451,7 @@ db$disconnect() # Close connection
 db$unloadDriver() # Reset database handling object
 ```
 
-### List of functions
+## List of functions
 
 | 'rocker' function | Corresponding 'DBI' function | 'DBI' object used | Comment |
 | --- | --- | --- | --- |
@@ -492,7 +495,7 @@ db$unloadDriver() # Reset database handling object
 | listObjects() | dbListObjects() | connection | |
 | listTables() | dbListTables() | connection | |
 
-## Transaction
+# Transaction
 
 Setup database and a table with 32 rows.
 
@@ -535,7 +538,7 @@ db$disconnect() # Close connection
 db$unloadDriver() # Reset database handling object
 ```
 
-## Further help
+# Further help
 
 Please read the documentation of 'rocker' class.
 
