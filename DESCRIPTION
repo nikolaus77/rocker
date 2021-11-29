@@ -1,13 +1,14 @@
 Package: rocker
 Title: Database Interface Class
-Version: 0.1.2.9013
-Date: 2021-11-28
+Version: 0.1.2.9014
+Date: 2021-11-29
 Authors@R: person(given = "Nikolaus", family = "Pawlowski", role = c("aut", "cre", "cph"), email = "niko@fr33.net")
 Description: 'R6' class interface for handling database connections using 'DBI' package as backend.
   The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
   The purpose is having an intuitive object allowing straightforward handling of databases.
 License: MIT + file LICENSE
 URL: https://github.com/nikolaus77/rocker
+BugReports: https://github.com/nikolaus77/rocker/issues
 Encoding: UTF-8
 Imports: DBI, R6, safer
 Suggests: crayon, knitr, RMariaDB, rmarkdown, RPostgres, RSQLite
