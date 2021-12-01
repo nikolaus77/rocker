@@ -31,6 +31,13 @@ db$disconnect()
 # Reset database handling object
 db$unloadDriver()
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{Optional objest ID/name}
+}
+\if{html}{\out{</div>}}
+}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
@@ -45,8 +52,6 @@ For advanced user, object can be used for direct execution of functions from DBI
 \item{\code{.res}}{Read only \link[DBI:DBIResult-class]{DBI::DBIResult-class} object or NULL.
 It is recommended not to use this object!
 For advanced user, object can be used for direct execution of functions from DBI package.}
-
-\item{\code{id}}{Read only object ID. UTC timestamp (including milliseconds) encoded as Base36.}
 
 \item{\code{transaction}}{Read only TRUE or FALSE.
 Information on pending transaction.}
@@ -107,13 +112,15 @@ Information on pending transaction.}
 \subsection{Method \code{new()}}{
 Generate new instance of class.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$new(verbose = TRUE, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$new(verbose = TRUE, id = NULL, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{verbose}}{TRUE or FALSE. Switch text output on / off.}
+
+\item{\code{id}}{Optional object ID/name}
 
 \item{\code{...}}{Not used yet}
 }

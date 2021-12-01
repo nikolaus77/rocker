@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
-[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9014-yellow.svg)](https://github.com/nikolaus77/rocker)
+[![GitHub version](https://img.shields.io/badge/devel%20version-0.1.2.9015-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -31,13 +31,13 @@ The purpose is having an intuitive object allowing straightforward handling of d
 
 # Installation
 
-Installation of current released version from CRAN.
+Installation of current released version from CRAN
 
 ```{r, eval = FALSE}
 install.packages("rocker")
 ```
 
-Installation of current development version from GitHub.
+Installation of current development version from GitHub
 
 ```{r, eval = FALSE}
 install.packages("devtools")
@@ -46,7 +46,7 @@ devtools::install_github("nikolaus77/rocker")
 
 # New *rocker* class object
 
-Create new *rocker* database handling object.
+Create new *rocker* database handling object
 
 Option 1
 
@@ -60,6 +60,38 @@ Option 2
 db <- rocker::rocker$new() # New database handling object
 ```
 
+__Terminal output__
+
+Controlling terminal output
+
+```{r}
+db <- rocker::newDB(verbose = TRUE) # New database handling object
+db$verbose <- FALSE # Terminal output off
+db$verbose <- TRUE # Terminal output on (default)
+```
+
+Structure of terminal output
+
+```
+Dctr | Driver load RSQLite
+D                          = Driver     (D = loaded,    d = not set)
+ c                         = Connection (C = opened,    c = closed)
+  t                        = Transation (T = active,    t = no tranastion)
+   r                       = Result     (R = available, r = no result)
+       Driver load RSQLite = Message text
+
+```
+
+__Optional object ID__
+
+```{r}
+db <- rocker::newDB(id = "myDB") # New database handling object with ID
+db$id <- NULL # Remove ID
+db$print()
+db$id <- "newID" # Add new ID
+db$print()
+```
+
 # Additional packages and database types
 
 The listed packages are required for some functions of *rocker*.
@@ -71,28 +103,6 @@ If missing terminal output is monochrome.
 
 ```{r, eval = FALSE}
 install.packages("crayon")
-```
-
-Controlling terminal output.
-
-```{r}
-db <- rocker::newDB() # New database handling object
-db$verbose <- FALSE # Terminal output off
-db$verbose <- TRUE # Terminal output on (default)
-```
-
-Structure of terminal output.
-
-```
-5J08UQZ6E00 | Dctr | Driver load RSQLite
-
-5J08UQZ6E00                              = Object ID
-              D                          = Driver     (D = loaded,    d = not set)
-               c                         = Connection (C = opened,    c = closed)
-                t                        = Transation (T = active,    t = no tranastion)
-                 r                       = Result     (R = available, r = no result)
-                     Driver load RSQLite = Message text
-
 ```
 
 ## *RSQLite* package
@@ -197,9 +207,9 @@ db$unloadDriver() # Reset database handling object
 
 # Database connection
 
-__About the following examples__
+There are different ways to open a connection and to get data.
 
-Before running the following examples, this code block ^*(pre code block)*^ needs to be executed first.
+Prepare database with a table
 
 ```{r}
 db <- rocker::newDB() # New database handling object
@@ -208,68 +218,18 @@ db$connect() # Open connection
 db$writeTable("mtcars", mtcars) # Create table for testing
 db$disconnect() # Close connection
 ```
-
-After running the following examples, this code block ^*(post code block)*^ needs to be executed.
-
-```{r}
-db$unloadDriver() # Reset database handling object
-```
-
-```{r, include = FALSE}
-pre_code_block <- function(){
-  db <- rocker::newDB()
-  db$setupSQLite(dbname = tempfile())
-  db$connect()
-  db$writeTable("mtcars", mtcars)
-  db$disconnect()
-  return(db)
-}
-
-post_code_block <- function(db){
-  db$unloadDriver()
-}
-```
-
-__Different ways to connect and to get data__
 
 __Example 1__
 
-Get query with automatic connection / disconnection.
-^*(Do also run pre and post code blocks.)*^
-
-```{r, include = FALSE}
-  db <- pre_code_block()
-```
+Get query with automatic connection / disconnection
 
 ```{r}
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-```
-
-```{r, include = FALSE}
-  post_code_block(db)
-```
-
-Get query with automatic connection / disconnection.
-^*(full example; including pre and post code blocks)*^
-
-```{r}
-db <- rocker::newDB() # New database handling object
-db$setupSQLite(dbname = tempfile()) # Setup SQLite database
-db$connect() # Open connection
-db$writeTable("mtcars", mtcars) # Create table for testing
-db$disconnect() # Close connection
-output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-db$unloadDriver() # Reset database handling object
 ```
 
 __Example 2__
 
-Get query with manual connection / disconnection.
-^*(Do also run pre and post code blocks.)*^
-
-```{r, include = FALSE}
-  db <- pre_code_block()
-```
+Get query with manual connection / disconnection
 
 ```{r}
 db$connect() # Open connection
@@ -278,18 +238,9 @@ output2 <- db$getQuery("SELECT * FROM mtcars;", 15) # Get query 2
 db$disconnect() # Close connection
 ```
 
-```{r, include = FALSE}
-  post_code_block(db)
-```
-
 __Example 3__
 
 Function getQuery() is a combination of functions sendQuery(), fetch() and clearResult().
-^*(Do also run pre and post code blocks.)*^
-
-```{r, include = FALSE}
-  db <- pre_code_block()
-```
 
 ```{r}
 db$connect() # Open connection
@@ -299,8 +250,10 @@ db$clearResult() # Clean up result
 db$disconnect() # Close connection
 ```
 
-```{r, include = FALSE}
-  post_code_block(db)
+Clean up
+
+```{r}
+db$unloadDriver() # Reset database handling object
 ```
 
 # Password storage
@@ -315,12 +268,21 @@ db$setupDriver( # Setup PostgreSQL database with stored password (password and u
   user = "postgres", password = "password",
   protect = c("password", "user")
 )
+```
+
+```{r}
 db$connect() # Open connection 1; Password is stored in the class and does not need to be provided.
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
 db$disconnect() # Close connection 1
+```
+
+```{r}
 db$connect() # Open connection 2; Password is stored in the class and does not need to be provided.
 output2 <- db$getQuery("SELECT * FROM mtcars;") # Get query 2
 db$disconnect() # Close connection 2
+```
+
+```{r}
 db$unloadDriver() # Reset database handling object
 ```
 
@@ -333,12 +295,21 @@ db$setupDriver( # Setup PostgreSQL database without stored password
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres"
 )
+```
+
+```{r}
 db$connect(password = "password") # Open connection 1; Password needs to be provided.
 output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
 db$disconnect() # Close connection 1
+```
+
+```{r}
 db$connect(password = "password") # Open connection 2; Password needs to be provided.
 output2 <- db$getQuery("SELECT * FROM mtcars;") # Get query 2
 db$disconnect() # Close connection 2
+```
+
+```{r}
 db$unloadDriver() # Reset database handling object
 ```
 
@@ -555,7 +526,7 @@ db$transaction # Transaction indicator
 output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
 ```
 
-Clean up.
+Clean up
 
 ```{r}
 db$disconnect() # Close connection
@@ -570,7 +541,7 @@ Please read the documentation of *rocker* class.
 help(rocker)
 ```
 
-Reading of *DBI* package documentation is also recommended.
+Reading of *DBI* package documentation is recommended.
 
 * [CRAN](https://cran.r-project.org/package=DBI)
 * [GitHub](https://github.com/r-dbi/DBI)

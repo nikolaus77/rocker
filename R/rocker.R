@@ -33,29 +33,44 @@ rocker <- R6::R6Class(
   lock_class = TRUE,
   lock_objects = TRUE,
 
-  # public ---------------------------------------------------------------------
+  # public ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   public = list(
 
-    # general ------------------------------------------------------------------
+    # fields ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    #' @field id
+    #' Optional objest ID/name
+    id = NULL,
+
+    # general ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Generate new instance of class.
     #' @param verbose TRUE or FALSE. Switch text output on / off.
+    #' @param id Optional object ID/name
     #' @param ... Not used yet
     #' @return New instance of class
-    initialize = function(verbose = TRUE, ...) {
+    initialize = function(verbose = TRUE, id = NULL, ...) {
       private$check("drv", FALSE)
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
       self$verbose <- verbose
-      private$.id <- dec2base(getTimeStamp(), 36)
-      private$note(sprintf("Object id %s", private$textColor(1, private$.id)))
+      self$id <- id
+      if (!is.null(self$id)) {
+        private$note(sprintf("New object id %s", private$textColor(1, self$id)))
+      } else {
+        private$note("New object")
+      }
     },
 
     #' @description
     #' Print object information.
     #' @return Invisible self
     print = function() {
-      TXT <- c("id", private$textColor(1, private$.id))
+      if (!is.null(self$id)) {
+        TXT <- c("id", private$textColor(1, self$id))
+      } else {
+        TXT <- NULL
+      }
       for (i in names(private$.info))
         TXT <- rbind(TXT, c(i, ifelse(is.null(private$.info[[i]]), private$textColor(2, "null"), private$textColor(1, private$.info[[i]]))))
       TXT <- rbind(
@@ -73,7 +88,7 @@ rocker <- R6::R6Class(
       return(invisible(self))
     },
 
-    # driver -------------------------------------------------------------------
+    # driver ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Setup database driver and define connection parameters.
@@ -91,7 +106,7 @@ rocker <- R6::R6Class(
       SETTINGS <- SETTINGS[!(names(SETTINGS) %in% protect)]
       private$.info <- c(list(package = attr(class(private$..drv), "package")), SETTINGS)
       private$note(sprintf("Driver load %s", private$textColor(1, private$.info$package)))
-      private$functions <- testPackageFunction(private$.info$package, c(
+      private$functions <- testPackageFunctions(private$.info$package, c(
         "dbUnloadDriver",
         "dbCanConnect",
         "dbConnect",
@@ -194,7 +209,7 @@ rocker <- R6::R6Class(
       return(invisible(self))
     },
 
-    # connection ---------------------------------------------------------------
+    # connection ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Test connection parameters.
@@ -240,7 +255,7 @@ rocker <- R6::R6Class(
       return(invisible(self))
     },
 
-    # result -------------------------------------------------------------------
+    # result ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Send SQL query to database.
@@ -412,7 +427,7 @@ rocker <- R6::R6Class(
       return(invisible(self))
     },
 
-    # transaction --------------------------------------------------------------
+    # transaction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Begin transaction.
@@ -465,7 +480,7 @@ rocker <- R6::R6Class(
       return(invisible(self))
     },
 
-    # info ---------------------------------------------------------------------
+    # info ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Information on driver object.
@@ -569,7 +584,7 @@ rocker <- R6::R6Class(
       return(OUTPUT)
     },
 
-    # table --------------------------------------------------------------------
+    # table ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' Create empty formatted table.
@@ -658,7 +673,7 @@ rocker <- R6::R6Class(
       return(EXISTS)
     },
 
-    # list ---------------------------------------------------------------------
+    # list ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
     #' List table column names.
@@ -702,10 +717,10 @@ rocker <- R6::R6Class(
 
   ),
 
-  # active ---------------------------------------------------------------------
+  # active ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   active = list(
 
-    # DBI ----------------------------------------------------------------------
+    # DBI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @field .drv
     #' Read only \link[DBI:DBIDriver-class]{DBI::DBIDriver-class} object or NULL.
@@ -728,12 +743,7 @@ rocker <- R6::R6Class(
     .res = function(VALUE)
       return(private$readOnly(".res", VALUE)),
 
-    # other --------------------------------------------------------------------
-
-    #' @field id
-    #' Read only object ID. UTC timestamp (including milliseconds) encoded as Base36.
-    id = function(VALUE)
-      return(private$readOnly("id", VALUE)),
+    # other ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @field transaction
     #' Read only TRUE or FALSE.
@@ -762,16 +772,15 @@ rocker <- R6::R6Class(
 
   ),
 
-  # private --------------------------------------------------------------------
+  # private ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   private = list(
 
-    # fields -------------------------------------------------------------------
+    # fields ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     ..drv = NULL,
     ..con = NULL,
     ..res = NULL,
 
-    .id = NULL,
     .transaction = FALSE,
     .info = NULL,
     .verbose = TRUE,
@@ -782,7 +791,7 @@ rocker <- R6::R6Class(
     settings = NULL,
     enclosEnvBackup = NULL,
 
-    # general ------------------------------------------------------------------
+    # general ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     # finalize = function() {},
 
@@ -792,19 +801,22 @@ rocker <- R6::R6Class(
       return(private[[paste0(".", FIELD)]])
     },
 
-    # comm ---------------------------------------------------------------------
+    # comm ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     note = function(TEXT) {
       if (private$.verbose) {
-        # INFO <- private$textColor(4, paste0("[", paste(private$.info, collapse = " | ") ,"]"))
-        INFO <- private$textColor(4, private$.id)
         STATUS <- paste0(
           ifelse(is.null(private$..drv), private$textColor(2, "d"), private$textColor(3, "D")),
           ifelse(is.null(private$..con), private$textColor(2, "c"), private$textColor(3, "C")),
           ifelse(private$.transaction, private$textColor(3, "T"), private$textColor(2, "t")),
           ifelse(is.null(private$..res), private$textColor(2, "r"), private$textColor(3, "R"))
         )
-        cat(INFO, "|", STATUS, "|", TEXT, "\n")
+        if (!is.null(self$id)) {
+          INFO <- private$textColor(4, self$id)
+          cat(INFO, "|", STATUS, "|", TEXT, "\n")
+        } else {
+          cat(STATUS, "|", TEXT, "\n")
+        }
       }
     },
 
@@ -823,7 +835,7 @@ rocker <- R6::R6Class(
       return(TEXT)
     },
 
-    # check --------------------------------------------------------------------
+    # check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     check = function(PAR, STATUS, WARNING = FALSE) {
       VERBOSE <- private$.verbose
@@ -854,7 +866,7 @@ rocker <- R6::R6Class(
       return(invisible(TEST))
     },
 
-    # settings -----------------------------------------------------------------
+    # settings ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     settingsWrite = function(SETTINGS) {
       private$key <- generateKey()
@@ -868,7 +880,7 @@ rocker <- R6::R6Class(
       return(SETTINGS)
     },
 
-    # protect ------------------------------------------------------------------
+    # protect ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     enclosEnvProtect = function() {
       if (is.null(private$enclosEnvBackup) & !is.null(self$.__enclos_env__)) {
