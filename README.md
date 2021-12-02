@@ -18,6 +18,7 @@
 -   [*DBI* functions in *rocker*](#dbi-functions-in-rocker)
     -   [List of functions](#list-of-functions)
 -   [Transaction](#transaction)
+-   [Usage of S3 and R6 functions](#usage-of-s3-and-r6-functions)
 -   [Further help](#further-help)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -29,7 +30,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
 [![GitHub
-version](https://img.shields.io/badge/devel%20version-0.1.2.9017-yellow.svg)](https://github.com/nikolaus77/rocker)
+version](https://img.shields.io/badge/devel%20version-0.1.2.9018-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -820,6 +821,57 @@ Clean up
 db$disconnect() # Close connection
 #> Dctr | Database disconnected
 db$unloadDriver() # Reset database handling object
+#> dctr | Driver unload RSQLite
+```
+
+# Usage of S3 and R6 functions
+
+Although *rocker* is a R6 class, functions can be also accesses as S3.
+
+**S3 example**
+
+``` r
+library(rocker)
+db <- newDB()
+#> dctr | New object
+setupDriver(db, drv = RSQLite::SQLite(), dbname = ":memory:")
+#> Dctr | Driver load RSQLite
+connect(db)
+#> DCtr | Database connected
+writeTable(db, "mtcars", mtcars)
+#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+sendQuery(db, "SELECT * FROM mtcars;")
+#> DCtR | Send query 21 characters
+output <- fetch(db)
+#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+clearResult(db)
+#> DCtr | Clear result
+disconnect(db)
+#> Dctr | Database disconnected
+unloadDriver(db)
+#> dctr | Driver unload RSQLite
+```
+
+**R6 example**
+
+``` r
+db <- rocker::newDB()
+#> dctr | New object
+db$setupDriver(drv = RSQLite::SQLite(), dbname = ":memory:")
+#> Dctr | Driver load RSQLite
+db$connect()
+#> DCtr | Database connected
+db$writeTable("mtcars", mtcars)
+#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+db$sendQuery("SELECT * FROM mtcars;")
+#> DCtR | Send query 21 characters
+output <- db$fetch()
+#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+db$clearResult()
+#> DCtr | Clear result
+db$disconnect()
+#> Dctr | Database disconnected
+db$unloadDriver()
 #> dctr | Driver unload RSQLite
 ```
 

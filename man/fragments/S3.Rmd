@@ -1,0 +1,32 @@
+# Usage of S3 and R6 functions
+
+Although *rocker* is a R6 class, functions can be also accesses as S3.
+
+__S3 example__
+
+```{r}
+library(rocker)
+db <- newDB()
+setupDriver(db, drv = RSQLite::SQLite(), dbname = ":memory:")
+connect(db)
+writeTable(db, "mtcars", mtcars)
+sendQuery(db, "SELECT * FROM mtcars;")
+output <- fetch(db)
+clearResult(db)
+disconnect(db)
+unloadDriver(db)
+```
+
+__R6 example__
+
+```{r}
+db <- rocker::newDB()
+db$setupDriver(drv = RSQLite::SQLite(), dbname = ":memory:")
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+```

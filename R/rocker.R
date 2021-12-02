@@ -28,7 +28,8 @@
 #' @export
 rocker <- R6::R6Class(
 
-  class = FALSE,
+  class = TRUE,
+  classname = "rocker",
   cloneable = FALSE,
   lock_class = TRUE,
   lock_objects = TRUE,
