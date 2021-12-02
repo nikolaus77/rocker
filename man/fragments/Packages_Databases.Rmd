@@ -56,25 +56,31 @@ __Setup database__
 
 Option 1
 
-```{r}
+```{r, eval = FALSE}
 db <- rocker::newDB() # New database handling object
+#> dctr | New object
 db$setupPostgreSQL( # Setup PostgreSQL database
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password"
 )
+#> Dctr | Driver load RPostgres
 db$unloadDriver() # Reset database handling object
+#> dctr | Driver unload RPostgres
 ```
 
 Option 2
 
-```{r}
+```{r, eval = FALSE}
 db <- rocker::newDB() # New database handling object
+#> dctr | New object
 db$setupDriver( # Setup PostgreSQL database
   drv = RPostgres::Postgres(),
   host = "127.0.0.1", port = "5432", dbname = "mydb",
   user = "postgres", password = "password"
 )
+#> Dctr | Driver load RPostgres
 db$unloadDriver() # Reset database handling object
+#> dctr | Driver unload RPostgres
 ```
 
 ## *RMariaDB* package
@@ -90,23 +96,29 @@ __Setup database__
 
 Option 1
 
-```{r}
+```{r, eval = FALSE}
 db <- rocker::newDB() # New database handling object
+#> dctr | New object
 db$setupMariaDB( # Setup MariaDB database
   host = "127.0.0.1", port = "3306", dbname = "mydb",
   user = "root", password = "password"
 )
+#> Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
+#> dctr | Driver unload RMariaDB
 ```
 
 Option 2
 
-```{r}
+```{r, eval = FALSE}
 db <- rocker::newDB() # New database handling object
+#> dctr | New object
 db$setupDriver( # Setup MariaDB database
   drv = RMariaDB::MariaDB(),
   host = "127.0.0.1", port = "3306", dbname = "mydb",
   user = "root", password = "password"
 )
+#> Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
+#> dctr | Driver unload RMariaDB
 ```
