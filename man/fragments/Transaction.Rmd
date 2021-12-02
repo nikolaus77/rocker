@@ -1,0 +1,42 @@
+# Transaction
+
+Setup database and a table with 32 rows.
+
+```{r}
+db <- rocker::newDB() # New database handling object
+db$setupSQLite() # Setup SQLite database
+db$connect() # Open connection
+db$writeTable("mtcars", mtcars) # Create table for testing
+output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 32 rows
+db$transaction # Transaction indicator
+```
+
+Starting with a table with 32 rows, begin transaction 1. Delete 15 rows and commit transaction. Operations results in a table with 17 rows.
+
+```{r}
+db$begin() # Start transaction 1
+db$transaction # Transaction indicator
+AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 3;") # Modify table -> 15 rows
+db$commit() # Commit transaction 1
+db$transaction # Transaction indicator
+output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
+```
+
+Starting with a table with 17 rows, begin transaction 2. Delete 5 rows and rollback transaction. Operations results in a table with 17 rows.
+
+```{r}
+db$begin() # Start transaction 2
+db$transaction # Transaction indicator
+AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 5;") # Modify table -> 5 rows
+output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 12 rows
+db$rollback() # Rollback transaction 2
+db$transaction # Transaction indicator
+output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
+```
+
+Clean up
+
+```{r}
+db$disconnect() # Close connection
+db$unloadDriver() # Reset database handling object
+```

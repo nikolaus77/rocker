@@ -1,0 +1,12 @@
+# Further help
+
+Please read the documentation of *rocker* class.
+
+```{r, eval = FALSE}
+help(rocker)
+```
+
+Reading of *DBI* package documentation is recommended.
+
+* [CRAN](https://cran.r-project.org/package=DBI)
+* [GitHub](https://github.com/r-dbi/DBI)

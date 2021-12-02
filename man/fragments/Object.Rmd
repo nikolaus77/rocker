@@ -1,0 +1,47 @@
+# New *rocker* class object
+
+Create new *rocker* database handling object
+
+Option 1
+
+```{r}
+db <- rocker::newDB() # New database handling object
+```
+
+Option 2
+
+```{r}
+db <- rocker::rocker$new() # New database handling object
+```
+
+__Terminal output__
+
+Controlling terminal output
+
+```{r}
+db <- rocker::newDB(verbose = TRUE) # New database handling object
+db$verbose <- FALSE # Terminal output off
+db$verbose <- TRUE # Terminal output on (default)
+```
+
+Structure of terminal output
+
+```
+Dctr | Driver load RSQLite
+D                          = Driver     (D = loaded,    d = not set)
+ c                         = Connection (C = opened,    c = closed)
+  t                        = Transation (T = active,    t = no tranastion)
+   r                       = Result     (R = available, r = no result)
+       Driver load RSQLite = Message text
+
+```
+
+__Optional object ID__
+
+```{r}
+db <- rocker::newDB(id = "myDB") # New database handling object with ID
+db$id <- NULL # Remove ID
+db$print()
+db$id <- "newID" # Add new ID
+db$print()
+```

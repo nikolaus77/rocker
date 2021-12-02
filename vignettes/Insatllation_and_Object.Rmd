@@ -1,0 +1,27 @@
+---
+title: "Insatllation and rocker Object"
+author: "Nikolaus Pawlowski"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Insatllation and rocker Object}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+---
+
+```{r child="../man/fragments/Installation.Rmd"} 
+```
+
+```{r child="../man/fragments/Object.Rmd"} 
+```
+
+```{r child="../man/fragments/Help.Rmd"} 
+```

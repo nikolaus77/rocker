@@ -1,0 +1,21 @@
+---
+title: "Packages and Databases in rocker"
+author: "Nikolaus Pawlowski"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Packages and Databases in rocker}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+---
+
+```{r child="../man/fragments/Packages_Databases.Rmd"} 
+```

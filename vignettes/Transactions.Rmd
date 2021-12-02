@@ -1,0 +1,21 @@
+---
+title: "Transactions in rocker"
+author: "Nikolaus Pawlowski"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Transactions in rocker}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+---
+
+```{r child="../man/fragments/Transaction.Rmd"} 
+```
