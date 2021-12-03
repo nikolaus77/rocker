@@ -1,5 +1,5 @@
 
-# newDB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# public ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #' newDB
 #' @description Function generates a new \link{R6} database handling interface with \link{DBI} backend.
@@ -13,6 +13,26 @@
 #' @export
 newDB <- function(verbose = TRUE, id = NULL, ...)
   return(rocker$new(verbose, id, ...))
+
+# #' testDB
+# #' @description Function generates a new RSQLite databse with mtcars table.
+# #' @param verbose TRUE or FALSE. Switch text output on / off.
+# #' @return Database (file) name
+# #' @examples
+# #' db <- rocker::newDB()
+# #' @export
+# testDB <- function(verbose = TRUE) {
+#   if (!unlist(testPackages("RSQLite")))
+#     error("Package RPostgres not installed")
+#   FILE <- tempfile()
+#   db <- newDB(verbose)
+#   db$setupSQLite(dbname = FILE)
+#   db$connect()
+#   db$writeTable("mtcars", mtcars)
+#   db$disconnect()
+#   db$unloadDriver()
+#   return(FILE)
+# }
 
 # encrypt ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

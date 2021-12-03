@@ -1,6 +1,6 @@
 # Usage of S3 and R6 functions
 
-Although *rocker* is a R6 class, functions can be also accesses as S3.
+Although *rocker* is a *R6* class, functions can be also accesses in classical S3 way.
 
 __S3 example__
 

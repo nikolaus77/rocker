@@ -30,7 +30,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
 [![GitHub
-version](https://img.shields.io/badge/devel%20version-0.1.2.9018-yellow.svg)](https://github.com/nikolaus77/rocker)
+version](https://img.shields.io/badge/devel%20version-0.1.2.9019-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -826,7 +826,8 @@ db$unloadDriver() # Reset database handling object
 
 # Usage of S3 and R6 functions
 
-Although *rocker* is a R6 class, functions can be also accesses as S3.
+Although *rocker* is a *R6* class, functions can be also accesses in
+classical S3 way.
 
 **S3 example**
 
