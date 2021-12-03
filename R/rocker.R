@@ -68,9 +68,9 @@ rocker <- R6::R6Class(
     #' @return Invisible self
     print = function() {
       if (!is.null(self$id)) {
-        TXT <- c("id", private$textColor(1, self$id))
+        TXT <- c("id", private$textColor(3, self$id))
       } else {
-        TXT <- NULL
+        TXT <- c("id", private$textColor(2, "null"))
       }
       for (i in names(private$.info))
         TXT <- rbind(TXT, c(i, ifelse(is.null(private$.info[[i]]), private$textColor(2, "null"), private$textColor(1, private$.info[[i]]))))
@@ -841,6 +841,7 @@ rocker <- R6::R6Class(
     check = function(PAR, STATUS, WARNING = FALSE) {
       VERBOSE <- private$.verbose
       private$.verbose <- FALSE
+      on.exit(private$.verbose <- VERBOSE)
       TEST <- TRUE
       if (PAR == "drv") {
         if (self$isValidDrv() != STATUS) {
@@ -863,7 +864,6 @@ rocker <- R6::R6Class(
           TEST <- FALSE
         }
       }
-      private$.verbose <- VERBOSE
       return(invisible(TEST))
     },
 
