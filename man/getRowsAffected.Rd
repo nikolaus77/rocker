@@ -17,3 +17,14 @@ Number of affected rows
 \description{
 Information on number of affected rows.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+rocker::getRowsAffected(db)
+rocker::clearResult(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

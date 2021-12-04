@@ -17,3 +17,14 @@ Information list
 \description{
 Information on result object.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::sendQuery(db, "SELECT * FROM mtcars;")
+rocker::getInfoRes(db)
+rocker::clearResult(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

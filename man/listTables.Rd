@@ -17,3 +17,12 @@ List of objects
 \description{
 List database tables.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::listTables(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

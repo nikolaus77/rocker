@@ -17,3 +17,10 @@ Invisible self
 \description{
 Disconnect database.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

@@ -19,3 +19,12 @@ Invisible self
 \description{
 Remove table.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::removeTable(db, "mtcars")
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

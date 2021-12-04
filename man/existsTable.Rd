@@ -19,3 +19,12 @@ TRUE or FALSE
 \description{
 Check if table exists.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::existsTable(db, "mtcars")
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

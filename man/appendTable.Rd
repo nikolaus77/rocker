@@ -21,3 +21,12 @@ Number of appended rows invisibly
 \description{
 Append data to table.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::createTable(db, "mtcars", mtcars)
+rocker::appendTable(db, "mtcars", mtcars)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

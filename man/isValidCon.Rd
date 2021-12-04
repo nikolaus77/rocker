@@ -17,3 +17,11 @@ TRUE of FALSE
 \description{
 Check connection object.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::isValidCon(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

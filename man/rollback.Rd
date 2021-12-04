@@ -17,3 +17,15 @@ Invisible self
 \description{
 Rollback transaction.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::begin(db)
+rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+rocker::clearResult(db)
+rocker::rollback(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

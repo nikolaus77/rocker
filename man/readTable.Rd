@@ -19,3 +19,12 @@ Table
 \description{
 Read table.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+output <- rocker::readTable(db, "mtcars")
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

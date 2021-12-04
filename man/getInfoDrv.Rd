@@ -17,3 +17,9 @@ Information list
 \description{
 Information on driver object.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::getInfoDrv(db)
+rocker::unloadDriver(db)
+}

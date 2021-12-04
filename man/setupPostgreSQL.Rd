@@ -40,3 +40,12 @@ Invisible self
 Setup database driver and define connection parameters for PostgreSQL using \link[RPostgres:Postgres]{RPostgres} package.
 Wrapper for setupDriver() function.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupPostgreSQL(
+  db,
+  host = "127.0.0.1", port = "5432", dbname = "mydb",
+  user = "postgres", password = "password"
+)
+rocker::unloadDriver(db)
+}

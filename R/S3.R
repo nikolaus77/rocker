@@ -7,6 +7,14 @@
 #' @param ... Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password
 #' @param protect Parameters to be hidden
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupDriver(
+#'   db,
+#'   drv = RSQLite::SQLite(),
+#'   dbname = ":memory:"
+#' )
+#' rocker::unloadDriver(db)
 #' @export
 setupDriver <- function (db, drv, ..., protect = c("password", "user")) {
   UseMethod("setupDriver", db)
@@ -30,6 +38,14 @@ setupDriver.rocker <- function(db, drv, ..., protect = c("password", "user")) {
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @param protect Parameters to be hidden
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupPostgreSQL(
+#'   db,
+#'   host = "127.0.0.1", port = "5432", dbname = "mydb",
+#'   user = "postgres", password = "password"
+#' )
+#' rocker::unloadDriver(db)
 #' @export
 setupPostgreSQL <- function (db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
   UseMethod("setupPostgreSQL", db)
@@ -53,6 +69,14 @@ setupPostgreSQL.rocker <- function(db, host = "127.0.0.1", port = "5432", dbname
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @param protect Parameters to be hidden
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupMariaDB(
+#'   db,
+#'   host = "127.0.0.1", port = "3306", dbname = "mydb",
+#'   user = "root", password = "password"
+#' )
+#' rocker::unloadDriver(db)
 #' @export
 setupMariaDB <- function (db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
   UseMethod("setupMariaDB", db)
@@ -72,6 +96,13 @@ setupMariaDB.rocker <- function(db, host = "127.0.0.1", port = "3306", dbname = 
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @param protect Parameters to be hidden
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(
+#'   db,
+#'   dbname = ":memory:"
+#' )
+#' rocker::unloadDriver(db)
 #' @export
 setupSQLite <- function (db, dbname = ":memory:", ..., protect = c("password", "user")) {
   UseMethod("setupSQLite", db)
@@ -88,6 +119,10 @@ setupSQLite.rocker <- function(db, dbname = ":memory:", ..., protect = c("passwo
 #' @param db rocker object
 #' @param ... Optional, suitable parameters passed to \code{\link[DBI:dbDriver]{DBI::dbUnloadDriver()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::unloadDriver(db)
 #' @export
 unloadDriver <- function (db, ...) {
   UseMethod("unloadDriver", db)
@@ -104,6 +139,11 @@ unloadDriver.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, suitable parameters passed to \code{\link[DBI:dbCanConnect]{DBI::dbCanConnect()}}
 #' @return TRUE or FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::canConnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 canConnect <- function (db, ...) {
   UseMethod("canConnect", db)
@@ -120,6 +160,12 @@ canConnect.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 connect <- function (db, ...) {
   UseMethod("connect", db)
@@ -136,6 +182,12 @@ connect.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 disconnect <- function (db, ...) {
   UseMethod("disconnect", db)
@@ -153,6 +205,16 @@ disconnect.rocker <- function(db, ...) {
 #' @param statement SQL query (\code{SELECT})
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendQuery]{DBI::dbSendQuery()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' output <- rocker::fetch(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 sendQuery <- function (db, statement, ...) {
   UseMethod("sendQuery", db)
@@ -173,6 +235,14 @@ sendQuery.rocker <- function(db, statement, ...) {
 #' @param n Number of record to be fetched at once. All records will be fetched.
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendQuery]{DBI::dbSendQuery()}}
 #' @return Records
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' output <- rocker::getQuery(db, "SELECT * FROM mtcars;")
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 getQuery <- function (db, statement, n = -1, ...) {
   UseMethod("getQuery", db)
@@ -190,6 +260,15 @@ getQuery.rocker <- function(db, statement, n = -1, ...) {
 #' @param statement SQL statement (\code{UPDATE, DELETE, INSERT INTO, ...})
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendStatement]{DBI::dbSendStatement()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 sendStatement <- function (db, statement, ...) {
   UseMethod("sendStatement", db)
@@ -209,6 +288,14 @@ sendStatement.rocker <- function(db, statement, ...) {
 #' @param statement SQL statement (\code{UPDATE, DELETE, INSERT INTO, ...})
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendStatement]{DBI::dbSendStatement()}}
 #' @return Number of affected rows
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::execute(db, "DELETE FROM mtcars WHERE gear = 3;")
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 execute <- function (db, statement, ...) {
   UseMethod("execute", db)
@@ -226,6 +313,16 @@ execute.rocker <- function(db, statement, ...) {
 #' @param n Number of record to be fetched
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbFetch]{DBI::dbFetch()}}
 #' @return Records
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' output <- rocker::fetch(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 fetch <- function (db, n = -1, ...) {
   UseMethod("fetch", db)
@@ -242,6 +339,17 @@ fetch.rocker <- function(db, n = -1, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbHasCompleted]{DBI::dbHasCompleted()}}
 #' @return TRUE or FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' output <- rocker::fetch(db, 5)
+#' rocker::hasCompleted(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 hasCompleted <- function (db, ...) {
   UseMethod("hasCompleted", db)
@@ -258,6 +366,16 @@ hasCompleted.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetRowsAffected]{DBI::dbGetRowsAffected()}}
 #' @return Number of affected rows
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+#' rocker::getRowsAffected(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 getRowsAffected <- function (db, ...) {
   UseMethod("getRowsAffected", db)
@@ -274,6 +392,17 @@ getRowsAffected.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetRowCount]{DBI::dbGetRowCount()}}
 #' @return Number of retrieved rows
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' output <- rocker::fetch(db)
+#' rocker::getRowCount(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 getRowCount <- function (db, ...) {
   UseMethod("getRowCount", db)
@@ -290,6 +419,16 @@ getRowCount.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbColumnInfo]{DBI::dbColumnInfo()}}
 #' @return Information table
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' rocker::columnInfo(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 columnInfo <- function (db, ...) {
   UseMethod("columnInfo", db)
@@ -306,6 +445,16 @@ columnInfo.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetStatement]{DBI::dbGetStatement()}}
 #' @return Statement text
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' rocker::getStatement(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 getStatement <- function (db, ...) {
   UseMethod("getStatement", db)
@@ -322,6 +471,16 @@ getStatement.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbClearResult]{DBI::dbClearResult()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' output <- rocker::fetch(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 clearResult <- function (db, ...) {
   UseMethod("clearResult", db)
@@ -338,6 +497,17 @@ clearResult.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:transactions]{DBI::dbBegin()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::begin(db)
+#' rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+#' rocker::clearResult(db)
+#' rocker::commit(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 begin <- function (db, ...) {
   UseMethod("begin", db)
@@ -354,6 +524,17 @@ begin.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:transactions]{DBI::dbCommit()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::begin(db)
+#' rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+#' rocker::clearResult(db)
+#' rocker::commit(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 commit <- function (db, ...) {
   UseMethod("commit", db)
@@ -370,6 +551,17 @@ commit.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:transactions]{DBI::dbRollback()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::begin(db)
+#' rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+#' rocker::clearResult(db)
+#' rocker::rollback(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 rollback <- function (db, ...) {
   UseMethod("rollback", db)
@@ -386,6 +578,11 @@ rollback.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetInfo]{DBI::dbGetInfo()}}
 #' @return Information list
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::getInfoDrv(db)
+#' rocker::unloadDriver(db)
 #' @export
 getInfoDrv <- function (db, ...) {
   UseMethod("getInfoDrv", db)
@@ -402,6 +599,13 @@ getInfoDrv.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetInfo]{DBI::dbGetInfo()}}
 #' @return Information list
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::getInfoCon(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 getInfoCon <- function (db, ...) {
   UseMethod("getInfoCon", db)
@@ -418,6 +622,16 @@ getInfoCon.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetInfo]{DBI::dbGetInfo()}}
 #' @return Information list
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' rocker::getInfoRes(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 getInfoRes <- function (db, ...) {
   UseMethod("getInfoRes", db)
@@ -434,6 +648,11 @@ getInfoRes.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
 #' @return TRUE of FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::isValidDrv(db)
+#' rocker::unloadDriver(db)
 #' @export
 isValidDrv <- function (db, ...) {
   UseMethod("isValidDrv", db)
@@ -450,6 +669,13 @@ isValidDrv.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
 #' @return TRUE of FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::isValidCon(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 isValidCon <- function (db, ...) {
   UseMethod("isValidCon", db)
@@ -466,6 +692,16 @@ isValidCon.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
 #' @return TRUE of FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::sendQuery(db, "SELECT * FROM mtcars;")
+#' rocker::isValidRes(db)
+#' rocker::clearResult(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 isValidRes <- function (db, ...) {
   UseMethod("isValidRes", db)
@@ -484,6 +720,13 @@ isValidRes.rocker <- function(db, ...) {
 #' @param fields Template data.frame
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbCreateTable]{DBI::dbCreateTable()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::createTable(db, "mtcars", mtcars)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 createTable <- function (db, name, fields, ...) {
   UseMethod("createTable", db)
@@ -502,6 +745,14 @@ createTable.rocker <- function(db, name, fields, ...) {
 #' @param value Values data.frame
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbAppendTable]{DBI::dbAppendTable()}}
 #' @return Number of appended rows invisibly
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::createTable(db, "mtcars", mtcars)
+#' rocker::appendTable(db, "mtcars", mtcars)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 appendTable <- function (db, name, value, ...) {
   UseMethod("appendTable", db)
@@ -520,6 +771,13 @@ appendTable.rocker <- function(db, name, value, ...) {
 #' @param value Values data.frame
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 writeTable <- function (db, name, value, ...) {
   UseMethod("writeTable", db)
@@ -537,6 +795,14 @@ writeTable.rocker <- function(db, name, value, ...) {
 #' @param name Table name
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbReadTable]{DBI::dbReadTable()}}
 #' @return Table
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' output <- rocker::readTable(db, "mtcars")
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 readTable <- function (db, name, ...) {
   UseMethod("readTable", db)
@@ -554,6 +820,14 @@ readTable.rocker <- function(db, name, ...) {
 #' @param name Table name
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbRemoveTable]{DBI::dbRemoveTable()}}
 #' @return Invisible self
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::removeTable(db, "mtcars")
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 removeTable <- function (db, name, ...) {
   UseMethod("removeTable", db)
@@ -571,6 +845,14 @@ removeTable.rocker <- function(db, name, ...) {
 #' @param name Table name
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbExistsTable]{DBI::dbExistsTable()}}
 #' @return TRUE or FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::existsTable(db, "mtcars")
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 existsTable <- function (db, name, ...) {
   UseMethod("existsTable", db)
@@ -588,6 +870,14 @@ existsTable.rocker <- function(db, name, ...) {
 #' @param name Table name
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbListFields]{DBI::dbListFields()}}
 #' @return Column names
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::listFields(db, "mtcars")
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 listFields <- function (db, name, ...) {
   UseMethod("listFields", db)
@@ -604,6 +894,14 @@ listFields.rocker <- function(db, name, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbListObjects]{DBI::dbListObjects()}}
 #' @return List of objects
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::listObjects(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 listObjects <- function (db, ...) {
   UseMethod("listObjects", db)
@@ -620,6 +918,14 @@ listObjects.rocker <- function(db, ...) {
 #' @param db rocker object
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbListTables]{DBI::dbListTables()}}
 #' @return List of objects
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::writeTable(db, "mtcars", mtcars)
+#' rocker::listTables(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
 #' @export
 listTables <- function (db, ...) {
   UseMethod("listTables", db)

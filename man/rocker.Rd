@@ -12,24 +12,465 @@
 \examples{
 # New database handling object
 db <- rocker::newDB()
-
 # Setup SQLite database
 db$setupSQLite()
-
 # Open connection
 db$connect()
-
 # Write table
 db$writeTable("mtcars", mtcars)
-
 # Get query
 output <- db$getQuery("SELECT * FROM mtcars;")
-
 # Close connection
 db$disconnect()
-
 # Reset database handling object
 db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$setupDriver`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupDriver(
+  drv = RSQLite::SQLite(),
+  dbname = ":memory:"
+)
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$setupPostgreSQL`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupPostgreSQL(
+  host = "127.0.0.1", port = "5432", dbname = "mydb",
+  user = "postgres", password = "password"
+)
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$setupMariaDB`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupMariaDB(
+  host = "127.0.0.1", port = "3306", dbname = "mydb",
+  user = "root", password = "password"
+)
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$setupSQLite`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite(
+  dbname = ":memory:"
+)
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$unloadDriver`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$canConnect`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$canConnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$connect`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$disconnect`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$sendQuery`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getQuery`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+output <- db$getQuery("SELECT * FROM mtcars;")
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$sendStatement`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$execute`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$execute("DELETE FROM mtcars WHERE gear = 3;")
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$fetch`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$hasCompleted`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch(5)
+db$hasCompleted()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getRowsAffected`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$getRowsAffected()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getRowCount`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$getRowCount()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$columnInfo`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$columnInfo()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getStatement`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$getStatement()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$clearResult`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$begin`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$begin()
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$commit()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$commit`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$begin()
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$commit()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$rollback`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$begin()
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$rollback()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getInfoDrv`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$getInfoDrv()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getInfoCon`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$getInfoCon()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$getInfoRes`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$getInfoRes()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$isValidDrv`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$isValidDrv()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$isValidCon`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$isValidCon()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$isValidRes`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$isValidRes()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$createTable`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$createTable("mtcars", mtcars)
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$appendTable`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$createTable("mtcars", mtcars)
+db$appendTable("mtcars", mtcars)
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$writeTable`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$readTable`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+output <- db$readTable("mtcars")
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$removeTable`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$removeTable("mtcars")
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$existsTable`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$existsTable("mtcars")
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$listFields`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$listFields("mtcars")
+db$disconnect()
+
+## ------------------------------------------------
+## Method `rocker$listObjects`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$listObjects()
+db$disconnect()
+
+## ------------------------------------------------
+## Method `rocker$listTables`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$listTables()
+db$disconnect()
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -53,7 +494,7 @@ Information on pending transaction.}
 
 \item{\code{verbose}}{TRUE or FALSE. Switch text output on / off.}
 
-\item{\code{id}}{Optional objest ID/name}
+\item{\code{id}}{Optional object ID/name}
 }
 \if{html}{\out{</div>}}
 }
@@ -161,6 +602,19 @@ Setup database driver and define connection parameters.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupDriver(
+  drv = RSQLite::SQLite(),
+  dbname = ":memory:"
+)
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setupPostgreSQL"></a>}}
@@ -202,6 +656,19 @@ Wrapper for setupDriver() function.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupPostgreSQL(
+  host = "127.0.0.1", port = "5432", dbname = "mydb",
+  user = "postgres", password = "password"
+)
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setupMariaDB"></a>}}
@@ -243,6 +710,19 @@ Wrapper for setupDriver() function.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupMariaDB(
+  host = "127.0.0.1", port = "3306", dbname = "mydb",
+  user = "root", password = "password"
+)
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setupSQLite"></a>}}
@@ -268,6 +748,18 @@ Wrapper for setupDriver() function.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite(
+  dbname = ":memory:"
+)
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-unloadDriver"></a>}}
@@ -288,6 +780,16 @@ Reset database driver and connection parameters.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-canConnect"></a>}}
@@ -308,6 +810,17 @@ Test connection parameters.
 \subsection{Returns}{
 TRUE or FALSE
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$canConnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connect"></a>}}
@@ -328,6 +841,18 @@ Establish database connection using stored parameters.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-disconnect"></a>}}
@@ -348,6 +873,18 @@ Disconnect database.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sendQuery"></a>}}
@@ -370,6 +907,22 @@ Send SQL query to database.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getQuery"></a>}}
@@ -396,6 +949,20 @@ If required, database is automatically connected and disconnected.
 \subsection{Returns}{
 Records
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+output <- db$getQuery("SELECT * FROM mtcars;")
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sendStatement"></a>}}
@@ -418,6 +985,21 @@ Send SQL statement to database.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-execute"></a>}}
@@ -442,6 +1024,20 @@ If required, database is automatically connected and disconnected.
 \subsection{Returns}{
 Number of affected rows
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$execute("DELETE FROM mtcars WHERE gear = 3;")
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-fetch"></a>}}
@@ -464,6 +1060,22 @@ Fetch SQL query result from database.
 \subsection{Returns}{
 Records
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-hasCompleted"></a>}}
@@ -484,6 +1096,23 @@ Information whether all records were retrieved.
 \subsection{Returns}{
 TRUE or FALSE
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch(5)
+db$hasCompleted()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getRowsAffected"></a>}}
@@ -504,6 +1133,22 @@ Information on number of affected rows.
 \subsection{Returns}{
 Number of affected rows
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$getRowsAffected()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getRowCount"></a>}}
@@ -524,6 +1169,23 @@ Information on number of retrieved rows.
 \subsection{Returns}{
 Number of retrieved rows
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$getRowCount()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-columnInfo"></a>}}
@@ -544,6 +1206,22 @@ Information on query result columns.
 \subsection{Returns}{
 Information table
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$columnInfo()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getStatement"></a>}}
@@ -564,6 +1242,22 @@ Information on sent statement.
 \subsection{Returns}{
 Statement text
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$getStatement()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clearResult"></a>}}
@@ -584,6 +1278,22 @@ Clear query or statement result.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+output <- db$fetch()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-begin"></a>}}
@@ -604,6 +1314,23 @@ Begin transaction.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$begin()
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$commit()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-commit"></a>}}
@@ -624,6 +1351,23 @@ Commit transaction.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$begin()
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$commit()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-rollback"></a>}}
@@ -644,6 +1388,23 @@ Rollback transaction.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$begin()
+db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+db$clearResult()
+db$rollback()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInfoDrv"></a>}}
@@ -664,6 +1425,17 @@ Information on driver object.
 \subsection{Returns}{
 Information list
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$getInfoDrv()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInfoCon"></a>}}
@@ -684,6 +1456,19 @@ Information on connection object.
 \subsection{Returns}{
 Information list
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$getInfoCon()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInfoRes"></a>}}
@@ -704,6 +1489,22 @@ Information on result object.
 \subsection{Returns}{
 Information list
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$getInfoRes()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isValidDrv"></a>}}
@@ -724,6 +1525,17 @@ Check driver object.
 \subsection{Returns}{
 TRUE of FALSE
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$isValidDrv()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isValidCon"></a>}}
@@ -744,6 +1556,19 @@ Check connection object.
 \subsection{Returns}{
 TRUE of FALSE
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$isValidCon()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isValidRes"></a>}}
@@ -764,6 +1589,22 @@ Check result object.
 \subsection{Returns}{
 TRUE of FALSE
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$sendQuery("SELECT * FROM mtcars;")
+db$isValidRes()
+db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-createTable"></a>}}
@@ -788,6 +1629,19 @@ Create empty formatted table.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$createTable("mtcars", mtcars)
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-appendTable"></a>}}
@@ -812,6 +1666,20 @@ Append data to table.
 \subsection{Returns}{
 Number of appended rows invisibly
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$createTable("mtcars", mtcars)
+db$appendTable("mtcars", mtcars)
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-writeTable"></a>}}
@@ -836,6 +1704,19 @@ Write data to table.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-readTable"></a>}}
@@ -858,6 +1739,20 @@ Read table.
 \subsection{Returns}{
 Table
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+output <- db$readTable("mtcars")
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-removeTable"></a>}}
@@ -880,6 +1775,20 @@ Remove table.
 \subsection{Returns}{
 Invisible self
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$removeTable("mtcars")
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-existsTable"></a>}}
@@ -902,6 +1811,20 @@ Check if table exists.
 \subsection{Returns}{
 TRUE or FALSE
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$existsTable("mtcars")
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-listFields"></a>}}
@@ -924,6 +1847,19 @@ List table column names.
 \subsection{Returns}{
 Column names
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$listFields("mtcars")
+db$disconnect()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-listObjects"></a>}}
@@ -944,6 +1880,19 @@ List database objects.
 \subsection{Returns}{
 List of objects
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$listObjects()
+db$disconnect()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-listTables"></a>}}
@@ -964,5 +1913,18 @@ List database tables.
 \subsection{Returns}{
 List of objects
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$writeTable("mtcars", mtcars)
+db$listTables()
+db$disconnect()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 }

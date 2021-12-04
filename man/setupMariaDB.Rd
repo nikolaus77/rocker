@@ -40,3 +40,12 @@ Invisible self
 Setup database driver and define connection parameters for MariaDB using \link[RMariaDB:RMariaDB-package]{RMariaDB} package.
 Wrapper for setupDriver() function.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupMariaDB(
+  db,
+  host = "127.0.0.1", port = "3306", dbname = "mydb",
+  user = "root", password = "password"
+)
+rocker::unloadDriver(db)
+}

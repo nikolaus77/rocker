@@ -23,3 +23,11 @@ Invisible self
 Setup database driver and define connection parameters for SQLite using \link[RSQLite:SQLite]{RSQLite} package.
 Wrapper for setupDriver() function.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(
+  db,
+  dbname = ":memory:"
+)
+rocker::unloadDriver(db)
+}

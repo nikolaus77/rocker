@@ -25,3 +25,12 @@ Retrieve SQL query from database.
 Combination of functions sendQuery(), fetch() and clearResult().
 If required, database is automatically connected and disconnected.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+output <- rocker::getQuery(db, "SELECT * FROM mtcars;")
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

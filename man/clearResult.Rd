@@ -17,3 +17,14 @@ Invisible self
 \description{
 Clear query or statement result.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::sendQuery(db, "SELECT * FROM mtcars;")
+output <- rocker::fetch(db)
+rocker::clearResult(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

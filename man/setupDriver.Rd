@@ -21,3 +21,12 @@ Invisible self
 \description{
 Setup database driver and define connection parameters.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupDriver(
+  db,
+  drv = RSQLite::SQLite(),
+  dbname = ":memory:"
+)
+rocker::unloadDriver(db)
+}

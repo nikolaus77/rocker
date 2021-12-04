@@ -23,3 +23,12 @@ Execute SQL statement in database.
 Combination of functions execute and clearResult.
 If required, database is automatically connected and disconnected.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::execute(db, "DELETE FROM mtcars WHERE gear = 3;")
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

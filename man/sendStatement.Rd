@@ -19,3 +19,13 @@ Invisible self
 \description{
 Send SQL statement to database.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
+rocker::clearResult(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

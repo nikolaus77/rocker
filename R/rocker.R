@@ -7,22 +7,16 @@
 #' @examples
 #' # New database handling object
 #' db <- rocker::newDB()
-#'
 #' # Setup SQLite database
 #' db$setupSQLite()
-#'
 #' # Open connection
 #' db$connect()
-#'
 #' # Write table
 #' db$writeTable("mtcars", mtcars)
-#'
 #' # Get query
 #' output <- db$getQuery("SELECT * FROM mtcars;")
-#'
 #' # Close connection
 #' db$disconnect()
-#'
 #' # Reset database handling object
 #' db$unloadDriver()
 #' @export
@@ -91,6 +85,13 @@ rocker <- R6::R6Class(
     #' @param ... Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password
     #' @param protect Parameters to be hidden
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupDriver(
+    #'   drv = RSQLite::SQLite(),
+    #'   dbname = ":memory:"
+    #' )
+    #' db$unloadDriver()
     setupDriver = function(drv, ..., protect = c("password", "user")) {
       private$check("drv", FALSE)
       private$..drv <- drv
@@ -145,6 +146,13 @@ rocker <- R6::R6Class(
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @param protect Parameters to be hidden
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupPostgreSQL(
+    #'   host = "127.0.0.1", port = "5432", dbname = "mydb",
+    #'   user = "postgres", password = "password"
+    #' )
+    #' db$unloadDriver()
     setupPostgreSQL = function(host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
       if (!private$packages$RPostgres)
         error("Package RPostgres not installed")
@@ -163,6 +171,13 @@ rocker <- R6::R6Class(
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @param protect Parameters to be hidden
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupMariaDB(
+    #'   host = "127.0.0.1", port = "3306", dbname = "mydb",
+    #'   user = "root", password = "password"
+    #' )
+    #' db$unloadDriver()
     setupMariaDB = function(host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
       if (!private$packages$RMariaDB)
         error("Package RMariaDB not installed")
@@ -177,6 +192,12 @@ rocker <- R6::R6Class(
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @param protect Parameters to be hidden
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite(
+    #'   dbname = ":memory:"
+    #' )
+    #' db$unloadDriver()
     setupSQLite = function(dbname = ":memory:", ..., protect = c("password", "user")){
       if (!private$packages$RSQLite)
         error("Package RSQLite not installed")
@@ -188,6 +209,10 @@ rocker <- R6::R6Class(
     #' Reset database driver and connection parameters.
     #' @param ... Optional, suitable parameters passed to \code{\link[DBI:dbDriver]{DBI::dbUnloadDriver()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$unloadDriver()
     unloadDriver = function(...) {
       private$check("con", FALSE)
       private$check("drv", TRUE)
@@ -210,6 +235,11 @@ rocker <- R6::R6Class(
     #' Test connection parameters.
     #' @param ... Optional, suitable parameters passed to \code{\link[DBI:dbCanConnect]{DBI::dbCanConnect()}}
     #' @return TRUE or FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$canConnect()
+    #' db$unloadDriver()
     canConnect = function(...) {
       private$check("con", FALSE)
       private$check("drv", TRUE)
@@ -224,6 +254,12 @@ rocker <- R6::R6Class(
     #' Establish database connection using stored parameters.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$disconnect()
+    #' db$unloadDriver()
     connect = function(...) {
       private$check("con", FALSE)
       private$check("drv", TRUE)
@@ -239,6 +275,12 @@ rocker <- R6::R6Class(
     #' Disconnect database.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$disconnect()
+    #' db$unloadDriver()
     disconnect = function(...) {
       private$check("tra", FALSE)
       private$check("res", FALSE)
@@ -257,6 +299,16 @@ rocker <- R6::R6Class(
     #' @param statement SQL query (\code{SELECT})
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendQuery]{DBI::dbSendQuery()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' output <- db$fetch()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     sendQuery = function(statement, ...) {
       private$check("res", FALSE)
       private$check("con", TRUE)
@@ -275,6 +327,14 @@ rocker <- R6::R6Class(
     #' @param n Number of record to be fetched at once. All records will be fetched.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendQuery]{DBI::dbSendQuery()}}
     #' @return Records
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' output <- db$getQuery("SELECT * FROM mtcars;")
+    #' db$disconnect()
+    #' db$unloadDriver()
     getQuery = function(statement, n = -1, ...) {
       if (is.null(private$..con)) {
         self$connect()
@@ -303,6 +363,15 @@ rocker <- R6::R6Class(
     #' @param statement SQL statement (\code{UPDATE, DELETE, INSERT INTO, ...})
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendStatement]{DBI::dbSendStatement()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     sendStatement = function(statement, ...) {
       private$check("res", FALSE)
       private$check("con", TRUE)
@@ -320,6 +389,14 @@ rocker <- R6::R6Class(
     #' @param statement SQL statement (\code{UPDATE, DELETE, INSERT INTO, ...})
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbSendStatement]{DBI::dbSendStatement()}}
     #' @return Number of affected rows
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$execute("DELETE FROM mtcars WHERE gear = 3;")
+    #' db$disconnect()
+    #' db$unloadDriver()
     execute = function(statement, ...) {
       if (is.null(private$..con)) {
         self$connect()
@@ -341,6 +418,16 @@ rocker <- R6::R6Class(
     #' @param n Number of record to be fetched
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbFetch]{DBI::dbFetch()}}
     #' @return Records
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' output <- db$fetch()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     fetch = function(n = -1, ...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -353,6 +440,17 @@ rocker <- R6::R6Class(
     #' Information whether all records were retrieved.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbHasCompleted]{DBI::dbHasCompleted()}}
     #' @return TRUE or FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' output <- db$fetch(5)
+    #' db$hasCompleted()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     hasCompleted = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -365,6 +463,16 @@ rocker <- R6::R6Class(
     #' Information on number of affected rows.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetRowsAffected]{DBI::dbGetRowsAffected()}}
     #' @return Number of affected rows
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+    #' db$getRowsAffected()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     getRowsAffected = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -377,6 +485,17 @@ rocker <- R6::R6Class(
     #' Information on number of retrieved rows.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetRowCount]{DBI::dbGetRowCount()}}
     #' @return Number of retrieved rows
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' output <- db$fetch()
+    #' db$getRowCount()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     getRowCount = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -389,6 +508,16 @@ rocker <- R6::R6Class(
     #' Information on query result columns.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbColumnInfo]{DBI::dbColumnInfo()}}
     #' @return Information table
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' db$columnInfo()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     columnInfo = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -401,6 +530,16 @@ rocker <- R6::R6Class(
     #' Information on sent statement.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetStatement]{DBI::dbGetStatement()}}
     #' @return Statement text
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' db$getStatement()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     getStatement = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -413,6 +552,16 @@ rocker <- R6::R6Class(
     #' Clear query or statement result.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbClearResult]{DBI::dbClearResult()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' output <- db$fetch()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     clearResult = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "res")
@@ -428,6 +577,17 @@ rocker <- R6::R6Class(
     #' Begin transaction.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:transactions]{DBI::dbBegin()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$begin()
+    #' db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+    #' db$clearResult()
+    #' db$commit()
+    #' db$disconnect()
+    #' db$unloadDriver()
     begin = function(...) {
       private$check("tra", FALSE)
       private$check("res", FALSE)
@@ -445,6 +605,17 @@ rocker <- R6::R6Class(
     #' Commit transaction.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:transactions]{DBI::dbCommit()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$begin()
+    #' db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+    #' db$clearResult()
+    #' db$commit()
+    #' db$disconnect()
+    #' db$unloadDriver()
     commit = function(...) {
       private$check("tra", TRUE)
       private$check("res", FALSE)
@@ -462,6 +633,17 @@ rocker <- R6::R6Class(
     #' Rollback transaction.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:transactions]{DBI::dbRollback()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$begin()
+    #' db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
+    #' db$clearResult()
+    #' db$rollback()
+    #' db$disconnect()
+    #' db$unloadDriver()
     rollback = function(...) {
       private$check("tra", TRUE)
       private$check("res", FALSE)
@@ -481,6 +663,11 @@ rocker <- R6::R6Class(
     #' Information on driver object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetInfo]{DBI::dbGetInfo()}}
     #' @return Information list
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$getInfoDrv()
+    #' db$unloadDriver()
     getInfoDrv = function(...) {
       private$check("drv", TRUE)
       testParameter(list(...), "dbObj")
@@ -496,6 +683,13 @@ rocker <- R6::R6Class(
     #' Information on connection object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetInfo]{DBI::dbGetInfo()}}
     #' @return Information list
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$getInfoCon()
+    #' db$disconnect()
+    #' db$unloadDriver()
     getInfoCon = function(...) {
       private$check("con", TRUE)
       testParameter(list(...), "dbObj")
@@ -511,6 +705,16 @@ rocker <- R6::R6Class(
     #' Information on result object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbGetInfo]{DBI::dbGetInfo()}}
     #' @return Information list
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' db$getInfoRes()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     getInfoRes = function(...) {
       private$check("res", TRUE)
       testParameter(list(...), "dbObj")
@@ -526,6 +730,11 @@ rocker <- R6::R6Class(
     #' Check driver object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
     #' @return TRUE of FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$isValidDrv()
+    #' db$unloadDriver()
     isValidDrv = function(...) {
       if (!is.null(private$..drv)) {
         testParameter(list(...), "dbObj")
@@ -545,6 +754,13 @@ rocker <- R6::R6Class(
     #' Check connection object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
     #' @return TRUE of FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$isValidCon()
+    #' db$disconnect()
+    #' db$unloadDriver()
     isValidCon = function(...) {
       if (!is.null(private$..con)) {
         testParameter(list(...), "dbObj")
@@ -564,6 +780,16 @@ rocker <- R6::R6Class(
     #' Check result object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
     #' @return TRUE of FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' db$isValidRes()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
     isValidRes = function(...) {
       if (!is.null(private$..res)) {
         testParameter(list(...), "dbObj")
@@ -587,6 +813,13 @@ rocker <- R6::R6Class(
     #' @param fields Template data.frame
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbCreateTable]{DBI::dbCreateTable()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$createTable("mtcars", mtcars)
+    #' db$disconnect()
+    #' db$unloadDriver()
     createTable = function(name, fields, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -602,6 +835,14 @@ rocker <- R6::R6Class(
     #' @param value Values data.frame
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbAppendTable]{DBI::dbAppendTable()}}
     #' @return Number of appended rows invisibly
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$createTable("mtcars", mtcars)
+    #' db$appendTable("mtcars", mtcars)
+    #' db$disconnect()
+    #' db$unloadDriver()
     appendTable = function(name, value, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -617,6 +858,13 @@ rocker <- R6::R6Class(
     #' @param value Values data.frame
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$disconnect()
+    #' db$unloadDriver()
     writeTable = function(name, value, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -631,6 +879,14 @@ rocker <- R6::R6Class(
     #' @param name Table name
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbReadTable]{DBI::dbReadTable()}}
     #' @return Table
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' output <- db$readTable("mtcars")
+    #' db$disconnect()
+    #' db$unloadDriver()
     readTable = function(name, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -645,6 +901,14 @@ rocker <- R6::R6Class(
     #' @param name Table name
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbRemoveTable]{DBI::dbRemoveTable()}}
     #' @return Invisible self
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$removeTable("mtcars")
+    #' db$disconnect()
+    #' db$unloadDriver()
     removeTable = function(name, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -659,6 +923,14 @@ rocker <- R6::R6Class(
     #' @param name Table name
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbExistsTable]{DBI::dbExistsTable()}}
     #' @return TRUE or FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$existsTable("mtcars")
+    #' db$disconnect()
+    #' db$unloadDriver()
     existsTable = function(name, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -675,6 +947,13 @@ rocker <- R6::R6Class(
     #' @param name Table name
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbListFields]{DBI::dbListFields()}}
     #' @return Column names
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$listFields("mtcars")
+    #' db$disconnect()
     listFields = function(name, ...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -688,6 +967,13 @@ rocker <- R6::R6Class(
     #' List database objects.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbListObjects]{DBI::dbListObjects()}}
     #' @return List of objects
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$listObjects()
+    #' db$disconnect()
     listObjects = function(...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -701,6 +987,13 @@ rocker <- R6::R6Class(
     #' List database tables.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbListTables]{DBI::dbListTables()}}
     #' @return List of objects
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$listTables()
+    #' db$disconnect()
     listTables = function(...) {
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -766,7 +1059,7 @@ rocker <- R6::R6Class(
     },
 
     #' @field id
-    #' Optional objest ID/name
+    #' Optional object ID/name
     id = function(VALUE) {
       if (missing(VALUE))
         return(private$.id)

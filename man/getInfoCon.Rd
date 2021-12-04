@@ -17,3 +17,11 @@ Information list
 \description{
 Information on connection object.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::getInfoCon(db)
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

@@ -19,3 +19,12 @@ Column names
 \description{
 List table column names.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::connect(db)
+rocker::writeTable(db, "mtcars", mtcars)
+rocker::listFields(db, "mtcars")
+rocker::disconnect(db)
+rocker::unloadDriver(db)
+}

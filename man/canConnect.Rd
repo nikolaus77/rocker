@@ -17,3 +17,9 @@ TRUE or FALSE
 \description{
 Test connection parameters.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::canConnect(db)
+rocker::unloadDriver(db)
+}

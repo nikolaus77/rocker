@@ -17,3 +17,8 @@ Invisible self
 \description{
 Reset database driver and connection parameters.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::unloadDriver(db)
+}

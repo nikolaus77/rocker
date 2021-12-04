@@ -17,3 +17,9 @@ TRUE of FALSE
 \description{
 Check driver object.
 }
+\examples{
+db <- rocker::newDB()
+rocker::setupSQLite(db)
+rocker::isValidDrv(db)
+rocker::unloadDriver(db)
+}
