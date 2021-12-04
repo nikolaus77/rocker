@@ -37,12 +37,6 @@ rocker <- R6::R6Class(
   # public ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   public = list(
 
-    # fields ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    #' @field id
-    #' Optional objest ID/name
-    id = NULL,
-
     # general ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #' @description
@@ -56,8 +50,8 @@ rocker <- R6::R6Class(
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
       self$verbose <- verbose
       self$id <- id
-      if (!is.null(self$id)) {
-        private$note(sprintf("New object id %s", private$textColor(1, self$id)))
+      if (!is.null(private$.id)) {
+        private$note(sprintf("New object id %s", private$textColor(1, private$.id)))
       } else {
         private$note("New object")
       }
@@ -67,8 +61,8 @@ rocker <- R6::R6Class(
     #' Print object information.
     #' @return Invisible self
     print = function() {
-      if (!is.null(self$id)) {
-        TXT <- c("id", private$textColor(3, self$id))
+      if (!is.null(private$.id)) {
+        TXT <- c("id", private$textColor(3, private$.id))
       } else {
         TXT <- c("id", private$textColor(2, "null"))
       }
@@ -769,6 +763,23 @@ rocker <- R6::R6Class(
       } else {
         error("verbose is boolean")
       }
+    },
+
+    #' @field id
+    #' Optional objest ID/name
+    id = function(VALUE) {
+      if (missing(VALUE))
+        return(private$.id)
+      if (is.null(VALUE)) {
+        private$.id <- NULL
+      } else {
+        VALUE <- trimws(as.character(unlist(VALUE)[1]))
+        if (nchar(VALUE)>0) {
+          private$.id <- VALUE
+        } else {
+          private$.id <- NULL
+        }
+      }
     }
 
   ),
@@ -785,6 +796,7 @@ rocker <- R6::R6Class(
     .transaction = FALSE,
     .info = NULL,
     .verbose = TRUE,
+    .id = NULL,
 
     packages = NULL,
     functions = NULL,
@@ -812,8 +824,8 @@ rocker <- R6::R6Class(
           ifelse(private$.transaction, private$textColor(3, "T"), private$textColor(2, "t")),
           ifelse(is.null(private$..res), private$textColor(2, "r"), private$textColor(3, "R"))
         )
-        if (!is.null(self$id)) {
-          INFO <- private$textColor(4, self$id)
+        if (!is.null(private$.id)) {
+          INFO <- private$textColor(4, private$.id)
           cat(INFO, "|", STATUS, "|", TEXT, "\n")
         } else {
           cat(STATUS, "|", TEXT, "\n")

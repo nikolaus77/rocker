@@ -31,13 +31,6 @@ db$disconnect()
 # Reset database handling object
 db$unloadDriver()
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{id}}{Optional objest ID/name}
-}
-\if{html}{\out{</div>}}
-}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
@@ -59,6 +52,8 @@ Information on pending transaction.}
 \item{\code{info}}{Read only driver package and connection parameter information list.}
 
 \item{\code{verbose}}{TRUE or FALSE. Switch text output on / off.}
+
+\item{\code{id}}{Optional objest ID/name}
 }
 \if{html}{\out{</div>}}
 }
