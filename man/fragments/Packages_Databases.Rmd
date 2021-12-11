@@ -2,15 +2,6 @@
 
 The listed packages are required for some functions of *rocker*.
 
-## *crayon* package
-
-The [*crayon*](https://github.com/r-lib/crayon) package is required for colored terminal output.
-If missing terminal output is monochrome.
-
-```{r, eval = FALSE}
-install.packages("crayon")
-```
-
 ## *RSQLite* package
 
 [*RSQLite*](https://github.com/r-dbi/RSQLite) package for handling of SQLite database connections.
@@ -121,4 +112,13 @@ db$setupDriver( # Setup MariaDB database
 #> Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
 #> dctr | Driver unload RMariaDB
+```
+
+## *crayon* package
+
+The [*crayon*](https://github.com/r-lib/crayon) package is required for colored terminal output.
+If missing terminal output is monochrome.
+
+```{r, eval = FALSE}
+install.packages("crayon")
 ```

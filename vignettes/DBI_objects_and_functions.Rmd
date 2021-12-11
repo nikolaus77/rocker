@@ -1,9 +1,9 @@
 ---
-title: "DBI Objects and Functions in rocker"
+title: "DBI package objects and functions in R6 rocker class"
 author: "Nikolaus Pawlowski"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{DBI Objects and Functions in rocker}
+  %\VignetteIndexEntry{DBI package objects and functions in R6 rocker class}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

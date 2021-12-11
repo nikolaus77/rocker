@@ -1,9 +1,9 @@
 ---
-title: "Transactions in rocker"
+title: "Database transactions with R6 rocker class"
 author: "Nikolaus Pawlowski"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Transactions in rocker}
+  %\VignetteIndexEntry{Database transactions with R6 rocker class}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

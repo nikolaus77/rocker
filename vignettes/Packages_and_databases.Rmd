@@ -1,9 +1,9 @@
 ---
-title: "Packages and Databases in rocker"
+title: "Usage of relational databases (SQLite, PostgreSQL and MariaDB) with R6 rocker class"
 author: "Nikolaus Pawlowski"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Packages and Databases in rocker}
+  %\VignetteIndexEntry{Usage of relational databases (SQLite, PostgreSQL and MariaDB) with R6 rocker class}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

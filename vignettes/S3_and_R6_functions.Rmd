@@ -1,9 +1,9 @@
 ---
-title: "S3 and R6 Functions in rocker"
+title: "Usage of S3 class functions on R6 rocker class"
 author: "Nikolaus Pawlowski"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{S3 and R6 Functions in rocker}
+  %\VignetteIndexEntry{Usage of S3 class functions on R6 rocker class}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

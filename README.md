@@ -5,10 +5,10 @@
 -   [New *rocker* class object](#new-rocker-class-object)
 -   [Additional packages and database
     types](#additional-packages-and-database-types)
-    -   [*crayon* package](#crayon-package)
     -   [*RSQLite* package](#rsqlite-package)
     -   [*RPostgres* package](#rpostgres-package)
     -   [*RMariaDB* package](#rmariadb-package)
+    -   [*crayon* package](#crayon-package)
 -   [Database connection](#database-connection)
 -   [Password storage](#password-storage)
 -   [*DBI* objects](#dbi-objects)
@@ -30,7 +30,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org/package=rocker)
 [![GitHub
-version](https://img.shields.io/badge/devel%20version-0.1.2.9022-yellow.svg)](https://github.com/nikolaus77/rocker)
+version](https://img.shields.io/badge/devel%20version-0.1.2.9023-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -84,8 +84,24 @@ Controlling terminal output
 ``` r
 db <- rocker::newDB(verbose = TRUE) # New database handling object
 #> dctr | New object
+db$setupPostgreSQL()
+#> Dctr | Driver load RPostgres
+db$unloadDriver()
+#> dctr | Driver unload RPostgres
+```
+
+``` r
 db$verbose <- FALSE # Terminal output off
+db$setupPostgreSQL()
+db$unloadDriver()
+```
+
+``` r
 db$verbose <- TRUE # Terminal output on (default)
+db$setupPostgreSQL()
+#> Dctr | Driver load RPostgres
+db$unloadDriver()
+#> dctr | Driver unload RPostgres
 ```
 
 Structure of terminal output
@@ -99,39 +115,115 @@ Structure of terminal output
 
 **Optional object ID**
 
+Optionally, rocker object can be labeled with an ID. This can be helpful
+in case terminal output of multiple rocker objects need to be
+distinguished.
+
 ``` r
-db <- rocker::newDB(id = "myDB") # New database handling object with ID
-#> myDB | dctr | New object id myDB
-db$id <- NULL # Remove ID
+db1 <- rocker::newDB(id = "myDB 1") # New database handling object with ID
+#> myDB 1 | dctr | New object id myDB 1
+db2 <- rocker::newDB(id = "myDB 2") # New database handling object with ID
+#> myDB 2 | dctr | New object id myDB 2
+db1$setupPostgreSQL()
+#> myDB 1 | Dctr | Driver load RPostgres
+db2$setupMariaDB()
+#> myDB 2 | Dctr | Driver load RMariaDB
+db1$unloadDriver()
+#> myDB 1 | dctr | Driver unload RPostgres
+db2$unloadDriver()
+#> myDB 2 | dctr | Driver unload RMariaDB
+```
+
+``` r
+db1$id <- NULL # Remove ID
+db1$setupSQLite()
+#> Dctr | Driver load RSQLite
+db1$unloadDriver()
+#> dctr | Driver unload RSQLite
+```
+
+``` r
+db1$id <- "newID 1" # Add new ID
+db1$setupSQLite()
+#> newID 1 | Dctr | Driver load RSQLite
+db1$unloadDriver()
+#> newID 1 | dctr | Driver unload RSQLite
+```
+
+**Object properties**
+
+Object properties are stored in the info filed and can be displayed by
+print function.
+
+``` r
+db <- rocker::newDB() # New database handling object
+#> dctr | New object
+db$setupPostgreSQL()
+#> Dctr | Driver load RPostgres
+db$info
+#> $package
+#> [1] "RPostgres"
+#> 
+#> $host
+#> [1] "127.0.0.1"
+#> 
+#> $port
+#> [1] "5432"
+#> 
+#> $dbname
+#> [1] "mydb"
+```
+
+``` r
+db
+#> id          null
+#> package     RPostgres
+#> host        127.0.0.1
+#> port        5432
+#> dbname      mydb
+#> driver      true
+#> connection  false
+#> transaction false
+#> result      false
+#> verbose     true
+```
+
+``` r
 db$print()
 #> id          null
-#> driver      false
+#> package     RPostgres
+#> host        127.0.0.1
+#> port        5432
+#> dbname      mydb
+#> driver      true
 #> connection  false
 #> transaction false
 #> result      false
 #> verbose     true
-db$id <- "newID" # Add new ID
-db$print()
-#> id          newID
-#> driver      false
+```
+
+``` r
+print(db)
+#> id          null
+#> package     RPostgres
+#> host        127.0.0.1
+#> port        5432
+#> dbname      mydb
+#> driver      true
 #> connection  false
 #> transaction false
 #> result      false
 #> verbose     true
+```
+
+``` r
+db$unloadDriver()
+#> dctr | Driver unload RPostgres
 ```
 
 # Additional packages and database types
 
 The listed packages are required for some functions of *rocker*.
-
-## *crayon* package
-
-The [*crayon*](https://github.com/r-lib/crayon) package is required for
-colored terminal output. If missing terminal output is monochrome.
-
-``` r
-install.packages("crayon")
-```
 
 ## *RSQLite* package
 
@@ -252,6 +344,15 @@ db$setupDriver( # Setup MariaDB database
 #> Dctr | Driver load RMariaDB
 db$unloadDriver() # Reset database handling object
 #> dctr | Driver unload RMariaDB
+```
+
+## *crayon* package
+
+The [*crayon*](https://github.com/r-lib/crayon) package is required for
+colored terminal output. If missing terminal output is monochrome.
+
+``` r
+install.packages("crayon")
 ```
 
 # Database connection
