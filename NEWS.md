@@ -1,3 +1,8 @@
+rocker 0.2.1
+========
+
+* README adjusted, link URL changed
+
 rocker 0.2.0
 ========
 

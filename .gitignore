@@ -42,6 +42,7 @@ vignettes/*.pdf
 
 # CRAN
 CRAN-RELEASE
+CRAN-SUBMISSION
 
 # vignettes
 inst/doc

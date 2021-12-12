@@ -75,7 +75,7 @@ db1$unloadDriver()
 
 __Object properties__
 
-Object properties are stored in the info filed and can be displayed by print function.
+Object properties are stored in the info field and can be displayed by print function.
 
 ```{r}
 db <- rocker::newDB() # New database handling object

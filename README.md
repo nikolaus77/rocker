@@ -37,12 +37,13 @@ MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/
 <!-- badges: end -->
 
 [*R6*](https://github.com/r-lib/R6) class interface for handling
-database connections using [*DBI*](https://github.com/r-dbi/DBI) package
-as backend. The class allows handling of connections to
+relational database connections using
+[*DBI*](https://github.com/r-dbi/DBI) package as backend. The class
+allows handling of connections to
 e.g. [PostgreSQL](https://www.postgresql.org),
-[MariaDB](https://mariadb.org) and [SQLite](https://www.sqlite.org). The
-purpose is having an intuitive object allowing straightforward handling
-of databases.
+[MariaDB](https://mariadb.org) and
+[SQLite](https://www.sqlite.org/index.html). The purpose is having an
+intuitive object allowing straightforward handling of SQL databases.
 
 # Installation
 
@@ -152,7 +153,7 @@ db1$unloadDriver()
 
 **Object properties**
 
-Object properties are stored in the info filed and can be displayed by
+Object properties are stored in the info field and can be displayed by
 print function.
 
 ``` r
