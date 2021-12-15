@@ -2,6 +2,11 @@
 test_that("R6 object status error", {
   db <- rocker::rocker$new(verbose = FALSE)
   # drv -, con -, tra -, res -
+  expect_true(is.null(db$info))
+  expect_true(is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   # expect_error(db$initialize())
   # expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -18,6 +23,11 @@ test_that("R6 object status error", {
 
   db$setupDriver(RSQLite::SQLite(), dbname = ":memory:")
   # drv +, con -, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   # expect_error(db$connect())
@@ -34,6 +44,11 @@ test_that("R6 object status error", {
 
   db$connect()
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -50,6 +65,11 @@ test_that("R6 object status error", {
 
   db$writeTable("mtcars", mtcars)
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -66,6 +86,11 @@ test_that("R6 object status error", {
 
   db$sendQuery("SELECT * FROM mtcars;")
   # drv +, con +, tra -, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -83,6 +108,11 @@ test_that("R6 object status error", {
   out <- db$fetch()
   rm(out)
   # drv +, con +, tra -, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -99,6 +129,11 @@ test_that("R6 object status error", {
 
   db$clearResult()
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -115,6 +150,11 @@ test_that("R6 object status error", {
 
   db$begin()
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -131,6 +171,11 @@ test_that("R6 object status error", {
 
   db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
   # drv +, con +, tra +, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -147,6 +192,11 @@ test_that("R6 object status error", {
 
   db$clearResult()
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -163,6 +213,11 @@ test_that("R6 object status error", {
 
   db$rollback()
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -179,6 +234,11 @@ test_that("R6 object status error", {
 
   db$begin()
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -195,6 +255,11 @@ test_that("R6 object status error", {
 
   db$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
   # drv +, con +, tra +, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -211,6 +276,11 @@ test_that("R6 object status error", {
 
   db$clearResult()
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -227,6 +297,11 @@ test_that("R6 object status error", {
 
   db$commit()
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())
@@ -243,6 +318,11 @@ test_that("R6 object status error", {
 
   db$disconnect()
   # drv +, con -, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(db$initialize())
   expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   # expect_error(db$connect())
@@ -259,6 +339,11 @@ test_that("R6 object status error", {
 
   db$unloadDriver()
   # drv -, con -, tra -, res -
+  expect_true(is.null(db$info))
+  expect_true(is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   # expect_error(db$initialize())
   # expect_error(db$setupDriver(RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(db$connect())

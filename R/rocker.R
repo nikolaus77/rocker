@@ -1150,23 +1150,23 @@ rocker <- R6::R6Class(
       TEST <- TRUE
       if (PAR == "drv") {
         if (self$isValidDrv() != STATUS) {
-          error(ifelse(is.null(private$..drv), "Driver not set", "Driver set"), WARNING)
           TEST <- FALSE
+          error(ifelse(is.null(private$..drv), "Driver not set", "Driver set"), WARNING)
         }
       } else if (PAR == "con") {
         if (self$isValidCon() != STATUS) {
-          error(ifelse(is.null(private$..con), "Connection not opened", "Connection opened"), WARNING)
           TEST <- FALSE
+          error(ifelse(is.null(private$..con), "Connection not opened", "Connection opened"), WARNING)
         }
       } else if (PAR == "res") {
         if (self$isValidRes() != STATUS) {
-          error(ifelse(is.null(private$..res), "No result", "Result pending"), WARNING)
           TEST <- FALSE
+          error(ifelse(is.null(private$..res), "No result", "Result pending"), WARNING)
         }
       } else if (PAR == "tra") {
         if (private$.transaction != STATUS) {
-          error(ifelse(private$.transaction, "Transaction pending", "No transaction"), WARNING)
           TEST <- FALSE
+          error(ifelse(private$.transaction, "Transaction pending", "No transaction"), WARNING)
         }
       }
       return(invisible(TEST))

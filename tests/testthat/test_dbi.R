@@ -57,6 +57,14 @@ test_that("DBI functions", {
   db6$writeTable("mtcars", mtcars)
   rocker::writeTable(db3, "mtcars", mtcars)
 
+  # readTable ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbReadTable(con, "mtcars")
+  out6 <- db6$readTable("mtcars")
+  out3 <- rocker::readTable(db3, "mtcars")
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
   # get query ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbGetQuery(con, "SELECT * FROM mtcars;")
   out6 <- db6$getQuery("SELECT * FROM mtcars;")
@@ -161,6 +169,22 @@ test_that("DBI functions", {
   db6$sendQuery("SELECT * FROM mtcars;")
   rocker::sendQuery(db3, "SELECT * FROM mtcars;")
 
+  # getStatement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbGetStatement(res)
+  out6 <- db6$getStatement()
+  out3 <- rocker::getStatement(db3)
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
+  # columnInfo -----------------------------------------------------------------
+  out <- DBI::dbColumnInfo(res)
+  out6 <- db6$columnInfo()
+  out3 <- rocker::columnInfo(db3)
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
   # isValidRes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbIsValid(res)
   out6 <- db6$isValidRes()
@@ -242,6 +266,14 @@ test_that("DBI functions", {
   res <- DBI::dbSendStatement(con, "DELETE FROM mtcars WHERE gear = 3;")
   db6$sendStatement("DELETE FROM mtcars WHERE gear = 3;")
   rocker::sendStatement(db3, "DELETE FROM mtcars WHERE gear = 3;")
+
+  # getStatement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbGetStatement(res)
+  out6 <- db6$getStatement()
+  out3 <- rocker::getStatement(db3)
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
 
   # isValidRes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbIsValid(res)

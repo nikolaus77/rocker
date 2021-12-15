@@ -2,6 +2,11 @@
 test_that("S3 object status error", {
   db <- rocker::newDB(verbose = FALSE)
   # drv -, con -, tra -, res -
+  expect_true(is.null(db$info))
+  expect_true(is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   # expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -17,6 +22,11 @@ test_that("S3 object status error", {
 
   rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:")
   # drv +, con -, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   # expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -32,6 +42,11 @@ test_that("S3 object status error", {
 
   rocker::connect(db)
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -47,6 +62,11 @@ test_that("S3 object status error", {
 
   rocker::writeTable(db, "mtcars", mtcars)
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -62,6 +82,11 @@ test_that("S3 object status error", {
 
   rocker::sendQuery(db, "SELECT * FROM mtcars;")
   # drv +, con +, tra -, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -78,6 +103,11 @@ test_that("S3 object status error", {
   out <- rocker::fetch(db)
   rm(out)
   # drv +, con +, tra -, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -93,6 +123,11 @@ test_that("S3 object status error", {
 
   rocker::clearResult(db)
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -108,6 +143,11 @@ test_that("S3 object status error", {
 
   rocker::begin(db)
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -123,6 +163,11 @@ test_that("S3 object status error", {
 
   rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
   # drv +, con +, tra +, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -138,6 +183,11 @@ test_that("S3 object status error", {
 
   rocker::clearResult(db)
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -153,6 +203,11 @@ test_that("S3 object status error", {
 
   rocker::rollback(db)
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -168,6 +223,11 @@ test_that("S3 object status error", {
 
   rocker::begin(db)
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -183,6 +243,11 @@ test_that("S3 object status error", {
 
   rocker::sendStatement(db, "DELETE FROM mtcars WHERE gear = 3;")
   # drv +, con +, tra +, res +
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(!is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -198,6 +263,11 @@ test_that("S3 object status error", {
 
   rocker::clearResult(db)
   # drv +, con +, tra +, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(!isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -213,6 +283,11 @@ test_that("S3 object status error", {
 
   rocker::commit(db)
   # drv +, con +, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(!is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   # expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -228,6 +303,11 @@ test_that("S3 object status error", {
 
   rocker::disconnect(db)
   # drv +, con -, tra -, res -
+  expect_true(!is.null(db$info))
+  expect_true(!is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   # expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
@@ -243,6 +323,11 @@ test_that("S3 object status error", {
 
   rocker::unloadDriver(db)
   # drv -, con -, tra -, res -
+  expect_true(is.null(db$info))
+  expect_true(is.null(db$.drv))
+  expect_true(is.null(db$.con))
+  expect_true(isFALSE(db$transaction))
+  expect_true(is.null(db$.res))
   # expect_error(rocker::setupDriver(db, RSQLite::SQLite(), dbname = ":memory:"))
   expect_error(rocker::connect(db))
   expect_error(rocker::writeTable(db, "mtcars", mtcars))
