@@ -1,17 +1,11 @@
 
 test_that("DBI functions", {
-  # canConnect ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # setupDriver ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   drv <- RSQLite::SQLite()
-  out <- DBI::dbCanConnect(drv, dbname = ":memory:")
   db6 <- rocker::rocker$new(verbose = FALSE, id = "R6")
   db6$setupDriver(RSQLite::SQLite(), dbname = ":memory:")
-  out6 <- db6$canConnect()
   db3 <- rocker::newDB(verbose = FALSE, id = "S3")
   rocker::setupDriver(db3, RSQLite::SQLite(), dbname = ":memory:")
-  out3 <- rocker::canConnect(db3)
-  expect_identical(out, out6)
-  expect_identical(out, out3)
-  rm(out, out6, out3)
 
   # isValidDrv ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbIsValid(drv)
@@ -29,22 +23,18 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
-  # writeTable + createTable + appendTable ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  con <- DBI::dbConnect(drv, dbname = ":memory:")
-  DBI::dbWriteTable(con, "mtcars", mtcars)
-  DBI::dbCreateTable(con, "mtcars2", mtcars)
-  out <- DBI::dbAppendTable(con, "mtcars2", mtcars)
-  db6$connect()
-  db6$writeTable("mtcars", mtcars)
-  db6$createTable("mtcars2", mtcars)
-  out6 <- db6$appendTable("mtcars2", mtcars)
-  rocker::connect(db3)
-  rocker::writeTable(db3, "mtcars", mtcars)
-  rocker::createTable(db3, "mtcars2", mtcars)
-  out3 <- rocker::appendTable(db3, "mtcars2", mtcars)
+  # canConnect ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbCanConnect(drv, dbname = ":memory:")
+  out6 <- db6$canConnect()
+  out3 <- rocker::canConnect(db3)
   expect_identical(out, out6)
   expect_identical(out, out3)
   rm(out, out6, out3)
+
+  # connect ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  con <- DBI::dbConnect(drv, dbname = ":memory:")
+  db6$connect()
+  rocker::connect(db3)
 
   # isValidCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbIsValid(con)
@@ -54,7 +44,7 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
-  # getInfoCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # getInfoCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbGetInfo(con)
   out6 <- db6$getInfoCon()
   out3 <- rocker::getInfoCon(db3)
@@ -62,10 +52,36 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
+  # writeTable ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  DBI::dbWriteTable(con, "mtcars", mtcars)
+  db6$writeTable("mtcars", mtcars)
+  rocker::writeTable(db3, "mtcars", mtcars)
+
   # get query ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbGetQuery(con, "SELECT * FROM mtcars;")
   out6 <- db6$getQuery("SELECT * FROM mtcars;")
   out3 <- rocker::getQuery(db3, "SELECT * FROM mtcars;")
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
+  # createTable ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  DBI::dbCreateTable(con, "mtcars2", mtcars)
+  db6$createTable("mtcars2", mtcars)
+  rocker::createTable(db3, "mtcars2", mtcars)
+
+  # get query ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbGetQuery(con, "SELECT * FROM mtcars2;")
+  out6 <- db6$getQuery("SELECT * FROM mtcars2;")
+  out3 <- rocker::getQuery(db3, "SELECT * FROM mtcars2;")
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
+  # appendTable ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbAppendTable(con, "mtcars2", mtcars)
+  out6 <- db6$appendTable("mtcars2", mtcars)
+  out3 <- rocker::appendTable(db3, "mtcars2", mtcars)
   expect_identical(out, out6)
   expect_identical(out, out3)
   rm(out, out6, out3)
@@ -112,6 +128,14 @@ test_that("DBI functions", {
   out <- DBI::dbExistsTable(con, "mtcars2")
   out6 <- db6$existsTable("mtcars2")
   out3 <- rocker::existsTable(db3, "mtcars2")
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
+  # listObjects ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbListObjects(con)
+  out6 <- db6$listObjects()
+  out3 <- rocker::listObjects(db3)
   expect_identical(out, out6)
   expect_identical(out, out3)
   rm(out, out6, out3)
@@ -235,6 +259,14 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
+  # fetch ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  expect_warning(out <- DBI::fetch(res))
+  expect_warning(out6 <- db6$fetch())
+  expect_warning(out3 <- rocker::fetch(db3))
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
   # clearResult ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   DBI::dbClearResult(res)
   db6$clearResult()
@@ -248,10 +280,26 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
+  # get query ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbGetQuery(con, "SELECT * FROM mtcars;")
+  out6 <- db6$getQuery("SELECT * FROM mtcars;")
+  out3 <- rocker::getQuery(db3, "SELECT * FROM mtcars;")
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
   # execute ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbExecute(con, "DELETE FROM mtcars WHERE gear = 4;")
   out6 <- db6$execute("DELETE FROM mtcars WHERE gear = 4;")
   out3 <- rocker::execute(db3, "DELETE FROM mtcars WHERE gear = 4;")
+  expect_identical(out, out6)
+  expect_identical(out, out3)
+  rm(out, out6, out3)
+
+  # get query ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out <- DBI::dbGetQuery(con, "SELECT * FROM mtcars;")
+  out6 <- db6$getQuery("SELECT * FROM mtcars;")
+  out3 <- rocker::getQuery(db3, "SELECT * FROM mtcars;")
   expect_identical(out, out6)
   expect_identical(out, out3)
   rm(out, out6, out3)
