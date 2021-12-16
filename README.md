@@ -32,6 +32,8 @@ status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org
 [![GitHub
 version](https://img.shields.io/badge/devel%20version-GitHub-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/nikolaus77/rocker/branch/master/graph/badge.svg)](https://codecov.io/gh/nikolaus77/rocker?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -572,30 +574,30 @@ db$.drv # 'DBI' DBIDriver-class
 
 ``` r
 db$getInfoDrv() # 'rocker' class function
-#> Dctr | Driver info 2.2.8 (driver.version), 3.36.0 (client.version)
+#> Dctr | Driver info 2.2.9 (driver.version), 3.37.0 (client.version)
 #> $driver.version
-#> [1] '2.2.8'
+#> [1] '2.2.9'
 #> 
 #> $client.version
-#> [1] '3.36.0'
+#> [1] '3.37.0'
 ```
 
 ``` r
 DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on 'rocker' class
 #> $driver.version
-#> [1] '2.2.8'
+#> [1] '2.2.9'
 #> 
 #> $client.version
-#> [1] '3.36.0'
+#> [1] '3.37.0'
 ```
 
 ``` r
 RSQLite::dbGetInfo(db$.drv) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
 #> $driver.version
-#> [1] '2.2.8'
+#> [1] '2.2.9'
 #> 
 #> $client.version
-#> [1] '3.36.0'
+#> [1] '3.37.0'
 ```
 
 ## DBIConnection-class
@@ -611,9 +613,9 @@ db$.con # 'DBI' DBIConnection-class
 
 ``` r
 db$getInfoCon() # 'rocker' class function
-#> DCtr | Connection info 3.36.0 (db.version), :memory: (dbname), NA (username), NA (host), NA (port)
+#> DCtr | Connection info 3.37.0 (db.version), :memory: (dbname), NA (username), NA (host), NA (port)
 #> $db.version
-#> [1] "3.36.0"
+#> [1] "3.37.0"
 #> 
 #> $dbname
 #> [1] ":memory:"
@@ -631,7 +633,7 @@ db$getInfoCon() # 'rocker' class function
 ``` r
 DBI::dbGetInfo(db$.con) # Direct usage of 'DBI' function on 'rocker' class
 #> $db.version
-#> [1] "3.36.0"
+#> [1] "3.37.0"
 #> 
 #> $dbname
 #> [1] ":memory:"
@@ -649,7 +651,7 @@ DBI::dbGetInfo(db$.con) # Direct usage of 'DBI' function on 'rocker' class
 ``` r
 RSQLite::dbGetInfo(db$.con) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
 #> $db.version
-#> [1] "3.36.0"
+#> [1] "3.37.0"
 #> 
 #> $dbname
 #> [1] ":memory:"
