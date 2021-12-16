@@ -131,7 +131,8 @@ rocker <- R6::R6Class(
         "dbListObjects",
         "dbListTables"
       ))
-      if (!all(unlist(private$functions))) error(sprintf("Package %s is not providing all functions: %s", private$.info$package, paste(names(private$functions)[!unlist(private$functions)], collapse = ", ")), TRUE)
+      if (!all(unlist(private$functions)))
+        error(sprintf("Package %s is not providing all functions: %s", private$.info$package, paste(names(private$functions)[!unlist(private$functions)], collapse = ", ")), TRUE)
       return(invisible(self))
     },
 

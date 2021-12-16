@@ -89,7 +89,7 @@ test_that("id", {
   expect_identical(db$id, "test")
   db$id <- NULL
   expect_null(db$id)
-  db$id <- "test"
+  db$id <- " test "
   expect_identical(db$id, "test")
 
   db$verbose <- TRUE
@@ -103,6 +103,7 @@ test_that("id", {
 
 test_that("functions", {
   expect_error(error("test"))
+  expect_error(error("test", FALSE))
   expect_warning(error("test", TRUE))
 
   testParameter(list(a = 1, b = 2, c = 3))
@@ -111,7 +112,6 @@ test_that("functions", {
   testParameter(list(a = 1, b = 2, c = 3), OBLIGATORY = c("a"))
   testParameter(list(a = 1, b = 2, c = 3), OBLIGATORY = c("a", "b"))
   testParameter(list(a = 1, b = 2, c = 3), FORBIDDEN = c("d", "e"), OBLIGATORY = c("a", "b"))
-
   expect_error(testParameter(list(a = 1, b = 2, c = 3), FORBIDDEN = c("a")))
   expect_error(testParameter(list(a = 1, b = 2, c = 3), FORBIDDEN = c("a", "d")))
   expect_error(testParameter(list(a = 1, b = 2, c = 3), OBLIGATORY = c("d")))
