@@ -59,7 +59,7 @@ testPackageFunctions <- function(PACKAGE, FUNCTIONS) {
   return(AVAIABLE)
 }
 
-testParameter <- function(PAR, FORBIDDEN = NULL, OBLIGATORY = NULL) {
+testParameterNames <- function(PAR, FORBIDDEN = NULL, OBLIGATORY = NULL) {
   if (!is.null(PAR)) {
     if (!is.null(FORBIDDEN))
       if (any(FORBIDDEN %in% names(PAR)))
@@ -68,4 +68,63 @@ testParameter <- function(PAR, FORBIDDEN = NULL, OBLIGATORY = NULL) {
       if (!all(OBLIGATORY %in% names(PAR)))
         error(paste("Parameter obligatory:", paste(paste0("'", OBLIGATORY[!(OBLIGATORY %in% names(PAR))], "'"), collapse = ", ")))
   }
+}
+
+testParameterString <- function(PAR, LENGTH = 1) {
+  if (!is.na(LENGTH))
+    if (length(PAR) != LENGTH)
+      error("Parameter not correct")
+  if (!is.character(PAR))
+    error("Parameter not correct")
+}
+
+testParameterWholeNumber <- function(PAR, LENGTH = 1) {
+  if (!is.na(LENGTH))
+    if (length(PAR) != LENGTH)
+      error("Parameter not correct")
+  if (!is.numeric(PAR))
+    error("Parameter not correct")
+  if (any(PAR %% 1 != 0))
+    error("Parameter not correct")
+}
+
+testParameterStringWholeNumber <- function(PAR, LENGTH = 1) {
+  OUT1 <- tryCatch(
+    {
+      testParameterString(PAR, LENGTH)
+      TRUE
+    },
+    error = function(cond) {
+      FALSE
+    }
+  )
+  OUT2 <- tryCatch(
+    {
+      testParameterWholeNumber(PAR, LENGTH)
+      TRUE
+    },
+    error = function(cond) {
+      FALSE
+    }
+  )
+  if (!(OUT1 | OUT2))
+    error("Parameter not correct")
+}
+
+testParameterBoolean <- function(PAR, LENGTH = 1) {
+  if (!is.na(LENGTH))
+    if (length(PAR) != LENGTH)
+      error("Parameter not correct")
+  if (!is.logical(PAR) | any(is.na(PAR)))
+    error("Parameter not correct")
+}
+
+testParameterDataFrame <- function(PAR) {
+  if (!is.data.frame(PAR))
+    error("Parameter not correct")
+}
+
+testParameterObject <- function(PAR) {
+  if (!is.object(PAR) | is.data.frame(PAR))
+    error("Parameter not correct")
 }
