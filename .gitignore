@@ -46,3 +46,6 @@ CRAN-SUBMISSION
 
 # vignettes
 inst/doc
+
+# testthat
+tests/testthat/_snaps/
