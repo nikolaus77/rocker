@@ -32,7 +32,7 @@ status](https://www.r-pkg.org/badges/version/rocker)](https://cran.r-project.org
 [![GitHub
 version](https://img.shields.io/badge/devel%20version-GitHub-yellow.svg)](https://github.com/nikolaus77/rocker)
 [![R-CMD-check](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml)
-[![codecov](https://codecov.io/gh/nikolaus77/rocker/branch/main/graph/badge.svg)](https://codecov.io/gh/nikolaus77/rocker)
+[![codecov](https://codecov.io/gh/nikolaus77/rocker/branch/main/graph/badge.svg)](https://app.codecov.io/gh/nikolaus77/rocker)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
