@@ -1,9 +1,9 @@
 ---
-title: "Insatllation and set up of R6 rocker object"
+title: "Installation and set up of R6 rocker object"
 author: "Nikolaus Pawlowski"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Insatllation and set up of R6 rocker object}
+  %\VignetteIndexEntry{Installation and set up of R6 rocker object}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,9 +1,9 @@
 ---
-title: "Inintiation of SQL database connections in R6 rocker class"
+title: "Initiation of SQL database connections in R6 rocker class"
 author: "Nikolaus Pawlowski"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Inintiation of SQL database connections in R6 rocker class}
+  %\VignetteIndexEntry{Initiation of SQL database connections in R6 rocker class}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
