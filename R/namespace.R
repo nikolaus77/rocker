@@ -1,5 +1,5 @@
 
 #' @import DBI
 #' @import R6
-#' @import safer
+#' @import sodium
 NULL

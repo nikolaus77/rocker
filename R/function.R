@@ -17,13 +17,13 @@ newDB <- function(verbose = TRUE, id = NULL, ...)
 # encrypt ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 generateKey <- function()
-  return(as.raw(sample(0:255, 32, replace = TRUE)))
+  return(sodium::keygen())
 
 encrypt <- function(OBJECT, KEY)
-  return(safer::encrypt_object(OBJECT, key = KEY))
+  return(sodium::data_encrypt(serialize(OBJECT, NULL), KEY))
 
 decrypt <- function(OBJECT, KEY)
-  return(safer::decrypt_object(OBJECT, key = KEY))
+  return(unserialize(sodium::data_decrypt(OBJECT, KEY)))
 
 # comm ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

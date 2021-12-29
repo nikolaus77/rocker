@@ -120,3 +120,11 @@ test_that("functions", {
   expect_error(testParameter(list(a = 1, b = 2, c = 3), FORBIDDEN = c("d", "e"), OBLIGATORY = c("d", "a")))
   expect_error(testParameter(list(a = 1, b = 2, c = 3), FORBIDDEN = c("a", "d"), OBLIGATORY = c("d", "a")))
 })
+
+test_that("encryption", {
+  LST <- list(a = 1, b = 2, abc = "abc")
+  KEY <- generateKey()
+  TMP <- encrypt(LST, KEY)
+  expect_identical(LST, decrypt(TMP, KEY))
+  rm(LST, KEY, TMP)
+})
