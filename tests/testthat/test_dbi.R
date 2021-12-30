@@ -44,6 +44,13 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
+  # isOpenedCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out6 <- db6$isOpenedCon()
+  out3 <- rocker::isOpenedCon(db3)
+  expect_true(out3)
+  expect_identical(out3, out6)
+  rm(out3, out6)
+
   # getInfoCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   out <- DBI::dbGetInfo(con)
   out6 <- db6$getInfoCon()
@@ -348,6 +355,13 @@ test_that("DBI functions", {
   expect_identical(out, out6)
   expect_identical(out, out3)
   rm(out, out6, out3)
+
+  # isOpenedCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out6 <- db6$isOpenedCon()
+  out3 <- rocker::isOpenedCon(db3)
+  expect_false(out3)
+  expect_identical(out3, out6)
+  rm(out3, out6)
 
   # unloadDriver ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   drv <- DBI::dbUnloadDriver(drv)

@@ -90,14 +90,14 @@ testParameterStringWholeNumber <- function(PAR, LENGTH = 1) {
   OUT1 <- tryCatch({
       testParameterString(PAR, LENGTH)
       TRUE
-    }, error = function(cond) {
+    }, error = function(COND) {
       FALSE
     }
   )
   OUT2 <- tryCatch({
       testParameterWholeNumber(PAR, LENGTH)
       TRUE
-    }, error = function(cond) {
+    }, error = function(COND) {
       FALSE
     }
   )

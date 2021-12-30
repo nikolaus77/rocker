@@ -356,6 +356,17 @@ db$disconnect()
 db$unloadDriver()
 
 ## ------------------------------------------------
+## Method `rocker$isOpenedCon`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$isOpenedCon()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
 ## Method `rocker$isValidRes`
 ## ------------------------------------------------
 
@@ -530,6 +541,7 @@ Information on pending transaction.}
 \item \href{#method-getInfoRes}{\code{rocker$getInfoRes()}}
 \item \href{#method-isValidDrv}{\code{rocker$isValidDrv()}}
 \item \href{#method-isValidCon}{\code{rocker$isValidCon()}}
+\item \href{#method-isOpenedCon}{\code{rocker$isOpenedCon()}}
 \item \href{#method-isValidRes}{\code{rocker$isValidRes()}}
 \item \href{#method-createTable}{\code{rocker$createTable()}}
 \item \href{#method-appendTable}{\code{rocker$appendTable()}}
@@ -1562,6 +1574,39 @@ TRUE of FALSE
 db$setupSQLite()
 db$connect()
 db$isValidCon()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-isOpenedCon"></a>}}
+\if{latex}{\out{\hypertarget{method-isOpenedCon}{}}}
+\subsection{Method \code{isOpenedCon()}}{
+Check if an earlier opened connection is still open.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{rocker$isOpenedCon(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Not used yet}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+TRUE of FALSE
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$isOpenedCon()
 db$disconnect()
 db$unloadDriver()
 }

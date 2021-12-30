@@ -799,6 +799,38 @@ rocker <- R6::R6Class(
     },
 
     #' @description
+    #' Check if an earlier opened connection is still open.
+    #' @param ... Not used yet
+    #' @return TRUE of FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$isOpenedCon()
+    #' db$disconnect()
+    #' db$unloadDriver()
+    isOpenedCon = function(...) {
+      private$check("res", FALSE)
+      if (!is.null(private$..con)) {
+        OUTPUT <- tryCatch({
+            OUTPUT <- DBI::dbGetQuery(private$..con, "SELECT 1")
+            TRUE
+          }, error = function(COND) {
+            FALSE
+          }
+        )
+        if (!OUTPUT){
+          private$..con <- NULL
+          error("Connection lost", TRUE)
+        }
+      } else {
+        OUTPUT <- FALSE
+      }
+      private$note(sprintf("Connection opened %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
+      return(OUTPUT)
+    },
+
+    #' @description
     #' Check result object.
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
     #' @return TRUE of FALSE
@@ -1185,6 +1217,12 @@ rocker <- R6::R6Class(
         if (self$isValidCon() != STATUS) {
           TEST <- FALSE
           error(ifelse(is.null(private$..con), "Connection not opened", "Connection opened"), WARNING)
+        }
+        if (TEST & STATUS) {
+          if (!self$isOpenedCon()) {
+            TEST <- FALSE
+            error("Connection not opened", WARNING)
+          }
         }
       } else if (PAR == "res") {
         if (self$isValidRes() != STATUS) {

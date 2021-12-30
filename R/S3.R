@@ -686,6 +686,29 @@ isValidCon.rocker <- function(db, ...) {
   db$isValidCon(...)
 }
 
+# isOpenedCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' Check if an earlier opened connection is still open.
+#' @param db rocker object
+#' @param ... Not used yet
+#' @return TRUE of FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::isOpenedCon(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
+#' @export
+isOpenedCon <- function(db, ...) {
+  UseMethod("isOpenedCon", db)
+}
+
+#' @export
+isOpenedCon.rocker <- function(db, ...) {
+  db$isOpenedCon(...)
+}
+
 # isValidRes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #' Check result object.
