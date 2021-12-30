@@ -4,10 +4,12 @@
 \alias{isOpenedCon}
 \title{Check if an earlier opened connection is still open.}
 \usage{
-isOpenedCon(db, ...)
+isOpenedCon(db, statement = NULL, ...)
 }
 \arguments{
 \item{db}{rocker object}
+
+\item{statement}{Optional SQL statement. If not set default isOpenedConStatement will be used.}
 
 \item{...}{Not used yet}
 }

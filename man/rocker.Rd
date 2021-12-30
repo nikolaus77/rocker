@@ -506,6 +506,8 @@ Information on pending transaction.}
 \item{\code{verbose}}{TRUE or FALSE. Switch text output on / off.}
 
 \item{\code{id}}{Optional object ID/name}
+
+\item{\code{isOpenedConStatement}}{SQL statement used in isOpenedCon}
 }
 \if{html}{\out{</div>}}
 }
@@ -1588,12 +1590,14 @@ db$unloadDriver()
 \subsection{Method \code{isOpenedCon()}}{
 Check if an earlier opened connection is still open.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$isOpenedCon(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$isOpenedCon(statement = NULL, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{statement}}{Optional SQL statement. If not set default isOpenedConStatement will be used.}
+
 \item{\code{...}}{Not used yet}
 }
 \if{html}{\out{</div>}}

@@ -43,8 +43,8 @@ rocker <- R6::R6Class(
       testParameterBoolean(verbose)
       if (!is.null(id))
         testParameterString(id)
-      private$check("drv", FALSE)
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
+      private$check("drv", FALSE)
       self$verbose <- verbose
       self$id <- id
       if (!is.null(private$.id)) {
@@ -70,9 +70,9 @@ rocker <- R6::R6Class(
         c("driver", ifelse(is.null(private$..drv), private$textColor(2, "false"), private$textColor(3, "true"))),
         c("connection", ifelse(is.null(private$..con), private$textColor(2, "false"), private$textColor(3, "true"))),
         c("transaction", ifelse(private$.transaction, private$textColor(3, "true"), private$textColor(2, "false"))),
-        c("result", ifelse(is.null(private$..res), private$textColor(2, "false"), private$textColor(3, "true"))),
-        # c("settings", ifelse(is.null(private$settings), private$textColor(2, "false"), private$textColor(3, "true"))),
-        c("verbose", ifelse(private$.verbose, private$textColor(3, "true"), private$textColor(2, "false")))
+        c("result", ifelse(is.null(private$..res), private$textColor(2, "false"), private$textColor(3, "true")))
+        # c("settings", ifelse(is.null(private$settings), private$textColor(2, "false"), private$textColor(3, "true")))
+        # c("verbose", ifelse(private$.verbose, private$textColor(3, "true"), private$textColor(2, "false")))
       )
       LEN <- max(nchar(TXT[, 1]))
       for (i in seq_len(nrow(TXT)))
@@ -286,6 +286,19 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     connect = function(...) {
       testParameterNames(list(...), "drv")
+      private$check("drv", TRUE)
+      if (!is.null(private$..con)) {
+        TEST <- TRUE
+        if (!self$isValidCon())
+          TEST <- FALSE
+        if (TEST)
+          if (!self$isOpenedCon())
+            TEST <- FALSE
+        if (!TEST) {
+          private$..con <- NULL
+          private$note("Re-connect")
+        }
+      }
       private$check("con", FALSE)
       private$check("drv", TRUE)
       SETTINGS <- c(list(drv = private$..drv), private$settingsRead(), list(...))
@@ -787,10 +800,8 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "dbObj")
       if (!is.null(private$..con)) {
         OUTPUT <- DBI::dbIsValid(private$..con, ...)
-        if (!OUTPUT) {
-          private$..con <- NULL
+        if (!OUTPUT)
           error("Connection lost", TRUE)
-        }
       } else {
         OUTPUT <- FALSE
       }
@@ -800,6 +811,7 @@ rocker <- R6::R6Class(
 
     #' @description
     #' Check if an earlier opened connection is still open.
+    #' @param statement Optional SQL statement. If not set default isOpenedConStatement will be used.
     #' @param ... Not used yet
     #' @return TRUE of FALSE
     #' @examples
@@ -809,20 +821,20 @@ rocker <- R6::R6Class(
     #' db$isOpenedCon()
     #' db$disconnect()
     #' db$unloadDriver()
-    isOpenedCon = function(...) {
+    isOpenedCon = function(statement = NULL, ...) {
+      if (is.null(statement))
+        statement <- private$.isOpenedConStatement
       private$check("res", FALSE)
       if (!is.null(private$..con)) {
         OUTPUT <- tryCatch({
-            OUTPUT <- DBI::dbGetQuery(private$..con, "SELECT 1")
+            TMP <- DBI::dbGetQuery(private$..con, statement)
             TRUE
           }, error = function(COND) {
             FALSE
           }
         )
-        if (!OUTPUT){
-          private$..con <- NULL
+        if (!OUTPUT)
           error("Connection lost", TRUE)
-        }
       } else {
         OUTPUT <- FALSE
       }
@@ -1133,6 +1145,24 @@ rocker <- R6::R6Class(
           private$.id <- NULL
         }
       }
+    },
+
+    #' @field isOpenedConStatement
+    #' SQL statement used in isOpenedCon
+    isOpenedConStatement = function(VALUE) {
+      if (missing(VALUE))
+        return(private$.isOpenedConStatement)
+      if (is.null(VALUE)) {
+        private$.isOpenedConStatement <- "SELECT 1"
+      } else {
+        testParameterString(VALUE)
+        VALUE <- trimws(VALUE)
+        if (nchar(VALUE) > 0) {
+          private$.isOpenedConStatement <- VALUE
+        } else {
+          private$.isOpenedConStatement <- "SELECT 1"
+        }
+      }
     }
 
   ),
@@ -1150,6 +1180,7 @@ rocker <- R6::R6Class(
     .info = NULL,
     .verbose = TRUE,
     .id = NULL,
+    .isOpenedConStatement = "SELECT 1",
 
     packages = NULL,
     functions = NULL,

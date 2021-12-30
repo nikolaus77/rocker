@@ -690,6 +690,7 @@ isValidCon.rocker <- function(db, ...) {
 
 #' Check if an earlier opened connection is still open.
 #' @param db rocker object
+#' @param statement Optional SQL statement. If not set default isOpenedConStatement will be used.
 #' @param ... Not used yet
 #' @return TRUE of FALSE
 #' @examples
@@ -700,13 +701,13 @@ isValidCon.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-isOpenedCon <- function(db, ...) {
+isOpenedCon <- function(db, statement = NULL, ...) {
   UseMethod("isOpenedCon", db)
 }
 
 #' @export
-isOpenedCon.rocker <- function(db, ...) {
-  db$isOpenedCon(...)
+isOpenedCon.rocker <- function(db, statement = NULL, ...) {
+  db$isOpenedCon(statement, ...)
 }
 
 # isValidRes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
