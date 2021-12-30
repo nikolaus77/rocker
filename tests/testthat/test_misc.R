@@ -166,7 +166,7 @@ test_that("functions", {
   expect_error(testParameterDataFrame(NA))
   expect_error(testParameterDataFrame(NULL))
   expect_error(testParameterDataFrame(1:3))
-  expect_error(testParameterDataFrame(list(a=1, b=2, c="abc")))
+  expect_error(testParameterDataFrame(list(a = 1, b = 2, c = "abc")))
 
   testParameterObject(RSQLite::SQLite())
   expect_error(testParameterObject(1))

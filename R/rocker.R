@@ -41,7 +41,7 @@ rocker <- R6::R6Class(
     #' @return New instance of class
     initialize = function(verbose = TRUE, id = NULL, ...) {
       testParameterBoolean(verbose)
-      if(!is.null(id))
+      if (!is.null(id))
         testParameterString(id)
       private$check("drv", FALSE)
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
@@ -74,9 +74,9 @@ rocker <- R6::R6Class(
         # c("settings", ifelse(is.null(private$settings), private$textColor(2, "false"), private$textColor(3, "true"))),
         c("verbose", ifelse(private$.verbose, private$textColor(3, "true"), private$textColor(2, "false")))
       )
-      LEN <- max(nchar(TXT[,1]))
-      for (i in 1:nrow(TXT))
-        cat(TXT[i,1], paste(rep(" ", LEN - nchar(TXT[i,1]) + 1), collapse = ""), TXT[i,2], "\n", sep = "")
+      LEN <- max(nchar(TXT[, 1]))
+      for (i in seq_len(nrow(TXT)))
+        cat(TXT[i, 1], paste(rep(" ", LEN - nchar(TXT[i, 1]) + 1), collapse = ""), TXT[i, 2], "\n", sep = "")
       return(invisible(self))
     },
 
@@ -219,7 +219,7 @@ rocker <- R6::R6Class(
     #'   dbname = ":memory:"
     #' )
     #' db$unloadDriver()
-    setupSQLite = function(dbname = ":memory:", ..., protect = c("password", "user")){
+    setupSQLite = function(dbname = ":memory:", ..., protect = c("password", "user")) {
       if (!private$packages$RSQLite)
         error("Package RSQLite not installed")
       testParameterString(dbname)
@@ -1103,7 +1103,7 @@ rocker <- R6::R6Class(
       } else {
         testParameterString(VALUE)
         VALUE <- trimws(VALUE)
-        if (nchar(VALUE)>0) {
+        if (nchar(VALUE) > 0) {
           private$.id <- VALUE
         } else {
           private$.id <- NULL

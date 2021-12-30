@@ -16,7 +16,7 @@
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupDriver <- function (db, drv, ..., protect = c("password", "user")) {
+setupDriver <- function(db, drv, ..., protect = c("password", "user")) {
   UseMethod("setupDriver", db)
 }
 
@@ -47,7 +47,7 @@ setupDriver.rocker <- function(db, drv, ..., protect = c("password", "user")) {
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupPostgreSQL <- function (db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
+setupPostgreSQL <- function(db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
   UseMethod("setupPostgreSQL", db)
 }
 
@@ -78,7 +78,7 @@ setupPostgreSQL.rocker <- function(db, host = "127.0.0.1", port = "5432", dbname
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupMariaDB <- function (db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
+setupMariaDB <- function(db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
   UseMethod("setupMariaDB", db)
 }
 
@@ -104,7 +104,7 @@ setupMariaDB.rocker <- function(db, host = "127.0.0.1", port = "3306", dbname = 
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupSQLite <- function (db, dbname = ":memory:", ..., protect = c("password", "user")) {
+setupSQLite <- function(db, dbname = ":memory:", ..., protect = c("password", "user")) {
   UseMethod("setupSQLite", db)
 }
 
@@ -124,7 +124,7 @@ setupSQLite.rocker <- function(db, dbname = ":memory:", ..., protect = c("passwo
 #' rocker::setupSQLite(db)
 #' rocker::unloadDriver(db)
 #' @export
-unloadDriver <- function (db, ...) {
+unloadDriver <- function(db, ...) {
   UseMethod("unloadDriver", db)
 }
 
@@ -145,7 +145,7 @@ unloadDriver.rocker <- function(db, ...) {
 #' rocker::canConnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-canConnect <- function (db, ...) {
+canConnect <- function(db, ...) {
   UseMethod("canConnect", db)
 }
 
@@ -167,7 +167,7 @@ canConnect.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-connect <- function (db, ...) {
+connect <- function(db, ...) {
   UseMethod("connect", db)
 }
 
@@ -189,7 +189,7 @@ connect.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-disconnect <- function (db, ...) {
+disconnect <- function(db, ...) {
   UseMethod("disconnect", db)
 }
 
@@ -216,7 +216,7 @@ disconnect.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-sendQuery <- function (db, statement, ...) {
+sendQuery <- function(db, statement, ...) {
   UseMethod("sendQuery", db)
 }
 
@@ -244,7 +244,7 @@ sendQuery.rocker <- function(db, statement, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-getQuery <- function (db, statement, n = -1, ...) {
+getQuery <- function(db, statement, n = -1, ...) {
   UseMethod("getQuery", db)
 }
 
@@ -270,7 +270,7 @@ getQuery.rocker <- function(db, statement, n = -1, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-sendStatement <- function (db, statement, ...) {
+sendStatement <- function(db, statement, ...) {
   UseMethod("sendStatement", db)
 }
 
@@ -297,7 +297,7 @@ sendStatement.rocker <- function(db, statement, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-execute <- function (db, statement, ...) {
+execute <- function(db, statement, ...) {
   UseMethod("execute", db)
 }
 
@@ -324,7 +324,7 @@ execute.rocker <- function(db, statement, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-fetch <- function (db, n = -1, ...) {
+fetch <- function(db, n = -1, ...) {
   UseMethod("fetch", db)
 }
 
@@ -351,7 +351,7 @@ fetch.rocker <- function(db, n = -1, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-hasCompleted <- function (db, ...) {
+hasCompleted <- function(db, ...) {
   UseMethod("hasCompleted", db)
 }
 
@@ -377,7 +377,7 @@ hasCompleted.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-getRowsAffected <- function (db, ...) {
+getRowsAffected <- function(db, ...) {
   UseMethod("getRowsAffected", db)
 }
 
@@ -404,7 +404,7 @@ getRowsAffected.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-getRowCount <- function (db, ...) {
+getRowCount <- function(db, ...) {
   UseMethod("getRowCount", db)
 }
 
@@ -430,7 +430,7 @@ getRowCount.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-columnInfo <- function (db, ...) {
+columnInfo <- function(db, ...) {
   UseMethod("columnInfo", db)
 }
 
@@ -456,7 +456,7 @@ columnInfo.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-getStatement <- function (db, ...) {
+getStatement <- function(db, ...) {
   UseMethod("getStatement", db)
 }
 
@@ -482,7 +482,7 @@ getStatement.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-clearResult <- function (db, ...) {
+clearResult <- function(db, ...) {
   UseMethod("clearResult", db)
 }
 
@@ -509,7 +509,7 @@ clearResult.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-begin <- function (db, ...) {
+begin <- function(db, ...) {
   UseMethod("begin", db)
 }
 
@@ -536,7 +536,7 @@ begin.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-commit <- function (db, ...) {
+commit <- function(db, ...) {
   UseMethod("commit", db)
 }
 
@@ -563,7 +563,7 @@ commit.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-rollback <- function (db, ...) {
+rollback <- function(db, ...) {
   UseMethod("rollback", db)
 }
 
@@ -584,7 +584,7 @@ rollback.rocker <- function(db, ...) {
 #' rocker::getInfoDrv(db)
 #' rocker::unloadDriver(db)
 #' @export
-getInfoDrv <- function (db, ...) {
+getInfoDrv <- function(db, ...) {
   UseMethod("getInfoDrv", db)
 }
 
@@ -607,7 +607,7 @@ getInfoDrv.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-getInfoCon <- function (db, ...) {
+getInfoCon <- function(db, ...) {
   UseMethod("getInfoCon", db)
 }
 
@@ -633,7 +633,7 @@ getInfoCon.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-getInfoRes <- function (db, ...) {
+getInfoRes <- function(db, ...) {
   UseMethod("getInfoRes", db)
 }
 
@@ -654,7 +654,7 @@ getInfoRes.rocker <- function(db, ...) {
 #' rocker::isValidDrv(db)
 #' rocker::unloadDriver(db)
 #' @export
-isValidDrv <- function (db, ...) {
+isValidDrv <- function(db, ...) {
   UseMethod("isValidDrv", db)
 }
 
@@ -677,7 +677,7 @@ isValidDrv.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-isValidCon <- function (db, ...) {
+isValidCon <- function(db, ...) {
   UseMethod("isValidCon", db)
 }
 
@@ -703,7 +703,7 @@ isValidCon.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-isValidRes <- function (db, ...) {
+isValidRes <- function(db, ...) {
   UseMethod("isValidRes", db)
 }
 
@@ -728,7 +728,7 @@ isValidRes.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-createTable <- function (db, name, fields, ...) {
+createTable <- function(db, name, fields, ...) {
   UseMethod("createTable", db)
 }
 
@@ -754,7 +754,7 @@ createTable.rocker <- function(db, name, fields, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-appendTable <- function (db, name, value, ...) {
+appendTable <- function(db, name, value, ...) {
   UseMethod("appendTable", db)
 }
 
@@ -779,7 +779,7 @@ appendTable.rocker <- function(db, name, value, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-writeTable <- function (db, name, value, ...) {
+writeTable <- function(db, name, value, ...) {
   UseMethod("writeTable", db)
 }
 
@@ -804,7 +804,7 @@ writeTable.rocker <- function(db, name, value, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-readTable <- function (db, name, ...) {
+readTable <- function(db, name, ...) {
   UseMethod("readTable", db)
 }
 
@@ -829,7 +829,7 @@ readTable.rocker <- function(db, name, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-removeTable <- function (db, name, ...) {
+removeTable <- function(db, name, ...) {
   UseMethod("removeTable", db)
 }
 
@@ -854,7 +854,7 @@ removeTable.rocker <- function(db, name, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-existsTable <- function (db, name, ...) {
+existsTable <- function(db, name, ...) {
   UseMethod("existsTable", db)
 }
 
@@ -879,7 +879,7 @@ existsTable.rocker <- function(db, name, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-listFields <- function (db, name, ...) {
+listFields <- function(db, name, ...) {
   UseMethod("listFields", db)
 }
 
@@ -903,7 +903,7 @@ listFields.rocker <- function(db, name, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-listObjects <- function (db, ...) {
+listObjects <- function(db, ...) {
   UseMethod("listObjects", db)
 }
 
@@ -927,7 +927,7 @@ listObjects.rocker <- function(db, ...) {
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-listTables <- function (db, ...) {
+listTables <- function(db, ...) {
   UseMethod("listTables", db)
 }
 
