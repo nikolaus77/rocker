@@ -97,7 +97,8 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     setupDriver = function(drv, ..., protect = c("password", "user")) {
       testParameterObject(drv)
-      testParameterString(protect, NA)
+      if (!is.null(protect))
+        testParameterString(protect, NA)
       private$check("drv", FALSE)
       private$..drv <- drv
       private$check("drv", TRUE)
@@ -167,7 +168,8 @@ rocker <- R6::R6Class(
       testParameterString(dbname)
       testParameterString(user)
       testParameterString(password)
-      testParameterString(protect, NA)
+      if (!is.null(protect))
+        testParameterString(protect, NA)
       testParameterNames(list(...), "drv")
       return(self$setupDriver(RPostgres::Postgres(), host = host, port = port, dbname = dbname, user = user, password = password, ..., protect = protect))
     },
@@ -198,7 +200,8 @@ rocker <- R6::R6Class(
       testParameterString(dbname)
       testParameterString(user)
       testParameterString(password)
-      testParameterString(protect, NA)
+      if (!is.null(protect))
+        testParameterString(protect, NA)
       testParameterNames(list(...), "drv")
       return(self$setupDriver(RMariaDB::MariaDB(), host = host, port = port, dbname = dbname, user = user, password = password, ..., protect = protect))
     },
@@ -220,7 +223,8 @@ rocker <- R6::R6Class(
       if (!private$packages$RSQLite)
         error("Package RSQLite not installed")
       testParameterString(dbname)
-      testParameterString(protect, NA)
+      if (!is.null(protect))
+        testParameterString(protect, NA)
       testParameterNames(list(...), "drv")
       return(self$setupDriver(RSQLite::SQLite(), dbname = dbname, ..., protect = protect))
     },
