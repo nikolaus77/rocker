@@ -366,9 +366,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       if (is.null(private$..con)) {
         self$connect()
-        AUTOCONNECT <- TRUE
-      } else {
-        AUTOCONNECT <- FALSE
+        on.exit(self$disconnect())
       }
       self$sendQuery(statement, ...)
       OUTPUT <- self$fetch(n)
@@ -380,8 +378,6 @@ rocker <- R6::R6Class(
           TOTAL <- self$getRowCount()
       }
       self$clearResult()
-      if (AUTOCONNECT)
-        self$disconnect()
       return(OUTPUT)
     },
 
@@ -430,15 +426,11 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       if (is.null(private$..con)) {
         self$connect()
-        AUTOCONNECT <- TRUE
-      } else {
-        AUTOCONNECT <- FALSE
+        on.exit(self$disconnect())
       }
       self$sendStatement(statement, ...)
       ROWS <- self$getRowsAffected()
       self$clearResult()
-      if (AUTOCONNECT)
-        self$disconnect()
       return(ROWS)
     },
 
