@@ -1249,12 +1249,12 @@ rocker <- R6::R6Class(
           TEST <- FALSE
           error(ifelse(is.null(private$..con), "Connection not opened", "Connection opened"), WARNING)
         }
-        if (TEST & STATUS) {
-          if (!self$isOpenedCon()) {
-            TEST <- FALSE
-            error("Connection not opened", WARNING)
-          }
-        }
+        # if (TEST & STATUS) {
+        #   if (!self$isOpenedCon()) {
+        #     TEST <- FALSE
+        #     error("Connection not opened", WARNING)
+        #   }
+        # }
       } else if (PAR == "res") {
         if (self$isValidRes() != STATUS) {
           TEST <- FALSE
