@@ -187,7 +187,6 @@ db
 #> connection  false
 #> transaction false
 #> result      false
-#> verbose     true
 ```
 
 ``` r
@@ -201,7 +200,6 @@ db$print()
 #> connection  false
 #> transaction false
 #> result      false
-#> verbose     true
 ```
 
 ``` r
@@ -215,7 +213,6 @@ print(db)
 #> connection  false
 #> transaction false
 #> result      false
-#> verbose     true
 ```
 
 ``` r
