@@ -44,9 +44,9 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
-  # isOpenedCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  out6 <- db6$isOpenedCon()
-  out3 <- rocker::isOpenedCon(db3)
+  # validateCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out6 <- db6$validateCon()
+  out3 <- rocker::validateCon(db3)
   expect_true(out3)
   expect_identical(out3, out6)
   rm(out3, out6)
@@ -356,9 +356,9 @@ test_that("DBI functions", {
   expect_identical(out, out3)
   rm(out, out6, out3)
 
-  # isOpenedCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  out6 <- db6$isOpenedCon()
-  out3 <- rocker::isOpenedCon(db3)
+  # validateCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  out6 <- db6$validateCon()
+  out3 <- rocker::validateCon(db3)
   expect_false(out3)
   expect_identical(out3, out6)
   rm(out3, out6)

@@ -686,28 +686,28 @@ isValidCon.rocker <- function(db, ...) {
   db$isValidCon(...)
 }
 
-# isOpenedCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# validateCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #' Check if an earlier opened connection is still open.
 #' @param db rocker object
-#' @param statement Optional SQL statement. If not set default isOpenedConStatement will be used.
+#' @param statement Optional SQL statement. If not set default validateQuery will be used.
 #' @param ... Not used yet
 #' @return TRUE of FALSE
 #' @examples
 #' db <- rocker::newDB()
 #' rocker::setupSQLite(db)
 #' rocker::connect(db)
-#' rocker::isOpenedCon(db)
+#' rocker::validateCon(db)
 #' rocker::disconnect(db)
 #' rocker::unloadDriver(db)
 #' @export
-isOpenedCon <- function(db, statement = NULL, ...) {
-  UseMethod("isOpenedCon", db)
+validateCon <- function(db, statement = NULL, ...) {
+  UseMethod("validateCon", db)
 }
 
 #' @export
-isOpenedCon.rocker <- function(db, statement = NULL, ...) {
-  db$isOpenedCon(statement, ...)
+validateCon.rocker <- function(db, statement = NULL, ...) {
+  db$validateCon(statement, ...)
 }
 
 # isValidRes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

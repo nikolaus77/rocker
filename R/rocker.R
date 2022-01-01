@@ -292,7 +292,7 @@ rocker <- R6::R6Class(
         if (!self$isValidCon())
           TEST <- FALSE
         if (TEST)
-          if (!self$isOpenedCon())
+          if (!self$validateCon())
             TEST <- FALSE
         if (!TEST) {
           private$..con <- NULL
@@ -811,19 +811,19 @@ rocker <- R6::R6Class(
 
     #' @description
     #' Check if an earlier opened connection is still open.
-    #' @param statement Optional SQL statement. If not set default isOpenedConStatement will be used.
+    #' @param statement Optional SQL statement. If not set default validateQuery will be used.
     #' @param ... Not used yet
     #' @return TRUE of FALSE
     #' @examples
     #' db <- rocker::newDB()
     #' db$setupSQLite()
     #' db$connect()
-    #' db$isOpenedCon()
+    #' db$validateCon()
     #' db$disconnect()
     #' db$unloadDriver()
-    isOpenedCon = function(statement = NULL, ...) {
+    validateCon = function(statement = NULL, ...) {
       if (is.null(statement))
-        statement <- private$.isOpenedConStatement
+        statement <- private$.validateQuery
       private$check("res", FALSE)
       if (!is.null(private$..con)) {
         OUTPUT <- tryCatch({
@@ -1147,20 +1147,20 @@ rocker <- R6::R6Class(
       }
     },
 
-    #' @field isOpenedConStatement
-    #' SQL statement used in isOpenedCon
-    isOpenedConStatement = function(VALUE) {
+    #' @field validateQuery
+    #' SQL statement used in validateCon
+    validateQuery = function(VALUE) {
       if (missing(VALUE))
-        return(private$.isOpenedConStatement)
+        return(private$.validateQuery)
       if (is.null(VALUE)) {
-        private$.isOpenedConStatement <- "SELECT 1"
+        private$.validateQuery <- "SELECT 1"
       } else {
         testParameterString(VALUE)
         VALUE <- trimws(VALUE)
         if (nchar(VALUE) > 0) {
-          private$.isOpenedConStatement <- VALUE
+          private$.validateQuery <- VALUE
         } else {
-          private$.isOpenedConStatement <- "SELECT 1"
+          private$.validateQuery <- "SELECT 1"
         }
       }
     }
@@ -1180,7 +1180,7 @@ rocker <- R6::R6Class(
     .info = NULL,
     .verbose = TRUE,
     .id = NULL,
-    .isOpenedConStatement = "SELECT 1",
+    .validateQuery = "SELECT 1",
 
     packages = NULL,
     functions = NULL,
@@ -1250,7 +1250,7 @@ rocker <- R6::R6Class(
           error(ifelse(is.null(private$..con), "Connection not opened", "Connection opened"), WARNING)
         }
         # if (TEST & STATUS) {
-        #   if (!self$isOpenedCon()) {
+        #   if (!self$validateCon()) {
         #     TEST <- FALSE
         #     error("Connection not opened", WARNING)
         #   }

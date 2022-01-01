@@ -101,17 +101,17 @@ test_that("id", {
   rm(db)
 })
 
-test_that("isOpenedConStatement", {
+test_that("validateQuery", {
   db <- rocker::newDB(verbose = FALSE)
-  expect_identical(db$isOpenedConStatement, "SELECT 1")
-  db$isOpenedConStatement <- " \t \r \n "
-  expect_identical(db$isOpenedConStatement, "SELECT 1")
-  db$isOpenedConStatement <- "test"
-  expect_identical(db$isOpenedConStatement, "test")
-  db$isOpenedConStatement <- NULL
-  expect_identical(db$isOpenedConStatement, "SELECT 1")
-  db$isOpenedConStatement <- " test "
-  expect_identical(db$isOpenedConStatement, "test")
+  expect_identical(db$validateQuery, "SELECT 1")
+  db$validateQuery <- " \t \r \n "
+  expect_identical(db$validateQuery, "SELECT 1")
+  db$validateQuery <- "test"
+  expect_identical(db$validateQuery, "test")
+  db$validateQuery <- NULL
+  expect_identical(db$validateQuery, "SELECT 1")
+  db$validateQuery <- " test "
+  expect_identical(db$validateQuery, "test")
   rm(db)
 })
 

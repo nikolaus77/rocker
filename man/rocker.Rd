@@ -356,13 +356,13 @@ db$disconnect()
 db$unloadDriver()
 
 ## ------------------------------------------------
-## Method `rocker$isOpenedCon`
+## Method `rocker$validateCon`
 ## ------------------------------------------------
 
 db <- rocker::newDB()
 db$setupSQLite()
 db$connect()
-db$isOpenedCon()
+db$validateCon()
 db$disconnect()
 db$unloadDriver()
 
@@ -507,7 +507,7 @@ Information on pending transaction.}
 
 \item{\code{id}}{Optional object ID/name}
 
-\item{\code{isOpenedConStatement}}{SQL statement used in isOpenedCon}
+\item{\code{validateQuery}}{SQL statement used in validateCon}
 }
 \if{html}{\out{</div>}}
 }
@@ -543,7 +543,7 @@ Information on pending transaction.}
 \item \href{#method-getInfoRes}{\code{rocker$getInfoRes()}}
 \item \href{#method-isValidDrv}{\code{rocker$isValidDrv()}}
 \item \href{#method-isValidCon}{\code{rocker$isValidCon()}}
-\item \href{#method-isOpenedCon}{\code{rocker$isOpenedCon()}}
+\item \href{#method-validateCon}{\code{rocker$validateCon()}}
 \item \href{#method-isValidRes}{\code{rocker$isValidRes()}}
 \item \href{#method-createTable}{\code{rocker$createTable()}}
 \item \href{#method-appendTable}{\code{rocker$appendTable()}}
@@ -1585,18 +1585,18 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isOpenedCon"></a>}}
-\if{latex}{\out{\hypertarget{method-isOpenedCon}{}}}
-\subsection{Method \code{isOpenedCon()}}{
+\if{html}{\out{<a id="method-validateCon"></a>}}
+\if{latex}{\out{\hypertarget{method-validateCon}{}}}
+\subsection{Method \code{validateCon()}}{
 Check if an earlier opened connection is still open.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$isOpenedCon(statement = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$validateCon(statement = NULL, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{statement}}{Optional SQL statement. If not set default isOpenedConStatement will be used.}
+\item{\code{statement}}{Optional SQL statement. If not set default validateQuery will be used.}
 
 \item{\code{...}}{Not used yet}
 }
@@ -1610,7 +1610,7 @@ TRUE of FALSE
 \preformatted{db <- rocker::newDB()
 db$setupSQLite()
 db$connect()
-db$isOpenedCon()
+db$validateCon()
 db$disconnect()
 db$unloadDriver()
 }
