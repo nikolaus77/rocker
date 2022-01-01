@@ -46,6 +46,7 @@ rocker <- R6::R6Class(
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
       private$check("drv", FALSE)
       self$verbose <- verbose
+      private$.validateQuery <- NULL
       self$id <- id
       if (!is.null(private$.id)) {
         private$note(sprintf("New object id %s", private$textColor(1, private$.id)))
@@ -304,6 +305,8 @@ rocker <- R6::R6Class(
       SETTINGS <- c(list(drv = private$..drv), private$settingsRead(), list(...))
       private$..con <- do.call(DBI::dbConnect, SETTINGS)
       private$check("con", TRUE)
+      if (is.null(private$.validateQuery))
+        private$validateQueryTest()
       private$note("Database connected")
       return(invisible(self))
     },
@@ -822,23 +825,27 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     validateCon = function(statement = NULL, ...) {
-      if (is.null(statement))
-        statement <- private$.validateQuery
-      private$check("res", FALSE)
-      if (!is.null(private$..con)) {
-        OUTPUT <- tryCatch({
+      if (is.null(private$..con)) {
+        OUTPUT <- FALSE
+      } else {
+        private$check("res", FALSE)
+        if (is.null(statement))
+          if (!is.null(private$.validateQuery)) {
+            statement <- private$.validateQuery
+          } else {
+            private$validateQueryTest()
+            statement <- private$.validateQuery
+          }
+          OUTPUT <- tryCatch({
             TMP <- DBI::dbGetQuery(private$..con, statement)
             TRUE
           }, error = function(COND) {
             FALSE
-          }
-        )
-        if (!OUTPUT)
-          error("Connection lost", TRUE)
-      } else {
-        OUTPUT <- FALSE
+          })
+          if (!OUTPUT)
+            error("Connection lost", TRUE)
       }
-      private$note(sprintf("Connection opened %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
+      private$note(sprintf("Connection valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
       return(OUTPUT)
     },
 
@@ -1153,14 +1160,14 @@ rocker <- R6::R6Class(
       if (missing(VALUE))
         return(private$.validateQuery)
       if (is.null(VALUE)) {
-        private$.validateQuery <- "SELECT 1"
+        private$.validateQuery <- NULL
       } else {
         testParameterString(VALUE)
         VALUE <- trimws(VALUE)
         if (nchar(VALUE) > 0) {
           private$.validateQuery <- VALUE
         } else {
-          private$.validateQuery <- "SELECT 1"
+          private$.validateQuery <- NULL
         }
       }
     }
@@ -1180,7 +1187,7 @@ rocker <- R6::R6Class(
     .info = NULL,
     .verbose = TRUE,
     .id = NULL,
-    .validateQuery = "SELECT 1",
+    .validateQuery = NULL,
 
     packages = NULL,
     functions = NULL,
@@ -1297,6 +1304,35 @@ rocker <- R6::R6Class(
         self$.__enclos_env__ <- private$enclosEnvBackup
         private$enclosEnvBackup <- NULL
       }
+    },
+
+    # validation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    validateQueryTest = function() {
+      # Source of queries -> https://github.com/rstudio/pool/blob/main/R/DBI-pool.R
+      QUERY <- c(
+        "SELECT 1",
+        "SELECT 1 FROM DUAL",
+        "SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS",
+        "SELECT * FROM INFORMATION_SCHEMA.TABLES",
+        "VALUES 1",
+        "SELECT 1 FROM SYSIBM.SYSDUMMY1",
+        "select count(*) from systables"
+      )
+      for (i in QUERY) {
+        OUTPUT <- tryCatch({
+          TMP <- DBI::dbGetQuery(private$..con, i)
+          TRUE
+        }, error = function(COND) {
+          FALSE
+        })
+        if (OUTPUT) {
+          private$.validateQuery <- i
+          break
+        }
+      }
+      if (!OUTPUT)
+        error("Please define validateQuery")
     }
 
   )

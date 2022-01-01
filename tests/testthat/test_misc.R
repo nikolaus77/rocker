@@ -103,15 +103,23 @@ test_that("id", {
 
 test_that("validateQuery", {
   db <- rocker::newDB(verbose = FALSE)
-  expect_identical(db$validateQuery, "SELECT 1")
+  expect_null(db$validateQuery)
   db$validateQuery <- " \t \r \n "
-  expect_identical(db$validateQuery, "SELECT 1")
+  expect_null(db$validateQuery)
   db$validateQuery <- "test"
   expect_identical(db$validateQuery, "test")
   db$validateQuery <- NULL
-  expect_identical(db$validateQuery, "SELECT 1")
-  db$validateQuery <- " test "
-  expect_identical(db$validateQuery, "test")
+  expect_null(db$validateQuery)
+  db$setupSQLite()
+  expect_false(db$validateCon())
+  db$connect()
+  expect_true(!is.null(db$validateQuery))
+  expect_true(db$validateCon())
+  db$validateQuery <- NULL
+  expect_true(db$validateCon())
+  expect_true(!is.null(db$validateQuery))
+  db$disconnect()
+  db$unloadDriver()
   rm(db)
 })
 

@@ -48,11 +48,10 @@ testPackageFunctions <- function(PACKAGE, FUNCTIONS) {
   AVAIABLE <- list()
   for (i in FUNCTIONS) {
     AVAIABLE[[i]] <- tryCatch({
-        eval(parse(text = paste0(PACKAGE, "::", i)))
-        TRUE
-      }, error = function(COND) return(FALSE),
-      warning = function(COND) return(FALSE)
-    )
+      eval(parse(text = paste0(PACKAGE, "::", i)))
+      TRUE
+    }, error = function(COND) return(FALSE),
+    warning = function(COND) return(FALSE))
   }
   return(AVAIABLE)
 }
@@ -88,19 +87,17 @@ testParameterWholeNumber <- function(PAR, LENGTH = 1) {
 
 testParameterStringWholeNumber <- function(PAR, LENGTH = 1) {
   OUT1 <- tryCatch({
-      testParameterString(PAR, LENGTH)
-      TRUE
-    }, error = function(COND) {
-      FALSE
-    }
-  )
+    testParameterString(PAR, LENGTH)
+    TRUE
+  }, error = function(COND) {
+    FALSE
+  })
   OUT2 <- tryCatch({
-      testParameterWholeNumber(PAR, LENGTH)
-      TRUE
-    }, error = function(COND) {
-      FALSE
-    }
-  )
+    testParameterWholeNumber(PAR, LENGTH)
+    TRUE
+  }, error = function(COND) {
+    FALSE
+  })
   if (!(OUT1 | OUT2))
     error("Parameter not correct")
 }
