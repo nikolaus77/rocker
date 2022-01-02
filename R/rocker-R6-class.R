@@ -55,8 +55,8 @@ rocker <- R6::R6Class(
       self$verbose <- verbose
       self$validateQuery <- NULL
       self$id <- id
-      if (!is.null(private$.id)) {
-        private$note(sprintf("New object id %s", private$textColor(1, private$.id)))
+      if (!is.null(self$id)) {
+        private$note(sprintf("New object id %s", private$textColor(1, self$id)))
       } else {
         private$note("New object")
       }
@@ -66,21 +66,19 @@ rocker <- R6::R6Class(
     #' Print object information.
     #' @return Invisible self
     print = function() {
-      if (!is.null(private$.id)) {
-        TXT <- c("id", private$textColor(3, private$.id))
+      if (!is.null(self$id)) {
+        TXT <- c("id", private$textColor(3, self$id))
       } else {
         TXT <- c("id", private$textColor(2, "null"))
       }
-      for (i in names(private$.info))
-        TXT <- rbind(TXT, c(i, ifelse(is.null(private$.info[[i]]), private$textColor(2, "null"), private$textColor(1, private$.info[[i]]))))
+      for (i in names(self$info))
+        TXT <- rbind(TXT, c(i, ifelse(is.null(self$info[[i]]), private$textColor(2, "null"), private$textColor(1, self$info[[i]]))))
       TXT <- rbind(
         TXT,
-        c("driver", ifelse(is.null(private$..drv), private$textColor(2, "false"), private$textColor(3, "true"))),
-        c("connection", ifelse(is.null(private$..con), private$textColor(2, "false"), private$textColor(3, "true"))),
-        c("transaction", ifelse(private$.transaction, private$textColor(3, "true"), private$textColor(2, "false"))),
-        c("result", ifelse(is.null(private$..res), private$textColor(2, "false"), private$textColor(3, "true")))
-        # c("settings", ifelse(is.null(private$settings), private$textColor(2, "false"), private$textColor(3, "true")))
-        # c("verbose", ifelse(private$.verbose, private$textColor(3, "true"), private$textColor(2, "false")))
+        c("driver", ifelse(is.null(self$.drv), private$textColor(2, "false"), private$textColor(3, "true"))),
+        c("connection", ifelse(is.null(self$.con), private$textColor(2, "false"), private$textColor(3, "true"))),
+        c("transaction", ifelse(self$transaction, private$textColor(3, "true"), private$textColor(2, "false"))),
+        c("result", ifelse(is.null(self$.res), private$textColor(2, "false"), private$textColor(3, "true")))
       )
       LEN <- max(nchar(TXT[, 1]))
       for (i in seq_len(nrow(TXT)))
@@ -115,9 +113,9 @@ rocker <- R6::R6Class(
       private$enclosEnvProtect()
       private$settingsWrite(SETTINGS)
       SETTINGS <- SETTINGS[!(names(SETTINGS) %in% protect)]
-      private$.info <- c(list(package = attr(class(private$..drv), "package")), SETTINGS)
-      private$note(sprintf("Driver load %s", private$textColor(1, private$.info$package)))
-      private$functions <- testPackageFunctions(private$.info$package, c(
+      private$.info <- c(list(package = attr(class(self$.drv), "package")), SETTINGS)
+      private$note(sprintf("Driver load %s", private$textColor(1, self$info$package)))
+      private$functions <- testPackageFunctions(self$info$package, c(
         "dbUnloadDriver",
         "dbCanConnect",
         "dbConnect",
@@ -148,7 +146,7 @@ rocker <- R6::R6Class(
         "dbGetQuery"
       ))
       if (!all(unlist(private$functions)))
-        error(sprintf("Package %s is not providing all functions: %s", private$.info$package, paste(names(private$functions)[!unlist(private$functions)], collapse = ", ")), TRUE)
+        error(sprintf("Package %s is not providing all functions: %s", self$info$package, paste(names(private$functions)[!unlist(private$functions)], collapse = ", ")), TRUE)
       return(invisible(self))
     },
 
@@ -256,13 +254,13 @@ rocker <- R6::R6Class(
       private$check("con", FALSE)
       private$check("drv", TRUE)
       if (private$functions$dbUnloadDriver)
-        DBI::dbUnloadDriver(private$..drv, ...)
+        DBI::dbUnloadDriver(self$.drv, ...)
       private$..drv <- NULL
       private$key <- NULL
       private$settings <- NULL
       private$functions <- NULL
       private$enclosEnvRestore()
-      private$note(sprintf("Driver unload %s", private$textColor(1, private$.info$package)))
+      private$note(sprintf("Driver unload %s", private$textColor(1, self$info$package)))
       private$.info <- NULL
       return(invisible(self))
     },
@@ -283,7 +281,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "drv")
       private$check("con", FALSE)
       private$check("drv", TRUE)
-      SETTINGS <- c(list(drv = private$..drv), private$settingsRead(), list(...))
+      SETTINGS <- c(list(drv = self$.drv), private$settingsRead(), list(...))
       OUTPUT <- do.call(DBI::dbCanConnect, SETTINGS)
       private$note(sprintf("Can connect %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
       return(OUTPUT)
@@ -303,7 +301,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "drv")
       private$check("drv", TRUE)
-      if (!is.null(private$..con)) {
+      if (!is.null(self$.con)) {
         TEST <- TRUE
         if (!self$isValidCon())
           TEST <- FALSE
@@ -317,10 +315,10 @@ rocker <- R6::R6Class(
       }
       private$check("con", FALSE)
       private$check("drv", TRUE)
-      SETTINGS <- c(list(drv = private$..drv), private$settingsRead(), list(...))
+      SETTINGS <- c(list(drv = self$.drv), private$settingsRead(), list(...))
       private$..con <- do.call(DBI::dbConnect, SETTINGS)
       private$check("con", TRUE)
-      if (is.null(private$.validateQuery))
+      if (is.null(self$validateQuery))
         private$validateQueryTest()
       private$note("Database connected")
       return(invisible(self))
@@ -342,7 +340,7 @@ rocker <- R6::R6Class(
       private$check("tra", FALSE)
       private$check("res", FALSE)
       private$check("con", TRUE)
-      DBI::dbDisconnect(private$..con, ...)
+      DBI::dbDisconnect(self$.con, ...)
       private$..con <- NULL
       private$note("Database disconnected")
       return(invisible(self))
@@ -371,7 +369,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("res", FALSE)
       private$check("con", TRUE)
-      private$..res <- DBI::dbSendQuery(private$..con, statement, ...)
+      private$..res <- DBI::dbSendQuery(self$.con, statement, ...)
       private$check("res", TRUE)
       private$note(sprintf("Send query %s characters", private$textColor(1, as.character(nchar(statement)))))
       return(invisible(self))
@@ -398,17 +396,17 @@ rocker <- R6::R6Class(
       testParameterStringWholeNumber(n)
       testDots(list(...))
       testParameterNames(list(...), "conn")
-      if (is.null(private$..con)) {
+      if (is.null(self$.con)) {
         self$connect()
         on.exit(self$disconnect())
       }
       self$sendQuery(statement, ...)
       OUTPUT <- self$fetch(n)
-      if (private$.verbose & private$functions$dbGetRowCount)
+      if (self$verbose & private$functions$dbGetRowCount)
         TOTAL <- self$getRowCount()
       while (!self$hasCompleted()) {
         OUTPUT <- rbind(OUTPUT, self$fetch(n))
-        if (private$.verbose & private$functions$dbGetRowCount)
+        if (self$verbose & private$functions$dbGetRowCount)
           TOTAL <- self$getRowCount()
       }
       self$clearResult()
@@ -435,7 +433,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("res", FALSE)
       private$check("con", TRUE)
-      private$..res <- DBI::dbSendStatement(private$..con, statement, ...)
+      private$..res <- DBI::dbSendStatement(self$.con, statement, ...)
       private$check("res", TRUE)
       private$note(sprintf("Send statement %s characters", private$textColor(1, as.character(nchar(statement)))))
       return(invisible(self))
@@ -460,7 +458,7 @@ rocker <- R6::R6Class(
       testParameterString(statement)
       testDots(list(...))
       testParameterNames(list(...), "conn")
-      if (is.null(private$..con)) {
+      if (is.null(self$.con)) {
         self$connect()
         on.exit(self$disconnect())
       }
@@ -490,7 +488,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      OUTPUT <- DBI::dbFetch(private$..res, n, ...)
+      OUTPUT <- DBI::dbFetch(self$.res, n, ...)
       private$note(sprintf("Fetch rows %s -> Received %s rows, %s columns, %s bytes", private$textColor(1, ifelse(n == -1, "all", as.character(n))), private$textColor(1, as.character(nrow(OUTPUT))), private$textColor(1, as.character(ncol(OUTPUT))), private$textColor(1, as.character(as.numeric(object.size(OUTPUT))))))
       return(OUTPUT)
     },
@@ -514,7 +512,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      COMPLETED <- DBI::dbHasCompleted(private$..res, ...)
+      COMPLETED <- DBI::dbHasCompleted(self$.res, ...)
       private$note(sprintf("Has completed %s", private$textColor(1, ifelse(COMPLETED, "yes", "no"))))
       return(COMPLETED)
     },
@@ -537,7 +535,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      ROWS <- DBI::dbGetRowsAffected(private$..res, ...)
+      ROWS <- DBI::dbGetRowsAffected(self$.res, ...)
       private$note(sprintf("Rows affected %s", private$textColor(1, as.character(ROWS))))
       return(ROWS)
     },
@@ -561,7 +559,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      ROWS <- DBI::dbGetRowCount(private$..res, ...)
+      ROWS <- DBI::dbGetRowCount(self$.res, ...)
       private$note(sprintf("Rows fetched %s", private$textColor(1, as.character(ROWS))))
       return(ROWS)
     },
@@ -584,7 +582,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      OUTPUT <- DBI::dbColumnInfo(private$..res, ...)
+      OUTPUT <- DBI::dbColumnInfo(self$.res, ...)
       private$note(sprintf("Column info %s", private$textColor(1, paste(sprintf("%s (%s)", OUTPUT$name, OUTPUT$type), collapse = ", "))))
       return(OUTPUT)
     },
@@ -607,7 +605,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      OUTPUT <- DBI::dbGetStatement(private$..res, ...)
+      OUTPUT <- DBI::dbGetStatement(self$.res, ...)
       private$note(sprintf("Statement %s", private$textColor(1, OUTPUT)))
       return(OUTPUT)
     },
@@ -630,7 +628,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
-      DBI::dbClearResult(private$..res, ...)
+      DBI::dbClearResult(self$.res, ...)
       private$..res <- NULL
       private$note("Clear result")
       return(invisible(self))
@@ -659,7 +657,7 @@ rocker <- R6::R6Class(
       private$check("tra", FALSE)
       private$check("res", FALSE)
       private$check("con", TRUE)
-      OUTPUT <- DBI::dbBegin(private$..con, ...)
+      OUTPUT <- DBI::dbBegin(self$.con, ...)
       if (!OUTPUT)
         error("Begin failed")
       private$.transaction <- TRUE
@@ -688,7 +686,7 @@ rocker <- R6::R6Class(
       private$check("tra", TRUE)
       private$check("res", FALSE)
       private$check("con", TRUE)
-      OUTPUT <- DBI::dbCommit(private$..con, ...)
+      OUTPUT <- DBI::dbCommit(self$.con, ...)
       if (!OUTPUT)
         error("Commit failed")
       private$.transaction <- FALSE
@@ -717,7 +715,7 @@ rocker <- R6::R6Class(
       private$check("tra", TRUE)
       private$check("res", FALSE)
       private$check("con", TRUE)
-      OUTPUT <- DBI::dbRollback(private$..con, ...)
+      OUTPUT <- DBI::dbRollback(self$.con, ...)
       if (!OUTPUT)
         error("Rollback failed")
       private$.transaction <- FALSE
@@ -740,7 +738,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
       private$check("drv", TRUE)
-      OUTPUT <- DBI::dbGetInfo(private$..drv, ...)
+      OUTPUT <- DBI::dbGetInfo(self$.drv, ...)
       TXT <- NULL
       for (i in names(OUTPUT))
         TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
@@ -763,7 +761,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
       private$check("con", TRUE)
-      OUTPUT <- DBI::dbGetInfo(private$..con, ...)
+      OUTPUT <- DBI::dbGetInfo(self$.con, ...)
       TXT <- NULL
       for (i in names(OUTPUT))
         TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
@@ -789,7 +787,7 @@ rocker <- R6::R6Class(
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
       private$check("res", TRUE)
-      OUTPUT <- DBI::dbGetInfo(private$..res, ...)
+      OUTPUT <- DBI::dbGetInfo(self$.res, ...)
       TXT <- NULL
       for (i in names(OUTPUT))
         TXT <- c(TXT, sprintf("%s (%s)", OUTPUT[[i]], i))
@@ -809,8 +807,8 @@ rocker <- R6::R6Class(
     isValidDrv = function(...) {
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
-      if (!is.null(private$..drv)) {
-        OUTPUT <- DBI::dbIsValid(private$..drv, ...)
+      if (!is.null(self$.drv)) {
+        OUTPUT <- DBI::dbIsValid(self$.drv, ...)
         if (!OUTPUT) {
           private$..drv <- NULL
           error("Driver lost", TRUE)
@@ -836,8 +834,8 @@ rocker <- R6::R6Class(
     isValidCon = function(...) {
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
-      if (!is.null(private$..con)) {
-        OUTPUT <- DBI::dbIsValid(private$..con, ...)
+      if (!is.null(self$.con)) {
+        OUTPUT <- DBI::dbIsValid(self$.con, ...)
         if (!OUTPUT)
           error("Connection lost", TRUE)
       } else {
@@ -861,19 +859,19 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     validateCon = function(statement = NULL, ...) {
       testDots(list(...))
-      if (is.null(private$..con)) {
+      if (is.null(self$.con)) {
         OUTPUT <- FALSE
       } else {
         private$check("res", FALSE)
         if (is.null(statement))
-          if (!is.null(private$.validateQuery)) {
-            statement <- private$.validateQuery
+          if (!is.null(self$validateQuery)) {
+            statement <- self$validateQuery
           } else {
             private$validateQueryTest()
-            statement <- private$.validateQuery
+            statement <- self$validateQuery
           }
           OUTPUT <- tryCatch({
-            TMP <- DBI::dbGetQuery(private$..con, statement)
+            TMP <- DBI::dbGetQuery(self$.con, statement)
             TRUE
           }, error = function(COND) {
             FALSE
@@ -902,8 +900,8 @@ rocker <- R6::R6Class(
     isValidRes = function(...) {
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
-      if (!is.null(private$..res)) {
-        OUTPUT <- DBI::dbIsValid(private$..res, ...)
+      if (!is.null(self$.res)) {
+        OUTPUT <- DBI::dbIsValid(self$.res, ...)
         if (!OUTPUT) {
           private$..res <- NULL
           error("Result lost", TRUE)
@@ -937,7 +935,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      DBI::dbCreateTable(private$..con, name, fields, ...)
+      DBI::dbCreateTable(self$.con, name, fields, ...)
       private$note(sprintf("Create table %s columns %s", private$textColor(1, name), private$textColor(1, paste(colnames(fields), collapse = ", "))))
       return(invisible(self))
     },
@@ -963,7 +961,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      ROWS <- DBI::dbAppendTable(private$..con, name, value, ...)
+      ROWS <- DBI::dbAppendTable(self$.con, name, value, ...)
       private$note(sprintf("Append table %s rows %s", private$textColor(1, name), private$textColor(1, as.character(ROWS))))
       return(invisible(ROWS))
     },
@@ -988,7 +986,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      DBI::dbWriteTable(private$..con, name, value, ...)
+      DBI::dbWriteTable(self$.con, name, value, ...)
       private$note(sprintf("Write table %s columns %s rows %s", private$textColor(1, name), private$textColor(1, paste(colnames(value), collapse = ", ")), private$textColor(1, as.character(nrow(value)))))
       return(invisible(self))
     },
@@ -1012,7 +1010,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      TAB <- DBI::dbReadTable(private$..con, name, ...)
+      TAB <- DBI::dbReadTable(self$.con, name, ...)
       private$note(sprintf("Read table %s columns %s rows %s", private$textColor(1, name), private$textColor(1, as.character(ncol(TAB))), private$textColor(1, as.character(nrow(TAB)))))
       return(TAB)
     },
@@ -1036,7 +1034,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      DBI::dbRemoveTable(private$..con, name, ...)
+      DBI::dbRemoveTable(self$.con, name, ...)
       private$note(sprintf("Remove table %s", private$textColor(1, name)))
       return(invisible(self))
     },
@@ -1060,7 +1058,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      EXISTS <- DBI::dbExistsTable(private$..con, name, ...)
+      EXISTS <- DBI::dbExistsTable(self$.con, name, ...)
       private$note(sprintf("Exists %s table %s",  private$textColor(1, name), private$textColor(1, ifelse(EXISTS, "true", "false"))))
       return(EXISTS)
     },
@@ -1085,7 +1083,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      COLUMNS <- DBI::dbListFields(private$..con, name, ...)
+      COLUMNS <- DBI::dbListFields(self$.con, name, ...)
       private$note(sprintf("Table %s fields %s", private$textColor(1, name), private$textColor(1, paste(COLUMNS, collapse = ", "))))
       return(COLUMNS)
     },
@@ -1106,7 +1104,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      OBJECTS <- DBI::dbListObjects(private$..con, ...)
+      OBJECTS <- DBI::dbListObjects(self$.con, ...)
       private$note(sprintf("Objects %s", private$textColor(1, nrow(OBJECTS))))
       return(OBJECTS)
     },
@@ -1127,7 +1125,7 @@ rocker <- R6::R6Class(
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
-      TABLES <- DBI::dbListTables(private$..con, ...)
+      TABLES <- DBI::dbListTables(self$.con, ...)
       private$note(sprintf("Tables %s", private$textColor(1, paste(TABLES, collapse = ", "))))
       return(TABLES)
     }
@@ -1254,15 +1252,15 @@ rocker <- R6::R6Class(
     # comm ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     note = function(TEXT) {
-      if (private$.verbose) {
+      if (self$verbose) {
         STATUS <- paste0(
-          ifelse(is.null(private$..drv), private$textColor(2, "d"), private$textColor(3, "D")),
-          ifelse(is.null(private$..con), private$textColor(2, "c"), private$textColor(3, "C")),
-          ifelse(private$.transaction, private$textColor(3, "T"), private$textColor(2, "t")),
-          ifelse(is.null(private$..res), private$textColor(2, "r"), private$textColor(3, "R"))
+          ifelse(is.null(self$.drv), private$textColor(2, "d"), private$textColor(3, "D")),
+          ifelse(is.null(self$.con), private$textColor(2, "c"), private$textColor(3, "C")),
+          ifelse(self$transaction, private$textColor(3, "T"), private$textColor(2, "t")),
+          ifelse(is.null(self$.res), private$textColor(2, "r"), private$textColor(3, "R"))
         )
-        if (!is.null(private$.id)) {
-          INFO <- private$textColor(4, private$.id)
+        if (!is.null(self$id)) {
+          INFO <- private$textColor(4, self$id)
           cat(INFO, "|", STATUS, "|", TEXT, "\n")
         } else {
           cat(STATUS, "|", TEXT, "\n")
@@ -1288,35 +1286,29 @@ rocker <- R6::R6Class(
     # check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     check = function(PAR, STATUS, WARNING = FALSE) {
-      VERBOSE <- private$.verbose
+      VERBOSE <- self$verbose
       self$verbose <- FALSE
       on.exit(self$verbose <- VERBOSE)
       TEST <- TRUE
       if (PAR == "drv") {
         if (self$isValidDrv() != STATUS) {
           TEST <- FALSE
-          error(ifelse(is.null(private$..drv), "Driver not set", "Driver set"), WARNING)
+          error(ifelse(is.null(self$.drv), "Driver not set", "Driver set"), WARNING)
         }
       } else if (PAR == "con") {
         if (self$isValidCon() != STATUS) {
           TEST <- FALSE
-          error(ifelse(is.null(private$..con), "Connection not opened", "Connection opened"), WARNING)
+          error(ifelse(is.null(self$.con), "Connection not opened", "Connection opened"), WARNING)
         }
-        # if (TEST & STATUS) {
-        #   if (!self$validateCon()) {
-        #     TEST <- FALSE
-        #     error("Connection not opened", WARNING)
-        #   }
-        # }
       } else if (PAR == "res") {
         if (self$isValidRes() != STATUS) {
           TEST <- FALSE
-          error(ifelse(is.null(private$..res), "No result", "Result pending"), WARNING)
+          error(ifelse(is.null(self$.res), "No result", "Result pending"), WARNING)
         }
       } else if (PAR == "tra") {
-        if (private$.transaction != STATUS) {
+        if (self$transaction != STATUS) {
           TEST <- FALSE
-          error(ifelse(private$.transaction, "Transaction pending", "No transaction"), WARNING)
+          error(ifelse(self$transaction, "Transaction pending", "No transaction"), WARNING)
         }
       }
       return(invisible(TEST))
@@ -1367,7 +1359,7 @@ rocker <- R6::R6Class(
       )
       for (i in QUERY) {
         OUTPUT <- tryCatch({
-          TMP <- DBI::dbGetQuery(private$..con, i)
+          TMP <- DBI::dbGetQuery(self$.con, i)
           TRUE
         }, error = function(COND) {
           FALSE
