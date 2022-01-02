@@ -178,41 +178,56 @@ db$info
 
 ``` r
 db
-#> id          null
-#> package     RPostgres
-#> host        127.0.0.1
-#> port        5432
-#> dbname      mydb
-#> driver      true
-#> connection  false
-#> transaction false
-#> result      false
+#> object          
+#>   id            null
+#>   verbose       true
+#>   validateQuery null
+#> database        
+#>   package       RPostgres
+#>   host          127.0.0.1
+#>   port          5432
+#>   dbname        mydb
+#> status          
+#>   driver        true
+#>   connection    false
+#>   transaction   false
+#>   result        false
 ```
 
 ``` r
 db$print()
-#> id          null
-#> package     RPostgres
-#> host        127.0.0.1
-#> port        5432
-#> dbname      mydb
-#> driver      true
-#> connection  false
-#> transaction false
-#> result      false
+#> object          
+#>   id            null
+#>   verbose       true
+#>   validateQuery null
+#> database        
+#>   package       RPostgres
+#>   host          127.0.0.1
+#>   port          5432
+#>   dbname        mydb
+#> status          
+#>   driver        true
+#>   connection    false
+#>   transaction   false
+#>   result        false
 ```
 
 ``` r
 print(db)
-#> id          null
-#> package     RPostgres
-#> host        127.0.0.1
-#> port        5432
-#> dbname      mydb
-#> driver      true
-#> connection  false
-#> transaction false
-#> result      false
+#> object          
+#>   id            null
+#>   verbose       true
+#>   validateQuery null
+#> database        
+#>   package       RPostgres
+#>   host          127.0.0.1
+#>   port          5432
+#>   dbname        mydb
+#> status          
+#>   driver        true
+#>   connection    false
+#>   transaction   false
+#>   result        false
 ```
 
 ``` r

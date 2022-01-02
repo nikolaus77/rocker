@@ -66,19 +66,24 @@ rocker <- R6::R6Class(
     #' Print object information.
     #' @return Invisible self
     print = function() {
-      if (!is.null(self$id)) {
-        TXT <- c("id", private$textColor(3, self$id))
-      } else {
-        TXT <- c("id", private$textColor(2, "null"))
+      TXT <- rbind(
+        c("object", ""),
+        c("  id", ifelse(is.null(self$id), private$textColor(2, "null"), private$textColor(3, self$id))),
+        c("  verbose", ifelse(self$verbose, private$textColor(3, "true"), private$textColor(2, "false"))),
+        c("  validateQuery", ifelse(is.null(self$validateQuery), private$textColor(2, "null"), private$textColor(3, self$validateQuery)))
+      )
+      if (!is.null(self$info)) {
+        TXT <- rbind(TXT, c("database", ""))
+        for (i in names(self$info))
+          TXT <- rbind(TXT, c(paste0("  ", i), ifelse(is.null(self$info[[i]]), private$textColor(2, "null"), private$textColor(1, self$info[[i]]))))
       }
-      for (i in names(self$info))
-        TXT <- rbind(TXT, c(i, ifelse(is.null(self$info[[i]]), private$textColor(2, "null"), private$textColor(1, self$info[[i]]))))
       TXT <- rbind(
         TXT,
-        c("driver", ifelse(is.null(self$.drv), private$textColor(2, "false"), private$textColor(3, "true"))),
-        c("connection", ifelse(is.null(self$.con), private$textColor(2, "false"), private$textColor(3, "true"))),
-        c("transaction", ifelse(self$transaction, private$textColor(3, "true"), private$textColor(2, "false"))),
-        c("result", ifelse(is.null(self$.res), private$textColor(2, "false"), private$textColor(3, "true")))
+        c("status", ""),
+        c("  driver", ifelse(is.null(self$.drv), private$textColor(2, "false"), private$textColor(3, "true"))),
+        c("  connection", ifelse(is.null(self$.con), private$textColor(2, "false"), private$textColor(3, "true"))),
+        c("  transaction", ifelse(self$transaction, private$textColor(3, "true"), private$textColor(2, "false"))),
+        c("  result", ifelse(is.null(self$.res), private$textColor(2, "false"), private$textColor(3, "true")))
       )
       LEN <- max(nchar(TXT[, 1]))
       for (i in seq_len(nrow(TXT)))

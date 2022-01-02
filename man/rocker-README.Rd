@@ -103,35 +103,50 @@ print function.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- ro
 ## $dbname
 ## [1] "mydb"
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{db
-}\if{html}{\out{</div>}}\preformatted{## id          null
-## package     RPostgres
-## host        127.0.0.1
-## port        5432
-## dbname      mydb
-## driver      true
-## connection  false
-## transaction false
-## result      false
+}\if{html}{\out{</div>}}\preformatted{## object          
+##   id            null
+##   verbose       true
+##   validateQuery null
+## database        
+##   package       RPostgres
+##   host          127.0.0.1
+##   port          5432
+##   dbname        mydb
+## status          
+##   driver        true
+##   connection    false
+##   transaction   false
+##   result        false
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$print()
-}\if{html}{\out{</div>}}\preformatted{## id          null
-## package     RPostgres
-## host        127.0.0.1
-## port        5432
-## dbname      mydb
-## driver      true
-## connection  false
-## transaction false
-## result      false
+}\if{html}{\out{</div>}}\preformatted{## object          
+##   id            null
+##   verbose       true
+##   validateQuery null
+## database        
+##   package       RPostgres
+##   host          127.0.0.1
+##   port          5432
+##   dbname        mydb
+## status          
+##   driver        true
+##   connection    false
+##   transaction   false
+##   result        false
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{print(db)
-}\if{html}{\out{</div>}}\preformatted{## id          null
-## package     RPostgres
-## host        127.0.0.1
-## port        5432
-## dbname      mydb
-## driver      true
-## connection  false
-## transaction false
-## result      false
+}\if{html}{\out{</div>}}\preformatted{## object          
+##   id            null
+##   verbose       true
+##   validateQuery null
+## database        
+##   package       RPostgres
+##   host          127.0.0.1
+##   port          5432
+##   dbname        mydb
+## status          
+##   driver        true
+##   connection    false
+##   transaction   false
+##   result        false
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
 }\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RPostgres
 }
