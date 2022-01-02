@@ -99,3 +99,45 @@ print(db)
 db$unloadDriver()
 ```
 
+__Connection validation -- Is the earlier opened database connection still open?__
+
+```{r}
+db <- rocker::newDB() # New database handling object
+db$setupSQLite()
+db$print()
+```
+
+During connection setup, a validateQuery is looked up automatically.
+
+```{r}
+db$connect()
+db$print()
+```
+
+Discovered validateQuery
+
+```{r}
+db$validateQuery
+```
+
+Validate connection
+
+```{r}
+db$validateCon()
+```
+
+If required, validateQuery can be defined manually.
+
+```{r}
+db$validateQuery <- "SELECT 2"
+db$validateCon()
+db$print()
+```
+
+Clean up
+
+```{r}
+db$disconnect()
+db$validateCon()
+db$unloadDriver()
+```

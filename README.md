@@ -235,6 +235,98 @@ db$unloadDriver()
 #> dctr | Driver unload RPostgres
 ```
 
+**Connection validation – Is the earlier opened database connection
+still open?**
+
+``` r
+db <- rocker::newDB() # New database handling object
+#> dctr | New object
+db$setupSQLite()
+#> Dctr | Driver load RSQLite
+db$print()
+#> object          
+#>   id            null
+#>   verbose       true
+#>   validateQuery null
+#> database        
+#>   package       RSQLite
+#>   dbname        :memory:
+#> status          
+#>   driver        true
+#>   connection    false
+#>   transaction   false
+#>   result        false
+```
+
+During connection setup, a validateQuery is looked up automatically.
+
+``` r
+db$connect()
+#> DCtr | Database connected
+db$print()
+#> object          
+#>   id            null
+#>   verbose       true
+#>   validateQuery SELECT 1
+#> database        
+#>   package       RSQLite
+#>   dbname        :memory:
+#> status          
+#>   driver        true
+#>   connection    true
+#>   transaction   false
+#>   result        false
+```
+
+Discovered validateQuery
+
+``` r
+db$validateQuery
+#> [1] "SELECT 1"
+```
+
+Validate connection
+
+``` r
+db$validateCon()
+#> DCtr | Connection valid true
+#> [1] TRUE
+```
+
+If required, validateQuery can be defined manually.
+
+``` r
+db$validateQuery <- "SELECT 2"
+db$validateCon()
+#> DCtr | Connection valid true
+#> [1] TRUE
+db$print()
+#> object          
+#>   id            null
+#>   verbose       true
+#>   validateQuery SELECT 2
+#> database        
+#>   package       RSQLite
+#>   dbname        :memory:
+#> status          
+#>   driver        true
+#>   connection    true
+#>   transaction   false
+#>   result        false
+```
+
+Clean up
+
+``` r
+db$disconnect()
+#> Dctr | Database disconnected
+db$validateCon()
+#> Dctr | Connection valid false
+#> [1] FALSE
+db$unloadDriver()
+#> dctr | Driver unload RSQLite
+```
+
 # Additional packages and database types
 
 The listed packages are required for some functions of *rocker*.

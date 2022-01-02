@@ -150,6 +150,83 @@ print function.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- ro
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
 }\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RPostgres
 }
+
+\strong{Connection validation – Is the earlier opened database connection
+still open?}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupSQLite()
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$print()
+}\if{html}{\out{</div>}}\preformatted{## object          
+##   id            null
+##   verbose       true
+##   validateQuery null
+## database        
+##   package       RSQLite
+##   dbname        :memory:
+## status          
+##   driver        true
+##   connection    false
+##   transaction   false
+##   result        false
+}
+
+During connection setup, a validateQuery is looked up automatically.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect()
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$print()
+}\if{html}{\out{</div>}}\preformatted{## object          
+##   id            null
+##   verbose       true
+##   validateQuery SELECT 1
+## database        
+##   package       RSQLite
+##   dbname        :memory:
+## status          
+##   driver        true
+##   connection    true
+##   transaction   false
+##   result        false
+}
+
+Discovered validateQuery\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$validateQuery
+}\if{html}{\out{</div>}}\preformatted{## [1] "SELECT 1"
+}
+
+Validate connection\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$validateCon()
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Connection valid true
+
+## [1] TRUE
+}
+
+If required, validateQuery can be defined manually.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$validateQuery <- "SELECT 2"
+db$validateCon()
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Connection valid true
+
+## [1] TRUE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$print()
+}\if{html}{\out{</div>}}\preformatted{## object          
+##   id            null
+##   verbose       true
+##   validateQuery SELECT 2
+## database        
+##   package       RSQLite
+##   dbname        :memory:
+## status          
+##   driver        true
+##   connection    true
+##   transaction   false
+##   result        false
+}
+
+Clean up\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect()
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$validateCon()
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Connection valid false
+
+## [1] FALSE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}
 }
 
 \section{Additional packages and database types}{
