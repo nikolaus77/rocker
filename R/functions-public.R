@@ -9,5 +9,6 @@
 #' @examples
 #' db <- rocker::newDB()
 #' @export
+#' @family rocker
 newDB <- function(verbose = TRUE, id = NULL, ...)
   return(rocker$new(verbose, id, ...))

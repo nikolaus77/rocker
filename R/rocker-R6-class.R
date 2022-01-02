@@ -1,5 +1,5 @@
 
-#' Database Interface Class
+#' 'rocker' Database Interface R6 Class
 #'
 #' @description
 #' \link{R6} class interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
@@ -19,7 +19,13 @@
 #' db$disconnect()
 #' # Reset database handling object
 #' db$unloadDriver()
+#' @name rocker-R6-class
+#' @family rocker
+#' @aliases rocker
+NULL
+
 #' @export
+#' @rdname rocker-R6-class
 rocker <- R6::R6Class(
 
   class = TRUE,

@@ -23,3 +23,9 @@ For more information, see \link[rocker:rocker]{rocker} class description.
 \examples{
 db <- rocker::newDB()
 }
+\seealso{
+Other rocker: 
+\code{\link{rocker-R6-class}},
+\code{\link{rocker-S3-functions}}
+}
+\concept{rocker}
