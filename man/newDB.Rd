@@ -26,6 +26,8 @@ db <- rocker::newDB()
 \seealso{
 Other rocker: 
 \code{\link{rocker-R6-class}},
-\code{\link{rocker-S3-functions}}
+\code{\link{rocker-README}},
+\code{\link{rocker-S3-functions}},
+\code{\link{rocker-package}}
 }
 \concept{rocker}

@@ -487,7 +487,9 @@ db$disconnect()
 \seealso{
 Other rocker: 
 \code{\link{newDB}()},
-\code{\link{rocker-S3-functions}}
+\code{\link{rocker-README}},
+\code{\link{rocker-S3-functions}},
+\code{\link{rocker-package}}
 }
 \concept{rocker}
 \section{Active bindings}{
