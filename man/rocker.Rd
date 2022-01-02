@@ -599,7 +599,7 @@ Invisible self
 \subsection{Method \code{setupDriver()}}{
 Setup database driver and define connection parameters.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$setupDriver(drv, ..., protect = c("password", "user"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$setupDriver(drv, protect = c("password", "user"), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -607,9 +607,9 @@ Setup database driver and define connection parameters.
 \describe{
 \item{\code{drv}}{Driver object from suitable package e.g. \code{\link[RPostgres:Postgres]{RPostgres::Postgres()}}, \code{\link[RMariaDB:MariaDBDriver-class]{RMariaDB::MariaDB()}} and \code{\link[RSQLite:SQLite]{RSQLite::SQLite()}}}
 
-\item{\code{...}}{Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password}
-
 \item{\code{protect}}{Parameters to be hidden}
+
+\item{\code{...}}{Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password}
 }
 \if{html}{\out{</div>}}
 }
@@ -643,8 +643,8 @@ Wrapper for setupDriver() function.
   dbname = "mydb",
   user = "postgres",
   password = "password",
-  ...,
-  protect = c("password", "user")
+  protect = c("password", "user"),
+  ...
 )}\if{html}{\out{</div>}}
 }
 
@@ -661,9 +661,9 @@ Wrapper for setupDriver() function.
 
 \item{\code{password}}{Password}
 
-\item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
-
 \item{\code{protect}}{Parameters to be hidden}
+
+\item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
 }
 \if{html}{\out{</div>}}
 }
@@ -697,8 +697,8 @@ Wrapper for setupDriver() function.
   dbname = "mydb",
   user = "root",
   password = "password",
-  ...,
-  protect = c("password", "user")
+  protect = c("password", "user"),
+  ...
 )}\if{html}{\out{</div>}}
 }
 
@@ -715,9 +715,9 @@ Wrapper for setupDriver() function.
 
 \item{\code{password}}{Password}
 
-\item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
-
 \item{\code{protect}}{Parameters to be hidden}
+
+\item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
 }
 \if{html}{\out{</div>}}
 }
@@ -745,7 +745,7 @@ db$unloadDriver()
 Setup database driver and define connection parameters for SQLite using \link[RSQLite:SQLite]{RSQLite} package.
 Wrapper for setupDriver() function.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$setupSQLite(dbname = ":memory:", ..., protect = c("password", "user"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$setupSQLite(dbname = ":memory:", protect = c("password", "user"), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -753,9 +753,9 @@ Wrapper for setupDriver() function.
 \describe{
 \item{\code{dbname}}{Database name}
 
-\item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
-
 \item{\code{protect}}{Parameters to be hidden}
+
+\item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
 }
 \if{html}{\out{</div>}}
 }

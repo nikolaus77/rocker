@@ -12,8 +12,8 @@ setupPostgreSQL(
   dbname = "mydb",
   user = "postgres",
   password = "password",
-  ...,
-  protect = c("password", "user")
+  protect = c("password", "user"),
+  ...
 )
 }
 \arguments{
@@ -29,9 +29,9 @@ setupPostgreSQL(
 
 \item{password}{Password}
 
-\item{...}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
-
 \item{protect}{Parameters to be hidden}
+
+\item{...}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
 }
 \value{
 Invisible self

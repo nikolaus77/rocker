@@ -43,10 +43,11 @@ rocker <- R6::R6Class(
       testParameterBoolean(verbose)
       if (!is.null(id))
         testParameterString(id)
+      testDots(list(...))
       private$packages <- testPackages(c("crayon", "RMariaDB", "RPostgres", "RSQLite"))
       private$check("drv", FALSE)
       self$verbose <- verbose
-      private$.validateQuery <- NULL
+      self$validateQuery <- NULL
       self$id <- id
       if (!is.null(private$.id)) {
         private$note(sprintf("New object id %s", private$textColor(1, private$.id)))
@@ -86,8 +87,8 @@ rocker <- R6::R6Class(
     #' @description
     #' Setup database driver and define connection parameters.
     #' @param drv Driver object from suitable package e.g. \code{\link[RPostgres:Postgres]{RPostgres::Postgres()}}, \code{\link[RMariaDB:MariaDBDriver-class]{RMariaDB::MariaDB()}} and \code{\link[RSQLite:SQLite]{RSQLite::SQLite()}}
-    #' @param ... Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password
     #' @param protect Parameters to be hidden
+    #' @param ... Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password
     #' @return Invisible self
     #' @examples
     #' db <- rocker::newDB()
@@ -96,7 +97,7 @@ rocker <- R6::R6Class(
     #'   dbname = ":memory:"
     #' )
     #' db$unloadDriver()
-    setupDriver = function(drv, ..., protect = c("password", "user")) {
+    setupDriver = function(drv, protect = c("password", "user"), ...) {
       testParameterObject(drv)
       if (!is.null(protect))
         testParameterString(protect, NA)
@@ -104,6 +105,7 @@ rocker <- R6::R6Class(
       private$..drv <- drv
       private$check("drv", TRUE)
       SETTINGS <- list(...)
+      testDots(SETTINGS)
       private$enclosEnvProtect()
       private$settingsWrite(SETTINGS)
       SETTINGS <- SETTINGS[!(names(SETTINGS) %in% protect)]
@@ -152,8 +154,8 @@ rocker <- R6::R6Class(
     #' @param dbname Database name
     #' @param user User name
     #' @param password Password
-    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @param protect Parameters to be hidden
+    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @return Invisible self
     #' @examples
     #' db <- rocker::newDB()
@@ -162,7 +164,7 @@ rocker <- R6::R6Class(
     #'   user = "postgres", password = "password"
     #' )
     #' db$unloadDriver()
-    setupPostgreSQL = function(host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
+    setupPostgreSQL = function(host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", protect = c("password", "user"), ...) {
       if (!private$packages$RPostgres)
         error("Package RPostgres not installed")
       testParameterString(host)
@@ -172,8 +174,9 @@ rocker <- R6::R6Class(
       testParameterString(password)
       if (!is.null(protect))
         testParameterString(protect, NA)
+      testDots(list(...))
       testParameterNames(list(...), "drv")
-      return(self$setupDriver(RPostgres::Postgres(), host = host, port = port, dbname = dbname, user = user, password = password, ..., protect = protect))
+      return(self$setupDriver(RPostgres::Postgres(), host = host, port = port, dbname = dbname, user = user, password = password, protect = protect, ...))
     },
 
     #' @description
@@ -184,8 +187,8 @@ rocker <- R6::R6Class(
     #' @param dbname Database name
     #' @param user User name
     #' @param password Password
-    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @param protect Parameters to be hidden
+    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @return Invisible self
     #' @examples
     #' db <- rocker::newDB()
@@ -194,7 +197,7 @@ rocker <- R6::R6Class(
     #'   user = "root", password = "password"
     #' )
     #' db$unloadDriver()
-    setupMariaDB = function(host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
+    setupMariaDB = function(host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", protect = c("password", "user"), ...) {
       if (!private$packages$RMariaDB)
         error("Package RMariaDB not installed")
       testParameterString(host)
@@ -204,16 +207,17 @@ rocker <- R6::R6Class(
       testParameterString(password)
       if (!is.null(protect))
         testParameterString(protect, NA)
+      testDots(list(...))
       testParameterNames(list(...), "drv")
-      return(self$setupDriver(RMariaDB::MariaDB(), host = host, port = port, dbname = dbname, user = user, password = password, ..., protect = protect))
+      return(self$setupDriver(RMariaDB::MariaDB(), host = host, port = port, dbname = dbname, user = user, password = password, protect = protect, ...))
     },
 
     #' @description
     #' Setup database driver and define connection parameters for SQLite using \link[RSQLite:SQLite]{RSQLite} package.
     #' Wrapper for setupDriver() function.
     #' @param dbname Database name
-    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @param protect Parameters to be hidden
+    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
     #' @return Invisible self
     #' @examples
     #' db <- rocker::newDB()
@@ -221,14 +225,15 @@ rocker <- R6::R6Class(
     #'   dbname = ":memory:"
     #' )
     #' db$unloadDriver()
-    setupSQLite = function(dbname = ":memory:", ..., protect = c("password", "user")) {
+    setupSQLite = function(dbname = ":memory:", protect = c("password", "user"), ...) {
       if (!private$packages$RSQLite)
         error("Package RSQLite not installed")
       testParameterString(dbname)
       if (!is.null(protect))
         testParameterString(protect, NA)
+      testDots(list(...))
       testParameterNames(list(...), "drv")
-      return(self$setupDriver(RSQLite::SQLite(), dbname = dbname, ..., protect = protect))
+      return(self$setupDriver(RSQLite::SQLite(), dbname = dbname, protect = protect, ...))
     },
 
     #' @description
@@ -240,6 +245,7 @@ rocker <- R6::R6Class(
     #' db$setupSQLite()
     #' db$unloadDriver()
     unloadDriver = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "drv")
       private$check("con", FALSE)
       private$check("drv", TRUE)
@@ -267,6 +273,7 @@ rocker <- R6::R6Class(
     #' db$canConnect()
     #' db$unloadDriver()
     canConnect = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "drv")
       private$check("con", FALSE)
       private$check("drv", TRUE)
@@ -287,6 +294,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     connect = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "drv")
       private$check("drv", TRUE)
       if (!is.null(private$..con)) {
@@ -323,6 +331,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     disconnect = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("tra", FALSE)
       private$check("res", FALSE)
@@ -352,6 +361,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     sendQuery = function(statement, ...) {
       testParameterString(statement)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("res", FALSE)
       private$check("con", TRUE)
@@ -380,6 +390,7 @@ rocker <- R6::R6Class(
     getQuery = function(statement, n = -1, ...) {
       testParameterString(statement)
       testParameterStringWholeNumber(n)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       if (is.null(private$..con)) {
         self$connect()
@@ -414,6 +425,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     sendStatement = function(statement, ...) {
       testParameterString(statement)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("res", FALSE)
       private$check("con", TRUE)
@@ -440,6 +452,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     execute = function(statement, ...) {
       testParameterString(statement)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       if (is.null(private$..con)) {
         self$connect()
@@ -468,6 +481,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     fetch = function(n = -1, ...) {
       testParameterStringWholeNumber(n)
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       OUTPUT <- DBI::dbFetch(private$..res, n, ...)
@@ -491,6 +505,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     hasCompleted = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       COMPLETED <- DBI::dbHasCompleted(private$..res, ...)
@@ -513,6 +528,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     getRowsAffected = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       ROWS <- DBI::dbGetRowsAffected(private$..res, ...)
@@ -536,6 +552,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     getRowCount = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       ROWS <- DBI::dbGetRowCount(private$..res, ...)
@@ -558,6 +575,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     columnInfo = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       OUTPUT <- DBI::dbColumnInfo(private$..res, ...)
@@ -580,6 +598,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     getStatement = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       OUTPUT <- DBI::dbGetStatement(private$..res, ...)
@@ -602,6 +621,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     clearResult = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
       DBI::dbClearResult(private$..res, ...)
@@ -628,6 +648,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     begin = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("tra", FALSE)
       private$check("res", FALSE)
@@ -656,6 +677,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     commit = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("tra", TRUE)
       private$check("res", FALSE)
@@ -684,6 +706,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     rollback = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("tra", TRUE)
       private$check("res", FALSE)
@@ -708,6 +731,7 @@ rocker <- R6::R6Class(
     #' db$getInfoDrv()
     #' db$unloadDriver()
     getInfoDrv = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "dbObj")
       private$check("drv", TRUE)
       OUTPUT <- DBI::dbGetInfo(private$..drv, ...)
@@ -730,6 +754,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     getInfoCon = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "dbObj")
       private$check("con", TRUE)
       OUTPUT <- DBI::dbGetInfo(private$..con, ...)
@@ -755,6 +780,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     getInfoRes = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "dbObj")
       private$check("res", TRUE)
       OUTPUT <- DBI::dbGetInfo(private$..res, ...)
@@ -775,6 +801,7 @@ rocker <- R6::R6Class(
     #' db$isValidDrv()
     #' db$unloadDriver()
     isValidDrv = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "dbObj")
       if (!is.null(private$..drv)) {
         OUTPUT <- DBI::dbIsValid(private$..drv, ...)
@@ -801,6 +828,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     isValidCon = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "dbObj")
       if (!is.null(private$..con)) {
         OUTPUT <- DBI::dbIsValid(private$..con, ...)
@@ -826,6 +854,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     validateCon = function(statement = NULL, ...) {
+      testDots(list(...))
       if (is.null(private$..con)) {
         OUTPUT <- FALSE
       } else {
@@ -865,6 +894,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     isValidRes = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "dbObj")
       if (!is.null(private$..res)) {
         OUTPUT <- DBI::dbIsValid(private$..res, ...)
@@ -897,6 +927,7 @@ rocker <- R6::R6Class(
     createTable = function(name, fields, ...) {
       testParameterString(name)
       testParameterDataFrame(fields)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -922,6 +953,7 @@ rocker <- R6::R6Class(
     appendTable = function(name, value, ...) {
       testParameterString(name)
       testParameterDataFrame(value)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -946,6 +978,7 @@ rocker <- R6::R6Class(
     writeTable = function(name, value, ...) {
       testParameterString(name)
       testParameterDataFrame(value)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -969,6 +1002,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     readTable = function(name, ...) {
       testParameterString(name)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -992,6 +1026,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     removeTable = function(name, ...) {
       testParameterString(name)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -1015,6 +1050,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     existsTable = function(name, ...) {
       testParameterString(name)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -1039,6 +1075,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     listFields = function(name, ...) {
       testParameterString(name)
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -1059,6 +1096,7 @@ rocker <- R6::R6Class(
     #' db$listObjects()
     #' db$disconnect()
     listObjects = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -1079,6 +1117,7 @@ rocker <- R6::R6Class(
     #' db$listTables()
     #' db$disconnect()
     listTables = function(...) {
+      testDots(list(...))
       testParameterNames(list(...), "conn")
       private$check("con", TRUE)
       private$check("res", FALSE)
@@ -1244,8 +1283,8 @@ rocker <- R6::R6Class(
 
     check = function(PAR, STATUS, WARNING = FALSE) {
       VERBOSE <- private$.verbose
-      private$.verbose <- FALSE
-      on.exit(private$.verbose <- VERBOSE)
+      self$verbose <- FALSE
+      on.exit(self$verbose <- VERBOSE)
       TEST <- TRUE
       if (PAR == "drv") {
         if (self$isValidDrv() != STATUS) {
@@ -1328,7 +1367,7 @@ rocker <- R6::R6Class(
           FALSE
         })
         if (OUTPUT) {
-          private$.validateQuery <- i
+          self$validateQuery <- i
           break
         }
       }

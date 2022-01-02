@@ -104,3 +104,18 @@ testParameterObject <- function(PAR) {
   if (!is.object(PAR) | is.data.frame(PAR))
     error("Parameter not correct")
 }
+
+testDots <- function(DOTS) {
+  if (!is.null(DOTS) & length(DOTS) > 0) {
+    TEST <- TRUE
+    if (is.null(names(DOTS))) {
+      TEST <- FALSE
+    } else if (any(names(DOTS) == "")) {
+      TEST <- FALSE
+    } else if (length(names(DOTS)) != length(DOTS)) {
+      TEST <- FALSE
+    }
+    if (!TEST)
+      error("All ... arguments must be named")
+  }
+}

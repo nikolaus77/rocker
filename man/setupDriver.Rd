@@ -4,16 +4,16 @@
 \alias{setupDriver}
 \title{Setup database driver and define connection parameters.}
 \usage{
-setupDriver(db, drv, ..., protect = c("password", "user"))
+setupDriver(db, drv, protect = c("password", "user"), ...)
 }
 \arguments{
 \item{db}{rocker object}
 
 \item{drv}{Driver object from suitable package e.g. \code{\link[RPostgres:Postgres]{RPostgres::Postgres()}}, \code{\link[RMariaDB:MariaDBDriver-class]{RMariaDB::MariaDB()}} and \code{\link[RSQLite:SQLite]{RSQLite::SQLite()}}}
 
-\item{...}{Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password}
-
 \item{protect}{Parameters to be hidden}
+
+\item{...}{Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password}
 }
 \value{
 Invisible self

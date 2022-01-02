@@ -4,8 +4,8 @@
 #' Setup database driver and define connection parameters.
 #' @param db rocker object
 #' @param drv Driver object from suitable package e.g. \code{\link[RPostgres:Postgres]{RPostgres::Postgres()}}, \code{\link[RMariaDB:MariaDBDriver-class]{RMariaDB::MariaDB()}} and \code{\link[RSQLite:SQLite]{RSQLite::SQLite()}}
-#' @param ... Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password
 #' @param protect Parameters to be hidden
+#' @param ... Suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}} e.g. host, port, dbname, user and password
 #' @return Invisible self
 #' @examples
 #' db <- rocker::newDB()
@@ -16,13 +16,13 @@
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupDriver <- function(db, drv, ..., protect = c("password", "user")) {
+setupDriver <- function(db, drv, protect = c("password", "user"), ...) {
   UseMethod("setupDriver", db)
 }
 
 #' @export
-setupDriver.rocker <- function(db, drv, ..., protect = c("password", "user")) {
-  db$setupDriver(drv, ..., protect)
+setupDriver.rocker <- function(db, drv, protect = c("password", "user"), ...) {
+  db$setupDriver(drv, protect, ...)
 }
 
 # setupPostgreSQL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,8 +35,8 @@ setupDriver.rocker <- function(db, drv, ..., protect = c("password", "user")) {
 #' @param dbname Database name
 #' @param user User name
 #' @param password Password
-#' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @param protect Parameters to be hidden
+#' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @return Invisible self
 #' @examples
 #' db <- rocker::newDB()
@@ -47,13 +47,13 @@ setupDriver.rocker <- function(db, drv, ..., protect = c("password", "user")) {
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupPostgreSQL <- function(db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
+setupPostgreSQL <- function(db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", protect = c("password", "user"), ...) {
   UseMethod("setupPostgreSQL", db)
 }
 
 #' @export
-setupPostgreSQL.rocker <- function(db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", ..., protect = c("password", "user")) {
-  db$setupPostgreSQL(host, port, dbname, user, password, ..., protect)
+setupPostgreSQL.rocker <- function(db, host = "127.0.0.1", port = "5432", dbname = "mydb", user = "postgres", password = "password", protect = c("password", "user"), ...) {
+  db$setupPostgreSQL(host, port, dbname, user, password, protect, ...)
 }
 
 # setupMariaDB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,8 +66,8 @@ setupPostgreSQL.rocker <- function(db, host = "127.0.0.1", port = "5432", dbname
 #' @param dbname Database name
 #' @param user User name
 #' @param password Password
-#' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @param protect Parameters to be hidden
+#' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @return Invisible self
 #' @examples
 #' db <- rocker::newDB()
@@ -78,13 +78,13 @@ setupPostgreSQL.rocker <- function(db, host = "127.0.0.1", port = "5432", dbname
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupMariaDB <- function(db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
+setupMariaDB <- function(db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", protect = c("password", "user"), ...) {
   UseMethod("setupMariaDB", db)
 }
 
 #' @export
-setupMariaDB.rocker <- function(db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", ..., protect = c("password", "user")) {
-  db$setupMariaDB(host, port, dbname, user, password, ..., protect)
+setupMariaDB.rocker <- function(db, host = "127.0.0.1", port = "3306", dbname = "mydb", user = "root", password = "password", protect = c("password", "user"), ...) {
+  db$setupMariaDB(host, port, dbname, user, password, protect, ...)
 }
 
 # setupSQLite ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,8 +93,8 @@ setupMariaDB.rocker <- function(db, host = "127.0.0.1", port = "3306", dbname = 
 #' Wrapper for setupDriver() function.
 #' @param db rocker object
 #' @param dbname Database name
-#' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @param protect Parameters to be hidden
+#' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 #' @return Invisible self
 #' @examples
 #' db <- rocker::newDB()
@@ -104,13 +104,13 @@ setupMariaDB.rocker <- function(db, host = "127.0.0.1", port = "3306", dbname = 
 #' )
 #' rocker::unloadDriver(db)
 #' @export
-setupSQLite <- function(db, dbname = ":memory:", ..., protect = c("password", "user")) {
+setupSQLite <- function(db, dbname = ":memory:", protect = c("password", "user"), ...) {
   UseMethod("setupSQLite", db)
 }
 
 #' @export
-setupSQLite.rocker <- function(db, dbname = ":memory:", ..., protect = c("password", "user")) {
-  db$setupSQLite(dbname, ..., protect)
+setupSQLite.rocker <- function(db, dbname = ":memory:", protect = c("password", "user"), ...) {
+  db$setupSQLite(dbname, protect, ...)
 }
 
 # unloadDriver ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

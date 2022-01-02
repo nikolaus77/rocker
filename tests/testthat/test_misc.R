@@ -207,3 +207,11 @@ test_that("encryption", {
   expect_identical(LST, decrypt(TMP, KEY))
   rm(LST, KEY, TMP)
 })
+
+test_that("testDots", {
+  testDots(NULL)
+  testDots(list())
+  testDots(list(a = 1, b = "abc"))
+  expect_error(testDots(list(a = 1, "abc")))
+  expect_error(testDots(list(1, "abc")))
+})

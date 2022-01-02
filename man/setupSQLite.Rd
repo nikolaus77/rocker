@@ -5,16 +5,16 @@
 \title{Setup database driver and define connection parameters for SQLite using \link[RSQLite:SQLite]{RSQLite} package.
 Wrapper for setupDriver() function.}
 \usage{
-setupSQLite(db, dbname = ":memory:", ..., protect = c("password", "user"))
+setupSQLite(db, dbname = ":memory:", protect = c("password", "user"), ...)
 }
 \arguments{
 \item{db}{rocker object}
 
 \item{dbname}{Database name}
 
-\item{...}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
-
 \item{protect}{Parameters to be hidden}
+
+\item{...}{Optional, additional suitable parameters passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
 }
 \value{
 Invisible self
