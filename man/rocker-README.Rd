@@ -8,36 +8,7 @@ How-to and examples
 }
 \details{
 Please read me.
-
-\if{html}{\out{
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-}}
 }
-\section{\emph{rocker} – \emph{R6} database interface class wrapping \emph{DBI}}{
-\if{html}{\out{
-<!-- badges: start -->
-}}
-
-
-\href{https://cran.r-project.org/package=rocker}{\figure{https://www.r-pkg.org/badges/version/rocker}}
-\href{https://github.com/nikolaus77/rocker}{\figure{https://img.shields.io/badge/devel%20version-GitHub-yellow.svg}}
-\href{https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml}{\figure{https://github.com/nikolaus77/rocker/actions/workflows/check-standard.yaml/badge.svg}}
-\href{https://app.codecov.io/gh/nikolaus77/rocker}{\figure{https://codecov.io/gh/nikolaus77/rocker/branch/main/graph/badge.svg}}
-\href{https://opensource.org/licenses/MIT}{\figure{https://img.shields.io/badge/license-MIT-blue.svg}}\if{html}{\out{
-<!-- badges: end -->
-}}
-
-
-\href{https://github.com/r-lib/R6}{\emph{R6}} class interface for handling
-relational database connections using
-\href{https://github.com/r-dbi/DBI}{\emph{DBI}} package as backend. The class
-allows handling of connections to
-e.g. \href{https://www.postgresql.org}{PostgreSQL},
-\href{https://mariadb.org}{MariaDB} and
-\href{https://www.sqlite.org/index.html}{SQLite}. The purpose is having an
-intuitive object allowing straightforward handling of SQL databases.
-}
-
 \section{Installation}{
 Installation of current released version from CRAN\if{html}{\out{<div class="sourceCode r">}}\preformatted{install.packages("rocker")
 }\if{html}{\out{</div>}}
@@ -51,30 +22,30 @@ devtools::install_github("nikolaus77/rocker")
 Create new \emph{rocker} database handling object
 
 Option 1\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}
 
 Option 2\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::rocker$new() # New database handling object
-#> dctr | New object
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}
 
 \strong{Terminal output}
 
 Controlling terminal output\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB(verbose = TRUE) # New database handling object
-#> dctr | New object
-db$setupPostgreSQL()
-#> Dctr | Driver load RPostgres
-db$unloadDriver()
-#> dctr | Driver unload RPostgres
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$verbose <- FALSE # Terminal output off
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupPostgreSQL()
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RPostgres
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RPostgres
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$verbose <- FALSE # Terminal output off
 db$setupPostgreSQL()
 db$unloadDriver()
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$verbose <- TRUE # Terminal output on (default)
 db$setupPostgreSQL()
-#> Dctr | Driver load RPostgres
-db$unloadDriver()
-#> dctr | Driver unload RPostgres
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RPostgres
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RPostgres
+}
 
 Structure of terminal output\preformatted{Dctr | Driver load RSQLite
 D                          = Driver     (D = loaded,    d = not set)
@@ -89,81 +60,81 @@ D                          = Driver     (D = loaded,    d = not set)
 Optionally, rocker object can be labeled with an ID. This can be helpful
 in case terminal output of multiple rocker objects need to be
 distinguished.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1 <- rocker::newDB(id = "myDB 1") # New database handling object with ID
-#> myDB 1 | dctr | New object id myDB 1
-db2 <- rocker::newDB(id = "myDB 2") # New database handling object with ID
-#> myDB 2 | dctr | New object id myDB 2
-db1$setupPostgreSQL()
-#> myDB 1 | Dctr | Driver load RPostgres
-db2$setupMariaDB()
-#> myDB 2 | Dctr | Driver load RMariaDB
-db1$unloadDriver()
-#> myDB 1 | dctr | Driver unload RPostgres
-db2$unloadDriver()
-#> myDB 2 | dctr | Driver unload RMariaDB
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$id <- NULL # Remove ID
+}\if{html}{\out{</div>}}\preformatted{## myDB 1 | dctr | New object id myDB 1
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db2 <- rocker::newDB(id = "myDB 2") # New database handling object with ID
+}\if{html}{\out{</div>}}\preformatted{## myDB 2 | dctr | New object id myDB 2
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$setupPostgreSQL()
+}\if{html}{\out{</div>}}\preformatted{## myDB 1 | Dctr | Driver load RPostgres
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db2$setupMariaDB()
+}\if{html}{\out{</div>}}\preformatted{## myDB 2 | Dctr | Driver load RMariaDB
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## myDB 1 | dctr | Driver unload RPostgres
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db2$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## myDB 2 | dctr | Driver unload RMariaDB
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$id <- NULL # Remove ID
 db1$setupSQLite()
-#> Dctr | Driver load RSQLite
-db1$unloadDriver()
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$id <- "newID 1" # Add new ID
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$id <- "newID 1" # Add new ID
 db1$setupSQLite()
-#> newID 1 | Dctr | Driver load RSQLite
-db1$unloadDriver()
-#> newID 1 | dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## newID 1 | Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db1$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## newID 1 | dctr | Driver unload RSQLite
+}
 
 \strong{Object properties}
 
 Object properties are stored in the info field and can be displayed by
 print function.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-db$setupPostgreSQL()
-#> Dctr | Driver load RPostgres
-db$info
-#> $package
-#> [1] "RPostgres"
-#> 
-#> $host
-#> [1] "127.0.0.1"
-#> 
-#> $port
-#> [1] "5432"
-#> 
-#> $dbname
-#> [1] "mydb"
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db
-#> id          null
-#> package     RPostgres
-#> host        127.0.0.1
-#> port        5432
-#> dbname      mydb
-#> driver      true
-#> connection  false
-#> transaction false
-#> result      false
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$print()
-#> id          null
-#> package     RPostgres
-#> host        127.0.0.1
-#> port        5432
-#> dbname      mydb
-#> driver      true
-#> connection  false
-#> transaction false
-#> result      false
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{print(db)
-#> id          null
-#> package     RPostgres
-#> host        127.0.0.1
-#> port        5432
-#> dbname      mydb
-#> driver      true
-#> connection  false
-#> transaction false
-#> result      false
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
-#> dctr | Driver unload RPostgres
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupPostgreSQL()
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RPostgres
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$info
+}\if{html}{\out{</div>}}\preformatted{## $package
+## [1] "RPostgres"
+## 
+## $host
+## [1] "127.0.0.1"
+## 
+## $port
+## [1] "5432"
+## 
+## $dbname
+## [1] "mydb"
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db
+}\if{html}{\out{</div>}}\preformatted{## id          null
+## package     RPostgres
+## host        127.0.0.1
+## port        5432
+## dbname      mydb
+## driver      true
+## connection  false
+## transaction false
+## result      false
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$print()
+}\if{html}{\out{</div>}}\preformatted{## id          null
+## package     RPostgres
+## host        127.0.0.1
+## port        5432
+## dbname      mydb
+## driver      true
+## connection  false
+## transaction false
+## result      false
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{print(db)
+}\if{html}{\out{</div>}}\preformatted{## id          null
+## package     RPostgres
+## host        127.0.0.1
+## port        5432
+## dbname      mydb
+## driver      true
+## connection  false
+## transaction false
+## result      false
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RPostgres
+}
 }
 
 \section{Additional packages and database types}{
@@ -178,25 +149,25 @@ function of \emph{rocker} class.\if{html}{\out{<div class="sourceCode r">}}\pref
 \strong{Setup database}
 
 Option 1\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-db$setupSQLite( # Setup SQLite database
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupSQLite( # Setup SQLite database
   dbname = ":memory:"
 )
-#> Dctr | Driver load RSQLite
-db$unloadDriver() # Reset database handling object
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver() # Reset database handling object
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}
 
 Option 2\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-db$setupDriver( # Setup SQLite database
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupDriver( # Setup SQLite database
   drv = RSQLite::SQLite(),
   dbname = ":memory:"
 )
-#> Dctr | Driver load RSQLite
-db$unloadDriver() # Reset database handling object
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver() # Reset database handling object
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}
 }
 
 \subsection{\emph{RPostgres} package}{
@@ -277,73 +248,73 @@ colored terminal output. If missing terminal output is monochrome.\if{html}{\out
 There are different ways to open a connection and to get data.
 
 Prepare database with a table\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-db$setupSQLite(dbname = tempfile()) # Setup SQLite database
-#> Dctr | Driver load RSQLite
-db$connect() # Open connection
-#> DCtr | Database connected
-db$writeTable("mtcars", mtcars) # Create table for testing
-#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
-db$disconnect() # Close connection
-#> Dctr | Database disconnected
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupSQLite(dbname = tempfile()) # Setup SQLite database
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect() # Open connection
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$writeTable("mtcars", mtcars) # Create table for testing
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect() # Close connection
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}
 
 \strong{Example 1}
 
 Get query with automatic connection / disconnection\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$getQuery("SELECT * FROM mtcars;") # Get query
-#> DCtr | Database connected 
-#> DCtR | Send query 21 characters 
-#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> DCtR | Rows fetched 32 
-#> DCtR | Has completed yes 
-#> DCtr | Clear result 
-#> Dctr | Database disconnected
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected 
+## DCtR | Send query 21 characters 
+## DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+## DCtR | Rows fetched 32 
+## DCtR | Has completed yes 
+## DCtr | Clear result 
+## Dctr | Database disconnected
+}
 
 \strong{Example 2}
 
 Get query with manual connection / disconnection\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect() # Open connection
-#> DCtr | Database connected
-output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
-#> DCtR | Send query 21 characters 
-#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> DCtR | Rows fetched 32 
-#> DCtR | Has completed yes 
-#> DCtr | Clear result
-output2 <- db$getQuery("SELECT * FROM mtcars;", 15) # Get query 2
-#> DCtR | Send query 21 characters 
-#> DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
-#> DCtR | Rows fetched 15 
-#> DCtR | Has completed no 
-#> DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
-#> DCtR | Rows fetched 30 
-#> DCtR | Has completed no 
-#> DCtR | Fetch rows 15 -> Received 2 rows, 11 columns, 2184 bytes 
-#> DCtR | Rows fetched 32 
-#> DCtR | Has completed yes 
-#> DCtr | Clear result
-db$disconnect() # Close connection
-#> Dctr | Database disconnected
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output1 <- db$getQuery("SELECT * FROM mtcars;") # Get query 1
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters 
+## DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+## DCtR | Rows fetched 32 
+## DCtR | Has completed yes 
+## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output2 <- db$getQuery("SELECT * FROM mtcars;", 15) # Get query 2
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters 
+## DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
+## DCtR | Rows fetched 15 
+## DCtR | Has completed no 
+## DCtR | Fetch rows 15 -> Received 15 rows, 11 columns, 3416 bytes 
+## DCtR | Rows fetched 30 
+## DCtR | Has completed no 
+## DCtR | Fetch rows 15 -> Received 2 rows, 11 columns, 2184 bytes 
+## DCtR | Rows fetched 32 
+## DCtR | Has completed yes 
+## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect() # Close connection
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}
 
 \strong{Example 3}
 
 Function getQuery() is a combination of functions sendQuery(), fetch()
 and clearResult().\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect() # Open connection
-#> DCtr | Database connected
-db$sendQuery("SELECT * FROM mtcars;") # Send query
-#> DCtR | Send query 21 characters
-output <- db$fetch() # Fetch result
-#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
-db$clearResult() # Clean up result
-#> DCtr | Clear result
-db$disconnect() # Close connection
-#> Dctr | Database disconnected
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$sendQuery("SELECT * FROM mtcars;") # Send query
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$fetch() # Fetch result
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$clearResult() # Clean up result
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect() # Close connection
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}
 
 Clean up\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver() # Reset database handling object
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}
 }
 
 \section{Password storage}{
@@ -426,158 +397,161 @@ class. Many \emph{DBI} functions are implemented in \emph{rocker} class. Wheneve
 possible, use the \emph{rocker} class functions.
 
 Prepare object\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-db$.drv # Empty driver
-#> NULL
-db$.con # Empty connection
-#> NULL
-db$.res # Empty result
-#> NULL
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.drv # Empty driver
+}\if{html}{\out{</div>}}\preformatted{## NULL
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.con # Empty connection
+}\if{html}{\out{</div>}}\preformatted{## NULL
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.res # Empty result
+}\if{html}{\out{</div>}}\preformatted{## NULL
+}
 \subsection{DBIDriver-class}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupSQLite() # Setup SQLite database
-#> Dctr | Driver load RSQLite
-db$.drv # 'DBI' DBIDriver-class
-#> <SQLiteDriver>
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoDrv() # 'rocker' class function
-#> Dctr | Driver info 2.2.9 (driver.version), 3.37.0 (client.version)
-#> $driver.version
-#> [1] '2.2.9'
-#> 
-#> $client.version
-#> [1] '3.37.0'
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on 'rocker' class
-#> $driver.version
-#> [1] '2.2.9'
-#> 
-#> $client.version
-#> [1] '3.37.0'
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.drv) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
-#> $driver.version
-#> [1] '2.2.9'
-#> 
-#> $client.version
-#> [1] '3.37.0'
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.drv # 'DBI' DBIDriver-class
+}\if{html}{\out{</div>}}\preformatted{## <SQLiteDriver>
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoDrv() # 'rocker' class function
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver info 2.2.9 (driver.version), 3.37.0 (client.version)
+
+## $driver.version
+## [1] '2.2.9'
+## 
+## $client.version
+## [1] '3.37.0'
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on 'rocker' class
+}\if{html}{\out{</div>}}\preformatted{## $driver.version
+## [1] '2.2.9'
+## 
+## $client.version
+## [1] '3.37.0'
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.drv) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
+}\if{html}{\out{</div>}}\preformatted{## $driver.version
+## [1] '2.2.9'
+## 
+## $client.version
+## [1] '3.37.0'
+}
 }
 
 \subsection{DBIConnection-class}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect() # Open connection
-#> DCtr | Database connected
-db$.con # 'DBI' DBIConnection-class
-#> <SQLiteConnection>
-#>   Path: :memory:
-#>   Extensions: TRUE
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoCon() # 'rocker' class function
-#> DCtr | Connection info 3.37.0 (db.version), :memory: (dbname), NA (username), NA (host), NA (port)
-#> $db.version
-#> [1] "3.37.0"
-#> 
-#> $dbname
-#> [1] ":memory:"
-#> 
-#> $username
-#> [1] NA
-#> 
-#> $host
-#> [1] NA
-#> 
-#> $port
-#> [1] NA
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.con) # Direct usage of 'DBI' function on 'rocker' class
-#> $db.version
-#> [1] "3.37.0"
-#> 
-#> $dbname
-#> [1] ":memory:"
-#> 
-#> $username
-#> [1] NA
-#> 
-#> $host
-#> [1] NA
-#> 
-#> $port
-#> [1] NA
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.con) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
-#> $db.version
-#> [1] "3.37.0"
-#> 
-#> $dbname
-#> [1] ":memory:"
-#> 
-#> $username
-#> [1] NA
-#> 
-#> $host
-#> [1] NA
-#> 
-#> $port
-#> [1] NA
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.con # 'DBI' DBIConnection-class
+}\if{html}{\out{</div>}}\preformatted{## <SQLiteConnection>
+##   Path: :memory:
+##   Extensions: TRUE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoCon() # 'rocker' class function
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Connection info 3.37.0 (db.version), :memory: (dbname), NA (username), NA (host), NA (port)
+
+## $db.version
+## [1] "3.37.0"
+## 
+## $dbname
+## [1] ":memory:"
+## 
+## $username
+## [1] NA
+## 
+## $host
+## [1] NA
+## 
+## $port
+## [1] NA
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.con) # Direct usage of 'DBI' function on 'rocker' class
+}\if{html}{\out{</div>}}\preformatted{## $db.version
+## [1] "3.37.0"
+## 
+## $dbname
+## [1] ":memory:"
+## 
+## $username
+## [1] NA
+## 
+## $host
+## [1] NA
+## 
+## $port
+## [1] NA
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.con) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
+}\if{html}{\out{</div>}}\preformatted{## $db.version
+## [1] "3.37.0"
+## 
+## $dbname
+## [1] ":memory:"
+## 
+## $username
+## [1] NA
+## 
+## $host
+## [1] NA
+## 
+## $port
+## [1] NA
+}
 
 Prepare table\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$writeTable("mtcars", mtcars) # Create table for testing
-#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+}
 }
 
 \subsection{DBIResult-class}{\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$sendQuery("SELECT * FROM mtcars;") # Send query
-#> DCtR | Send query 21 characters
-db$.res # 'DBI' DBIResult-class
-#> <SQLiteResult>
-#>   SQL  SELECT * FROM mtcars;
-#>   ROWS Fetched: 0 [incomplete]
-#>        Changed: 0
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoRes() # 'rocker' class function
-#> DCtR | Result info SELECT * FROM mtcars; (statement), 0 (row.count), 0 (rows.affected), FALSE (has.completed)
-#> $statement
-#> [1] "SELECT * FROM mtcars;"
-#> 
-#> $row.count
-#> [1] 0
-#> 
-#> $rows.affected
-#> [1] 0
-#> 
-#> $has.completed
-#> [1] FALSE
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.res) # Direct usage of 'DBI' function on 'rocker' class
-#> $statement
-#> [1] "SELECT * FROM mtcars;"
-#> 
-#> $row.count
-#> [1] 0
-#> 
-#> $rows.affected
-#> [1] 0
-#> 
-#> $has.completed
-#> [1] FALSE
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.res) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
-#> $statement
-#> [1] "SELECT * FROM mtcars;"
-#> 
-#> $row.count
-#> [1] 0
-#> 
-#> $rows.affected
-#> [1] 0
-#> 
-#> $has.completed
-#> [1] FALSE
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.res # 'DBI' DBIResult-class
+}\if{html}{\out{</div>}}\preformatted{## <SQLiteResult>
+##   SQL  SELECT * FROM mtcars;
+##   ROWS Fetched: 0 [incomplete]
+##        Changed: 0
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoRes() # 'rocker' class function
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Result info SELECT * FROM mtcars; (statement), 0 (row.count), 0 (rows.affected), FALSE (has.completed)
+
+## $statement
+## [1] "SELECT * FROM mtcars;"
+## 
+## $row.count
+## [1] 0
+## 
+## $rows.affected
+## [1] 0
+## 
+## $has.completed
+## [1] FALSE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.res) # Direct usage of 'DBI' function on 'rocker' class
+}\if{html}{\out{</div>}}\preformatted{## $statement
+## [1] "SELECT * FROM mtcars;"
+## 
+## $row.count
+## [1] 0
+## 
+## $rows.affected
+## [1] 0
+## 
+## $has.completed
+## [1] FALSE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.res) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
+}\if{html}{\out{</div>}}\preformatted{## $statement
+## [1] "SELECT * FROM mtcars;"
+## 
+## $row.count
+## [1] 0
+## 
+## $rows.affected
+## [1] 0
+## 
+## $has.completed
+## [1] FALSE
+}
 
 Clean up\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$clearResult() # Clean up result
-#> DCtr | Clear result
-db$.res # Empty result
-#> NULL
-db$disconnect() # Close connection
-#> Dctr | Database disconnected
-db$.con # Empty connection
-#> NULL
-db$unloadDriver() # Reset database handling object
-#> dctr | Driver unload RSQLite
-db$.drv # Empty driver
-#> NULL
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.res # Empty result
+}\if{html}{\out{</div>}}\preformatted{## NULL
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect() # Close connection
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.con # Empty connection
+}\if{html}{\out{</div>}}\preformatted{## NULL
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver() # Reset database handling object
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$.drv # Empty driver
+}\if{html}{\out{</div>}}\preformatted{## NULL
+}
 }
 }
 
@@ -596,8 +570,8 @@ DBI::dbCanConnect( # Test parameter
   drv = drv,
   dbname = ":memory:"
 )
-#> [1] TRUE
-con <- DBI::dbConnect( # Open connection
+}\if{html}{\out{</div>}}\preformatted{## [1] TRUE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{con <- DBI::dbConnect( # Open connection
   drv = drv,
   dbname = ":memory:"
 )
@@ -615,8 +589,8 @@ db$setupDriver( # Setup SQLite database
   dbname = ":memory:"
 )
 db$canConnect() # Test parameter
-#> [1] TRUE
-db$connect() # Open connection
+}\if{html}{\out{</div>}}\preformatted{## [1] TRUE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect() # Open connection
 db$writeTable("mtcars", mtcars) # Create table for testing
 db$sendQuery("SELECT * FROM mtcars;") # Send query
 output <- db$fetch() # Fetch result
@@ -672,76 +646,76 @@ db$unloadDriver() # Reset database handling object
 
 \section{Transaction}{
 Setup database and a table with 32 rows.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB() # New database handling object
-#> dctr | New object
-db$setupSQLite() # Setup SQLite database
-#> Dctr | Driver load RSQLite
-db$connect() # Open connection
-#> DCtr | Database connected
-db$writeTable("mtcars", mtcars) # Create table for testing
-#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
-output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 32 rows
-#> DCtR | Send query 21 characters 
-#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
-#> DCtR | Rows fetched 32 
-#> DCtR | Has completed yes 
-#> DCtr | Clear result
-db$transaction # Transaction indicator
-#> [1] FALSE
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupSQLite() # Setup SQLite database
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect() # Open connection
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$writeTable("mtcars", mtcars) # Create table for testing
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 32 rows
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters 
+## DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes 
+## DCtR | Rows fetched 32 
+## DCtR | Has completed yes 
+## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$transaction # Transaction indicator
+}\if{html}{\out{</div>}}\preformatted{## [1] FALSE
+}
 
 Starting with a table with 32 rows, begin transaction 1. Delete 15 rows
 and commit transaction. Operations results in a table with 17 rows.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$begin() # Start transaction 1
-#> DCTr | Transaction begin
-db$transaction # Transaction indicator
-#> [1] TRUE
-AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 3;") # Modify table -> 15 rows
-#> DCTR | Send statement 34 characters 
-#> DCTR | Rows affected 15 
-#> DCTr | Clear result
-db$commit() # Commit transaction 1
-#> DCtr | Transaction commit
-db$transaction # Transaction indicator
-#> [1] FALSE
-output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
-#> DCtR | Send query 21 characters 
-#> DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
-#> DCtR | Rows fetched 17 
-#> DCtR | Has completed yes 
-#> DCtr | Clear result
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCTr | Transaction begin
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$transaction # Transaction indicator
+}\if{html}{\out{</div>}}\preformatted{## [1] TRUE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 3;") # Modify table -> 15 rows
+}\if{html}{\out{</div>}}\preformatted{## DCTR | Send statement 34 characters 
+## DCTR | Rows affected 15 
+## DCTr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$commit() # Commit transaction 1
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Transaction commit
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$transaction # Transaction indicator
+}\if{html}{\out{</div>}}\preformatted{## [1] FALSE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters 
+## DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
+## DCtR | Rows fetched 17 
+## DCtR | Has completed yes 
+## DCtr | Clear result
+}
 
 Starting with a table with 17 rows, begin transaction 2. Delete 5 rows
 and rollback transaction. Operations results in a table with 17 rows.\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$begin() # Start transaction 2
-#> DCTr | Transaction begin
-db$transaction # Transaction indicator
-#> [1] TRUE
-AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 5;") # Modify table -> 5 rows
-#> DCTR | Send statement 34 characters 
-#> DCTR | Rows affected 5 
-#> DCTr | Clear result
-output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 12 rows
-#> DCTR | Send query 21 characters 
-#> DCTR | Fetch rows all -> Received 12 rows, 11 columns, 3416 bytes 
-#> DCTR | Rows fetched 12 
-#> DCTR | Has completed yes 
-#> DCTr | Clear result
-db$rollback() # Rollback transaction 2
-#> DCtr | Transaction rollback
-db$transaction # Transaction indicator
-#> [1] FALSE
-output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
-#> DCtR | Send query 21 characters 
-#> DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
-#> DCtR | Rows fetched 17 
-#> DCtR | Has completed yes 
-#> DCtr | Clear result
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## DCTr | Transaction begin
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$transaction # Transaction indicator
+}\if{html}{\out{</div>}}\preformatted{## [1] TRUE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{AFFECTED <- db$execute("DELETE FROM mtcars WHERE gear = 5;") # Modify table -> 5 rows
+}\if{html}{\out{</div>}}\preformatted{## DCTR | Send statement 34 characters 
+## DCTR | Rows affected 5 
+## DCTr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 12 rows
+}\if{html}{\out{</div>}}\preformatted{## DCTR | Send query 21 characters 
+## DCTR | Fetch rows all -> Received 12 rows, 11 columns, 3416 bytes 
+## DCTR | Rows fetched 12 
+## DCTR | Has completed yes 
+## DCTr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$rollback() # Rollback transaction 2
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Transaction rollback
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$transaction # Transaction indicator
+}\if{html}{\out{</div>}}\preformatted{## [1] FALSE
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$getQuery("SELECT * FROM mtcars;") # Get query -> 17 rows
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters 
+## DCtR | Fetch rows all -> Received 17 rows, 11 columns, 3504 bytes 
+## DCtR | Rows fetched 17 
+## DCtR | Has completed yes 
+## DCtr | Clear result
+}
 
 Clean up\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect() # Close connection
-#> Dctr | Database disconnected
-db$unloadDriver() # Reset database handling object
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver() # Reset database handling object
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
+}
 }
 
 \section{Usage of S3 and R6 functions}{
@@ -750,54 +724,43 @@ classical S3 way.
 
 \strong{S3 example}\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rocker)
 db <- newDB()
-#> dctr | New object
-setupDriver(db, drv = RSQLite::SQLite(), dbname = ":memory:")
-#> Dctr | Driver load RSQLite
-connect(db)
-#> DCtr | Database connected
-writeTable(db, "mtcars", mtcars)
-#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
-sendQuery(db, "SELECT * FROM mtcars;")
-#> DCtR | Send query 21 characters
-output <- fetch(db)
-#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
-clearResult(db)
-#> DCtr | Clear result
-disconnect(db)
-#> Dctr | Database disconnected
-unloadDriver(db)
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
-
-\strong{R6 example}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB()
-#> dctr | New object
-db$setupDriver(drv = RSQLite::SQLite(), dbname = ":memory:")
-#> Dctr | Driver load RSQLite
-db$connect()
-#> DCtr | Database connected
-db$writeTable("mtcars", mtcars)
-#> DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
-db$sendQuery("SELECT * FROM mtcars;")
-#> DCtR | Send query 21 characters
-output <- db$fetch()
-#> DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
-db$clearResult()
-#> DCtr | Clear result
-db$disconnect()
-#> Dctr | Database disconnected
-db$unloadDriver()
-#> dctr | Driver unload RSQLite
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{setupDriver(db, drv = RSQLite::SQLite(), dbname = ":memory:")
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{connect(db)
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{writeTable(db, "mtcars", mtcars)
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{sendQuery(db, "SELECT * FROM mtcars;")
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- fetch(db)
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{clearResult(db)
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{disconnect(db)
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{unloadDriver(db)
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
 }
 
-\section{Further help}{
-Please read the documentation of \emph{rocker} class.\if{html}{\out{<div class="sourceCode r">}}\preformatted{help(rocker)
-}\if{html}{\out{</div>}}
-
-Reading of \emph{DBI} package documentation is recommended.
-\itemize{
-\item \href{https://cran.r-project.org/package=DBI}{CRAN}
-\item \href{https://github.com/r-dbi/DBI}{GitHub}
+\strong{R6 example}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db <- rocker::newDB()
+}\if{html}{\out{</div>}}\preformatted{## dctr | New object
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$setupDriver(drv = RSQLite::SQLite(), dbname = ":memory:")
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Driver load RSQLite
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$connect()
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Database connected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$writeTable("mtcars", mtcars)
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Write table mtcars columns mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb rows 32
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$sendQuery("SELECT * FROM mtcars;")
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Send query 21 characters
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{output <- db$fetch()
+}\if{html}{\out{</div>}}\preformatted{## DCtR | Fetch rows all -> Received 32 rows, 11 columns, 4824 bytes
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$clearResult()
+}\if{html}{\out{</div>}}\preformatted{## DCtr | Clear result
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$disconnect()
+}\if{html}{\out{</div>}}\preformatted{## Dctr | Database disconnected
+}\if{html}{\out{<div class="sourceCode r">}}\preformatted{db$unloadDriver()
+}\if{html}{\out{</div>}}\preformatted{## dctr | Driver unload RSQLite
 }
 }
 

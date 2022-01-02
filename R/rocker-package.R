@@ -17,7 +17,14 @@
 #' How-to and examples
 #' @details
 #' Please read me.
-#' @includeRmd README.Rmd
+#' @includeRmd man/fragments/Installation.Rmd
+#' @includeRmd man/fragments/Object.Rmd
+#' @includeRmd man/fragments/Packages_Databases.Rmd
+#' @includeRmd man/fragments/Connection.Rmd
+#' @includeRmd man/fragments/Password.Rmd
+#' @includeRmd man/fragments/DBI.Rmd
+#' @includeRmd man/fragments/Transaction.Rmd
+#' @includeRmd man/fragments/S3.Rmd
 #' @name rocker-README
 #' @family rocker
 #' @family rocker-S3-functions
