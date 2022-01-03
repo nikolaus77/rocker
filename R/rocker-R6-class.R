@@ -398,7 +398,7 @@ rocker <- R6::R6Class(
     #' db$unloadDriver()
     getQuery = function(statement, n = -1, ...) {
       testParameterString(statement)
-      testParameterStringWholeNumber(n)
+      testParameterWholeNumber(n)
       testDots(list(...))
       testParameterNames(list(...), "conn")
       if (is.null(self$.con)) {
@@ -489,7 +489,7 @@ rocker <- R6::R6Class(
     #' db$disconnect()
     #' db$unloadDriver()
     fetch = function(n = -1, ...) {
-      testParameterStringWholeNumber(n)
+      testParameterWholeNumber(n)
       testDots(list(...))
       testParameterNames(list(...), "res")
       private$check("res", TRUE)
