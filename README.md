@@ -1089,7 +1089,10 @@ db$unloadDriver()
 Please read the documentation of *rocker* class.
 
 ``` r
-help(rocker)
+help("rocker-package")
+help("rocker-R6-class")
+help("rocker-S3-functions")
+help("rocker-README")
 ```
 
 Reading of *DBI* package documentation is recommended.
