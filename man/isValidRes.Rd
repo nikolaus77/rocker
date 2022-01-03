@@ -4,15 +4,17 @@
 \alias{isValidRes}
 \title{Check result object.}
 \usage{
-isValidRes(db, ...)
+isValidRes(db, onLostNull = FALSE, ...)
 }
 \arguments{
 \item{db}{rocker object}
 
+\item{onLostNull}{TRUE or FALSE. If result lost, set .res to NULL}
+
 \item{...}{Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}}
 }
 \value{
-TRUE of FALSE
+TRUE or FALSE
 }
 \description{
 Check result object.

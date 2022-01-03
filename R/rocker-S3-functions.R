@@ -696,8 +696,9 @@ getInfoRes.rocker <- function(db, ...) {
 
 #' Check driver object.
 #' @param db rocker object
+#' @param onLostNull TRUE or FALSE. If driver lost, set .drv to NULL
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
-#' @return TRUE of FALSE
+#' @return TRUE or FALSE
 #' @examples
 #' db <- rocker::newDB()
 #' rocker::setupSQLite(db)
@@ -705,21 +706,22 @@ getInfoRes.rocker <- function(db, ...) {
 #' rocker::unloadDriver(db)
 #' @export
 #' @family rocker-S3-functions
-isValidDrv <- function(db, ...) {
+isValidDrv <- function(db, onLostNull = FALSE, ...) {
   UseMethod("isValidDrv", db)
 }
 
 #' @export
-isValidDrv.rocker <- function(db, ...) {
-  db$isValidDrv(...)
+isValidDrv.rocker <- function(db, onLostNull = FALSE, ...) {
+  db$isValidDrv(onLostNull, ...)
 }
 
 # isValidCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #' Check connection object.
 #' @param db rocker object
+#' @param onLostNull TRUE or FALSE. If connection lost, set .con to NULL
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
-#' @return TRUE of FALSE
+#' @return TRUE or FALSE
 #' @examples
 #' db <- rocker::newDB()
 #' rocker::setupSQLite(db)
@@ -729,46 +731,22 @@ isValidDrv.rocker <- function(db, ...) {
 #' rocker::unloadDriver(db)
 #' @export
 #' @family rocker-S3-functions
-isValidCon <- function(db, ...) {
+isValidCon <- function(db, onLostNull = FALSE, ...) {
   UseMethod("isValidCon", db)
 }
 
 #' @export
-isValidCon.rocker <- function(db, ...) {
-  db$isValidCon(...)
-}
-
-# validateCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#' Check if an earlier opened connection is still open.
-#' @param db rocker object
-#' @param statement Optional SQL statement. If not set default validateQuery will be used.
-#' @param ... Not used yet
-#' @return TRUE of FALSE
-#' @examples
-#' db <- rocker::newDB()
-#' rocker::setupSQLite(db)
-#' rocker::connect(db)
-#' rocker::validateCon(db)
-#' rocker::disconnect(db)
-#' rocker::unloadDriver(db)
-#' @export
-#' @family rocker-S3-functions
-validateCon <- function(db, statement = NULL, ...) {
-  UseMethod("validateCon", db)
-}
-
-#' @export
-validateCon.rocker <- function(db, statement = NULL, ...) {
-  db$validateCon(statement, ...)
+isValidCon.rocker <- function(db, onLostNull = FALSE, ...) {
+  db$isValidCon(onLostNull, ...)
 }
 
 # isValidRes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #' Check result object.
 #' @param db rocker object
+#' @param onLostNull TRUE or FALSE. If result lost, set .res to NULL
 #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
-#' @return TRUE of FALSE
+#' @return TRUE or FALSE
 #' @examples
 #' db <- rocker::newDB()
 #' rocker::setupSQLite(db)
@@ -781,13 +759,39 @@ validateCon.rocker <- function(db, statement = NULL, ...) {
 #' rocker::unloadDriver(db)
 #' @export
 #' @family rocker-S3-functions
-isValidRes <- function(db, ...) {
+isValidRes <- function(db, onLostNull = FALSE, ...) {
   UseMethod("isValidRes", db)
 }
 
 #' @export
-isValidRes.rocker <- function(db, ...) {
-  db$isValidRes(...)
+isValidRes.rocker <- function(db, onLostNull = FALSE, ...) {
+  db$isValidRes(onLostNull, ...)
+}
+
+# validateCon ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' Check if an earlier opened connection is still open.
+#' @param db rocker object
+#' @param statement Optional SQL statement. If not set default validateQuery will be used.
+#' @param onLostNull TRUE or FALSE. If connection lost, set .con to NULL
+#' @param ... Not used yet
+#' @return TRUE or FALSE
+#' @examples
+#' db <- rocker::newDB()
+#' rocker::setupSQLite(db)
+#' rocker::connect(db)
+#' rocker::validateCon(db)
+#' rocker::disconnect(db)
+#' rocker::unloadDriver(db)
+#' @export
+#' @family rocker-S3-functions
+validateCon <- function(db, statement = NULL, onLostNull = FALSE, ...) {
+  UseMethod("validateCon", db)
+}
+
+#' @export
+validateCon.rocker <- function(db, statement = NULL, onLostNull = FALSE, ...) {
+  db$validateCon(statement, onLostNull, ...)
 }
 
 # createTable ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

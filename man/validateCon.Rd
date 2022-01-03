@@ -4,17 +4,19 @@
 \alias{validateCon}
 \title{Check if an earlier opened connection is still open.}
 \usage{
-validateCon(db, statement = NULL, ...)
+validateCon(db, statement = NULL, onLostNull = FALSE, ...)
 }
 \arguments{
 \item{db}{rocker object}
 
 \item{statement}{Optional SQL statement. If not set default validateQuery will be used.}
 
+\item{onLostNull}{TRUE or FALSE. If connection lost, set .con to NULL}
+
 \item{...}{Not used yet}
 }
 \value{
-TRUE of FALSE
+TRUE or FALSE
 }
 \description{
 Check if an earlier opened connection is still open.

@@ -802,20 +802,22 @@ rocker <- R6::R6Class(
 
     #' @description
     #' Check driver object.
+    #' @param onLostNull TRUE or FALSE. If driver lost, set .drv to NULL
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
-    #' @return TRUE of FALSE
+    #' @return TRUE or FALSE
     #' @examples
     #' db <- rocker::newDB()
     #' db$setupSQLite()
     #' db$isValidDrv()
     #' db$unloadDriver()
-    isValidDrv = function(...) {
+    isValidDrv = function(onLostNull = FALSE, ...) {
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
       if (!is.null(self$.drv)) {
         OUTPUT <- DBI::dbIsValid(self$.drv, ...)
         if (!OUTPUT) {
-          private$..drv <- NULL
+          if (onLostNull)
+            private$..drv <- NULL
           error("Driver lost", TRUE)
         }
       } else {
@@ -827,8 +829,9 @@ rocker <- R6::R6Class(
 
     #' @description
     #' Check connection object.
+    #' @param onLostNull TRUE or FALSE. If connection lost, set .con to NULL
     #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
-    #' @return TRUE of FALSE
+    #' @return TRUE or FALSE
     #' @examples
     #' db <- rocker::newDB()
     #' db$setupSQLite()
@@ -836,13 +839,16 @@ rocker <- R6::R6Class(
     #' db$isValidCon()
     #' db$disconnect()
     #' db$unloadDriver()
-    isValidCon = function(...) {
+    isValidCon = function(onLostNull = FALSE, ...) {
       testDots(list(...))
       testParameterNames(list(...), "dbObj")
       if (!is.null(self$.con)) {
         OUTPUT <- DBI::dbIsValid(self$.con, ...)
-        if (!OUTPUT)
+        if (!OUTPUT) {
+          if (onLostNull)
+            private$..con <- NULL
           error("Connection lost", TRUE)
+        }
       } else {
         OUTPUT <- FALSE
       }
@@ -851,10 +857,43 @@ rocker <- R6::R6Class(
     },
 
     #' @description
+    #' Check result object.
+    #' @param onLostNull TRUE or FALSE. If result lost, set .res to NULL
+    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
+    #' @return TRUE or FALSE
+    #' @examples
+    #' db <- rocker::newDB()
+    #' db$setupSQLite()
+    #' db$connect()
+    #' db$writeTable("mtcars", mtcars)
+    #' db$sendQuery("SELECT * FROM mtcars;")
+    #' db$isValidRes()
+    #' db$clearResult()
+    #' db$disconnect()
+    #' db$unloadDriver()
+    isValidRes = function(onLostNull = FALSE, ...) {
+      testDots(list(...))
+      testParameterNames(list(...), "dbObj")
+      if (!is.null(self$.res)) {
+        OUTPUT <- DBI::dbIsValid(self$.res, ...)
+        if (!OUTPUT) {
+          if (onLostNull)
+            private$..res <- NULL
+          error("Result lost", TRUE)
+        }
+      } else {
+        OUTPUT <- FALSE
+      }
+      private$note(sprintf("Result valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
+      return(OUTPUT)
+    },
+
+    #' @description
     #' Check if an earlier opened connection is still open.
     #' @param statement Optional SQL statement. If not set default validateQuery will be used.
+    #' @param onLostNull TRUE or FALSE. If connection lost, set .con to NULL
     #' @param ... Not used yet
-    #' @return TRUE of FALSE
+    #' @return TRUE or FALSE
     #' @examples
     #' db <- rocker::newDB()
     #' db$setupSQLite()
@@ -862,7 +901,7 @@ rocker <- R6::R6Class(
     #' db$validateCon()
     #' db$disconnect()
     #' db$unloadDriver()
-    validateCon = function(statement = NULL, ...) {
+    validateCon = function(statement = NULL, onLostNull = FALSE, ...) {
       testDots(list(...))
       if (is.null(self$.con)) {
         OUTPUT <- FALSE
@@ -875,46 +914,19 @@ rocker <- R6::R6Class(
             private$validateQueryTest()
             statement <- self$validateQuery
           }
-          OUTPUT <- tryCatch({
-            TMP <- DBI::dbGetQuery(self$.con, statement)
-            TRUE
-          }, error = function(COND) {
-            FALSE
-          })
-          if (!OUTPUT)
-            error("Connection lost", TRUE)
+        OUTPUT <- tryCatch({
+          TMP <- DBI::dbGetQuery(self$.con, statement)
+          TRUE
+        }, error = function(COND) {
+          FALSE
+        })
+        if (!OUTPUT) {
+          if (onLostNull)
+            private$..con <- NULL
+          error("Connection lost", TRUE)
+        }
       }
       private$note(sprintf("Connection valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
-      return(OUTPUT)
-    },
-
-    #' @description
-    #' Check result object.
-    #' @param ... Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}
-    #' @return TRUE of FALSE
-    #' @examples
-    #' db <- rocker::newDB()
-    #' db$setupSQLite()
-    #' db$connect()
-    #' db$writeTable("mtcars", mtcars)
-    #' db$sendQuery("SELECT * FROM mtcars;")
-    #' db$isValidRes()
-    #' db$clearResult()
-    #' db$disconnect()
-    #' db$unloadDriver()
-    isValidRes = function(...) {
-      testDots(list(...))
-      testParameterNames(list(...), "dbObj")
-      if (!is.null(self$.res)) {
-        OUTPUT <- DBI::dbIsValid(self$.res, ...)
-        if (!OUTPUT) {
-          private$..res <- NULL
-          error("Result lost", TRUE)
-        }
-      } else {
-        OUTPUT <- FALSE
-      }
-      private$note(sprintf("Result valid %s", private$textColor(1, ifelse(OUTPUT, "true", "false"))))
       return(OUTPUT)
     },
 

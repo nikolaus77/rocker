@@ -4,15 +4,17 @@
 \alias{isValidCon}
 \title{Check connection object.}
 \usage{
-isValidCon(db, ...)
+isValidCon(db, onLostNull = FALSE, ...)
 }
 \arguments{
 \item{db}{rocker object}
 
+\item{onLostNull}{TRUE or FALSE. If connection lost, set .con to NULL}
+
 \item{...}{Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}}
 }
 \value{
-TRUE of FALSE
+TRUE or FALSE
 }
 \description{
 Check connection object.

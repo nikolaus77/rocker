@@ -357,17 +357,6 @@ db$disconnect()
 db$unloadDriver()
 
 ## ------------------------------------------------
-## Method `rocker$validateCon`
-## ------------------------------------------------
-
-db <- rocker::newDB()
-db$setupSQLite()
-db$connect()
-db$validateCon()
-db$disconnect()
-db$unloadDriver()
-
-## ------------------------------------------------
 ## Method `rocker$isValidRes`
 ## ------------------------------------------------
 
@@ -378,6 +367,17 @@ db$writeTable("mtcars", mtcars)
 db$sendQuery("SELECT * FROM mtcars;")
 db$isValidRes()
 db$clearResult()
+db$disconnect()
+db$unloadDriver()
+
+## ------------------------------------------------
+## Method `rocker$validateCon`
+## ------------------------------------------------
+
+db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$validateCon()
 db$disconnect()
 db$unloadDriver()
 
@@ -552,8 +552,8 @@ Information on pending transaction.}
 \item \href{#method-getInfoRes}{\code{rocker$getInfoRes()}}
 \item \href{#method-isValidDrv}{\code{rocker$isValidDrv()}}
 \item \href{#method-isValidCon}{\code{rocker$isValidCon()}}
-\item \href{#method-validateCon}{\code{rocker$validateCon()}}
 \item \href{#method-isValidRes}{\code{rocker$isValidRes()}}
+\item \href{#method-validateCon}{\code{rocker$validateCon()}}
 \item \href{#method-createTable}{\code{rocker$createTable()}}
 \item \href{#method-appendTable}{\code{rocker$appendTable()}}
 \item \href{#method-writeTable}{\code{rocker$writeTable()}}
@@ -1535,18 +1535,20 @@ db$unloadDriver()
 \subsection{Method \code{isValidDrv()}}{
 Check driver object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$isValidDrv(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$isValidDrv(onLostNull = FALSE, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{onLostNull}}{TRUE or FALSE. If driver lost, set .drv to NULL}
+
 \item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-TRUE of FALSE
+TRUE or FALSE
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -1566,18 +1568,20 @@ db$unloadDriver()
 \subsection{Method \code{isValidCon()}}{
 Check connection object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$isValidCon(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$isValidCon(onLostNull = FALSE, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{onLostNull}}{TRUE or FALSE. If connection lost, set .con to NULL}
+
 \item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-TRUE of FALSE
+TRUE or FALSE
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -1594,58 +1598,25 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-validateCon"></a>}}
-\if{latex}{\out{\hypertarget{method-validateCon}{}}}
-\subsection{Method \code{validateCon()}}{
-Check if an earlier opened connection is still open.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$validateCon(statement = NULL, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{statement}}{Optional SQL statement. If not set default validateQuery will be used.}
-
-\item{\code{...}}{Not used yet}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-TRUE of FALSE
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{db <- rocker::newDB()
-db$setupSQLite()
-db$connect()
-db$validateCon()
-db$disconnect()
-db$unloadDriver()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isValidRes"></a>}}
 \if{latex}{\out{\hypertarget{method-isValidRes}{}}}
 \subsection{Method \code{isValidRes()}}{
 Check result object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{rocker$isValidRes(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{rocker$isValidRes(onLostNull = FALSE, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{onLostNull}}{TRUE or FALSE. If result lost, set .res to NULL}
+
 \item{\code{...}}{Optional, additional suitable parameters passed to \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-TRUE of FALSE
+TRUE or FALSE
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -1656,6 +1627,43 @@ db$writeTable("mtcars", mtcars)
 db$sendQuery("SELECT * FROM mtcars;")
 db$isValidRes()
 db$clearResult()
+db$disconnect()
+db$unloadDriver()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-validateCon"></a>}}
+\if{latex}{\out{\hypertarget{method-validateCon}{}}}
+\subsection{Method \code{validateCon()}}{
+Check if an earlier opened connection is still open.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{rocker$validateCon(statement = NULL, onLostNull = FALSE, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{statement}}{Optional SQL statement. If not set default validateQuery will be used.}
+
+\item{\code{onLostNull}}{TRUE or FALSE. If connection lost, set .con to NULL}
+
+\item{\code{...}}{Not used yet}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+TRUE or FALSE
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{db <- rocker::newDB()
+db$setupSQLite()
+db$connect()
+db$validateCon()
 db$disconnect()
 db$unloadDriver()
 }
