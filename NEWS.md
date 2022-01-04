@@ -1,7 +1,19 @@
+rocker 0.3.0
+========
+
+* Addition of unit tests, 'testthat' package, and coverage determination, 'codecov'
+* Use 'sodium' package for encryption of credentials
+* Addition of further tests of function parameters
+* Addition of validateCon / validateQuery functionality
+* Addition of onLostNull parameter to validation functions: isValidDrv(), isValidDrv() and isValidDrv()
+* Improved handling of three dots (...) parameter
+* Updated print() function
+* Extension of documentation
+
 rocker 0.2.1
 ========
 
-* README adjusted, link URL changed
+* README adjusted / link URL changed (for CRAN re-submission)
 
 rocker 0.2.0
 ========
@@ -14,7 +26,7 @@ rocker 0.2.0
 rocker 0.1.2
 ========
 
-* Adjusted LICENSE file for CRAN re-submission
+* Adjusted LICENSE file (for CRAN re-submission)
 * First version published on CRAN
 
 rocker 0.1.1

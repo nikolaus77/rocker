@@ -1,70 +1,39 @@
 
-# Re-submission 2021-12-12
+# Submission package version 0.3.0
 
-Dear Uwe,
-
-Thank you for the quick feedback!
-I adjusted the link URL in README to https://www.sqlite.org/index.html
-
-Best regards,
-Nikolaus
-
-* README adjusted, link URL changed
-* Package version updated to 0.2.1
-  * DESCRIPTION file updated
-  * NEWS.md file updated
+* Addition of unit tests, 'testthat' package, and coverage determination, 'codecov'
+* Use 'sodium' package for encryption of credentials
+* Addition of further tests of function parameters
+* Addition of validateCon / validateQuery functionality
+* Addition of onLostNull parameter to validation functions: isValidDrv(), isValidDrv() and isValidDrv()
+* Improved handling of three dots (...) parameter
+* Updated print() function
+* Extension of documentation
 
 ## Test environments
 
 * local
   * Windows 10, R 4.1.2
-* rhub::check_for_cran()
-  * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* GitHub / Actions
+  * macOS-latest (release)
+  * windows-latest (release)
+  * ubuntu-latest (devel)
+  * ubuntu-latest (release)
+  * ubuntu-latest (oldrel-1)
+* devtools::check_win_devel()
+  * x86_64-w64-mingw32 (64-bit), R Under development (unstable) (2022-01-03 r81439 ucrt)
+* devtools::check_win_release()
+  * x86_64-w64-mingw32 (64-bit), R version 4.1.2 (2021-11-01)
+* devtools::check_mac_release()
+  * r-release-macosx-arm64|4.1.1|macosx|macOS 11.5.2 (20G95)|Mac mini|Apple M1|
+* rhub::check_on_linux() 
+  * Debian Linux, R-release, GCC
+* rhub::check_on_ubuntu()
   * Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  * Fedora Linux, R-devel, clang, gfortran
-
-## R CMD check results
-
-* 0 errors
-* 0 warnings
-* 0 notes
-
-# CRAN feedback 2021-12-12
-
-```
-Thanks, we see:
-
-
-  Found the following (possibly) invalid URLs:
-    URL: https://www.sqlite.org (moved to https://www.sqlite.org/index.html)
-      From: README.md
-      Status: 301
-      Message: Moved Permanently
-
-Please change http --> https, add trailing slashes, or follow moved content as appropriate.
-
-Please fix and resubmit.
-
-Best,
-Uwe Ligges
-```
-
-# Submission 2021-12-11
-
-* Package version 0.2.0
-  * Addition of S3 class functionality
-  * Addition of optional object ID
-  * Addition of vignettes and extension of documentation
-  * Addition of messages to functions
-
-## Test environments
-
-* local
-  * Windows 10, R 4.1.2
-* rhub::check_for_cran()
-  * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-  * Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  * Fedora Linux, R-devel, clang, gfortran
+* rhub::check_on_fedora()
+  * Fedora Linux, R-devel, GCC
+* rhub::check_on_windows()
+  * Windows Server 2008 R2 SP1, R-release, 32/64 bit
 
 ## R CMD check results
 
