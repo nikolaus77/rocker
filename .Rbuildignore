@@ -8,4 +8,5 @@
 ^README\.Rmd$
 ^\.github$
 ^CRAN-SUBMISSION$
-^tests\testthat\_snaps$
+^tests/testthat/_snaps$
+^CODE_OF_CONDUCT\.md$
