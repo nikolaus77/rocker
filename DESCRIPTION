@@ -11,6 +11,6 @@ BugReports: https://github.com/nikolaus77/rocker/issues
 Encoding: UTF-8
 Imports: DBI, R6, sodium
 Suggests: covr, crayon, knitr, RMariaDB, testthat (>= 3.0.0), rmarkdown, RPostgres, RSQLite
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3

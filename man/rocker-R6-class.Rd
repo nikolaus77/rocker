@@ -523,51 +523,51 @@ Information on pending transaction.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{rocker$new()}}
-\item \href{#method-print}{\code{rocker$print()}}
-\item \href{#method-setupDriver}{\code{rocker$setupDriver()}}
-\item \href{#method-setupPostgreSQL}{\code{rocker$setupPostgreSQL()}}
-\item \href{#method-setupMariaDB}{\code{rocker$setupMariaDB()}}
-\item \href{#method-setupSQLite}{\code{rocker$setupSQLite()}}
-\item \href{#method-unloadDriver}{\code{rocker$unloadDriver()}}
-\item \href{#method-canConnect}{\code{rocker$canConnect()}}
-\item \href{#method-connect}{\code{rocker$connect()}}
-\item \href{#method-disconnect}{\code{rocker$disconnect()}}
-\item \href{#method-sendQuery}{\code{rocker$sendQuery()}}
-\item \href{#method-getQuery}{\code{rocker$getQuery()}}
-\item \href{#method-sendStatement}{\code{rocker$sendStatement()}}
-\item \href{#method-execute}{\code{rocker$execute()}}
-\item \href{#method-fetch}{\code{rocker$fetch()}}
-\item \href{#method-hasCompleted}{\code{rocker$hasCompleted()}}
-\item \href{#method-getRowsAffected}{\code{rocker$getRowsAffected()}}
-\item \href{#method-getRowCount}{\code{rocker$getRowCount()}}
-\item \href{#method-columnInfo}{\code{rocker$columnInfo()}}
-\item \href{#method-getStatement}{\code{rocker$getStatement()}}
-\item \href{#method-clearResult}{\code{rocker$clearResult()}}
-\item \href{#method-begin}{\code{rocker$begin()}}
-\item \href{#method-commit}{\code{rocker$commit()}}
-\item \href{#method-rollback}{\code{rocker$rollback()}}
-\item \href{#method-getInfoDrv}{\code{rocker$getInfoDrv()}}
-\item \href{#method-getInfoCon}{\code{rocker$getInfoCon()}}
-\item \href{#method-getInfoRes}{\code{rocker$getInfoRes()}}
-\item \href{#method-isValidDrv}{\code{rocker$isValidDrv()}}
-\item \href{#method-isValidCon}{\code{rocker$isValidCon()}}
-\item \href{#method-isValidRes}{\code{rocker$isValidRes()}}
-\item \href{#method-validateCon}{\code{rocker$validateCon()}}
-\item \href{#method-createTable}{\code{rocker$createTable()}}
-\item \href{#method-appendTable}{\code{rocker$appendTable()}}
-\item \href{#method-writeTable}{\code{rocker$writeTable()}}
-\item \href{#method-readTable}{\code{rocker$readTable()}}
-\item \href{#method-removeTable}{\code{rocker$removeTable()}}
-\item \href{#method-existsTable}{\code{rocker$existsTable()}}
-\item \href{#method-listFields}{\code{rocker$listFields()}}
-\item \href{#method-listObjects}{\code{rocker$listObjects()}}
-\item \href{#method-listTables}{\code{rocker$listTables()}}
+\item \href{#method-rocker-new}{\code{rocker$new()}}
+\item \href{#method-rocker-print}{\code{rocker$print()}}
+\item \href{#method-rocker-setupDriver}{\code{rocker$setupDriver()}}
+\item \href{#method-rocker-setupPostgreSQL}{\code{rocker$setupPostgreSQL()}}
+\item \href{#method-rocker-setupMariaDB}{\code{rocker$setupMariaDB()}}
+\item \href{#method-rocker-setupSQLite}{\code{rocker$setupSQLite()}}
+\item \href{#method-rocker-unloadDriver}{\code{rocker$unloadDriver()}}
+\item \href{#method-rocker-canConnect}{\code{rocker$canConnect()}}
+\item \href{#method-rocker-connect}{\code{rocker$connect()}}
+\item \href{#method-rocker-disconnect}{\code{rocker$disconnect()}}
+\item \href{#method-rocker-sendQuery}{\code{rocker$sendQuery()}}
+\item \href{#method-rocker-getQuery}{\code{rocker$getQuery()}}
+\item \href{#method-rocker-sendStatement}{\code{rocker$sendStatement()}}
+\item \href{#method-rocker-execute}{\code{rocker$execute()}}
+\item \href{#method-rocker-fetch}{\code{rocker$fetch()}}
+\item \href{#method-rocker-hasCompleted}{\code{rocker$hasCompleted()}}
+\item \href{#method-rocker-getRowsAffected}{\code{rocker$getRowsAffected()}}
+\item \href{#method-rocker-getRowCount}{\code{rocker$getRowCount()}}
+\item \href{#method-rocker-columnInfo}{\code{rocker$columnInfo()}}
+\item \href{#method-rocker-getStatement}{\code{rocker$getStatement()}}
+\item \href{#method-rocker-clearResult}{\code{rocker$clearResult()}}
+\item \href{#method-rocker-begin}{\code{rocker$begin()}}
+\item \href{#method-rocker-commit}{\code{rocker$commit()}}
+\item \href{#method-rocker-rollback}{\code{rocker$rollback()}}
+\item \href{#method-rocker-getInfoDrv}{\code{rocker$getInfoDrv()}}
+\item \href{#method-rocker-getInfoCon}{\code{rocker$getInfoCon()}}
+\item \href{#method-rocker-getInfoRes}{\code{rocker$getInfoRes()}}
+\item \href{#method-rocker-isValidDrv}{\code{rocker$isValidDrv()}}
+\item \href{#method-rocker-isValidCon}{\code{rocker$isValidCon()}}
+\item \href{#method-rocker-isValidRes}{\code{rocker$isValidRes()}}
+\item \href{#method-rocker-validateCon}{\code{rocker$validateCon()}}
+\item \href{#method-rocker-createTable}{\code{rocker$createTable()}}
+\item \href{#method-rocker-appendTable}{\code{rocker$appendTable()}}
+\item \href{#method-rocker-writeTable}{\code{rocker$writeTable()}}
+\item \href{#method-rocker-readTable}{\code{rocker$readTable()}}
+\item \href{#method-rocker-removeTable}{\code{rocker$removeTable()}}
+\item \href{#method-rocker-existsTable}{\code{rocker$existsTable()}}
+\item \href{#method-rocker-listFields}{\code{rocker$listFields()}}
+\item \href{#method-rocker-listObjects}{\code{rocker$listObjects()}}
+\item \href{#method-rocker-listTables}{\code{rocker$listTables()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-rocker-new"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-new}{}}}
 \subsection{Method \code{new()}}{
 Generate new instance of class.
 \subsection{Usage}{
@@ -590,8 +590,8 @@ New instance of class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-rocker-print"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-print}{}}}
 \subsection{Method \code{print()}}{
 Print object information.
 \subsection{Usage}{
@@ -603,8 +603,8 @@ Invisible self
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setupDriver"></a>}}
-\if{latex}{\out{\hypertarget{method-setupDriver}{}}}
+\if{html}{\out{<a id="method-rocker-setupDriver"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-setupDriver}{}}}
 \subsection{Method \code{setupDriver()}}{
 Setup database driver and define connection parameters.
 \subsection{Usage}{
@@ -640,8 +640,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setupPostgreSQL"></a>}}
-\if{latex}{\out{\hypertarget{method-setupPostgreSQL}{}}}
+\if{html}{\out{<a id="method-rocker-setupPostgreSQL"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-setupPostgreSQL}{}}}
 \subsection{Method \code{setupPostgreSQL()}}{
 Setup database driver and define connection parameters for PostgreSQL using \link[RPostgres:Postgres]{RPostgres} package.
 Wrapper for setupDriver() function.
@@ -694,8 +694,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setupMariaDB"></a>}}
-\if{latex}{\out{\hypertarget{method-setupMariaDB}{}}}
+\if{html}{\out{<a id="method-rocker-setupMariaDB"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-setupMariaDB}{}}}
 \subsection{Method \code{setupMariaDB()}}{
 Setup database driver and define connection parameters for MariaDB using \link[RMariaDB:RMariaDB-package]{RMariaDB} package.
 Wrapper for setupDriver() function.
@@ -748,8 +748,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setupSQLite"></a>}}
-\if{latex}{\out{\hypertarget{method-setupSQLite}{}}}
+\if{html}{\out{<a id="method-rocker-setupSQLite"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-setupSQLite}{}}}
 \subsection{Method \code{setupSQLite()}}{
 Setup database driver and define connection parameters for SQLite using \link[RSQLite:SQLite]{RSQLite} package.
 Wrapper for setupDriver() function.
@@ -785,8 +785,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-unloadDriver"></a>}}
-\if{latex}{\out{\hypertarget{method-unloadDriver}{}}}
+\if{html}{\out{<a id="method-rocker-unloadDriver"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-unloadDriver}{}}}
 \subsection{Method \code{unloadDriver()}}{
 Reset database driver and connection parameters.
 \subsection{Usage}{
@@ -815,8 +815,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-canConnect"></a>}}
-\if{latex}{\out{\hypertarget{method-canConnect}{}}}
+\if{html}{\out{<a id="method-rocker-canConnect"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-canConnect}{}}}
 \subsection{Method \code{canConnect()}}{
 Test connection parameters.
 \subsection{Usage}{
@@ -846,8 +846,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connect"></a>}}
-\if{latex}{\out{\hypertarget{method-connect}{}}}
+\if{html}{\out{<a id="method-rocker-connect"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-connect}{}}}
 \subsection{Method \code{connect()}}{
 Establish database connection using stored parameters.
 \subsection{Usage}{
@@ -878,8 +878,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-disconnect"></a>}}
-\if{latex}{\out{\hypertarget{method-disconnect}{}}}
+\if{html}{\out{<a id="method-rocker-disconnect"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-disconnect}{}}}
 \subsection{Method \code{disconnect()}}{
 Disconnect database.
 \subsection{Usage}{
@@ -910,8 +910,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-sendQuery"></a>}}
-\if{latex}{\out{\hypertarget{method-sendQuery}{}}}
+\if{html}{\out{<a id="method-rocker-sendQuery"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-sendQuery}{}}}
 \subsection{Method \code{sendQuery()}}{
 Send SQL query to database.
 \subsection{Usage}{
@@ -948,8 +948,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getQuery"></a>}}
-\if{latex}{\out{\hypertarget{method-getQuery}{}}}
+\if{html}{\out{<a id="method-rocker-getQuery"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getQuery}{}}}
 \subsection{Method \code{getQuery()}}{
 Retrieve SQL query from database.
 Combination of functions sendQuery(), fetch() and clearResult().
@@ -988,8 +988,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-sendStatement"></a>}}
-\if{latex}{\out{\hypertarget{method-sendStatement}{}}}
+\if{html}{\out{<a id="method-rocker-sendStatement"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-sendStatement}{}}}
 \subsection{Method \code{sendStatement()}}{
 Send SQL statement to database.
 \subsection{Usage}{
@@ -1025,8 +1025,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execute"></a>}}
-\if{latex}{\out{\hypertarget{method-execute}{}}}
+\if{html}{\out{<a id="method-rocker-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-execute}{}}}
 \subsection{Method \code{execute()}}{
 Execute SQL statement in database.
 Combination of functions execute and clearResult.
@@ -1063,8 +1063,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fetch"></a>}}
-\if{latex}{\out{\hypertarget{method-fetch}{}}}
+\if{html}{\out{<a id="method-rocker-fetch"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-fetch}{}}}
 \subsection{Method \code{fetch()}}{
 Fetch SQL query result from database.
 \subsection{Usage}{
@@ -1101,8 +1101,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hasCompleted"></a>}}
-\if{latex}{\out{\hypertarget{method-hasCompleted}{}}}
+\if{html}{\out{<a id="method-rocker-hasCompleted"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-hasCompleted}{}}}
 \subsection{Method \code{hasCompleted()}}{
 Information whether all records were retrieved.
 \subsection{Usage}{
@@ -1138,8 +1138,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRowsAffected"></a>}}
-\if{latex}{\out{\hypertarget{method-getRowsAffected}{}}}
+\if{html}{\out{<a id="method-rocker-getRowsAffected"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getRowsAffected}{}}}
 \subsection{Method \code{getRowsAffected()}}{
 Information on number of affected rows.
 \subsection{Usage}{
@@ -1174,8 +1174,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getRowCount"></a>}}
-\if{latex}{\out{\hypertarget{method-getRowCount}{}}}
+\if{html}{\out{<a id="method-rocker-getRowCount"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getRowCount}{}}}
 \subsection{Method \code{getRowCount()}}{
 Information on number of retrieved rows.
 \subsection{Usage}{
@@ -1211,8 +1211,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-columnInfo"></a>}}
-\if{latex}{\out{\hypertarget{method-columnInfo}{}}}
+\if{html}{\out{<a id="method-rocker-columnInfo"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-columnInfo}{}}}
 \subsection{Method \code{columnInfo()}}{
 Information on query result columns.
 \subsection{Usage}{
@@ -1247,8 +1247,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getStatement"></a>}}
-\if{latex}{\out{\hypertarget{method-getStatement}{}}}
+\if{html}{\out{<a id="method-rocker-getStatement"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getStatement}{}}}
 \subsection{Method \code{getStatement()}}{
 Information on sent statement.
 \subsection{Usage}{
@@ -1283,8 +1283,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clearResult"></a>}}
-\if{latex}{\out{\hypertarget{method-clearResult}{}}}
+\if{html}{\out{<a id="method-rocker-clearResult"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-clearResult}{}}}
 \subsection{Method \code{clearResult()}}{
 Clear query or statement result.
 \subsection{Usage}{
@@ -1319,8 +1319,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-begin"></a>}}
-\if{latex}{\out{\hypertarget{method-begin}{}}}
+\if{html}{\out{<a id="method-rocker-begin"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-begin}{}}}
 \subsection{Method \code{begin()}}{
 Begin transaction.
 \subsection{Usage}{
@@ -1356,8 +1356,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-commit"></a>}}
-\if{latex}{\out{\hypertarget{method-commit}{}}}
+\if{html}{\out{<a id="method-rocker-commit"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-commit}{}}}
 \subsection{Method \code{commit()}}{
 Commit transaction.
 \subsection{Usage}{
@@ -1393,8 +1393,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-rollback"></a>}}
-\if{latex}{\out{\hypertarget{method-rollback}{}}}
+\if{html}{\out{<a id="method-rocker-rollback"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-rollback}{}}}
 \subsection{Method \code{rollback()}}{
 Rollback transaction.
 \subsection{Usage}{
@@ -1430,8 +1430,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getInfoDrv"></a>}}
-\if{latex}{\out{\hypertarget{method-getInfoDrv}{}}}
+\if{html}{\out{<a id="method-rocker-getInfoDrv"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getInfoDrv}{}}}
 \subsection{Method \code{getInfoDrv()}}{
 Information on driver object.
 \subsection{Usage}{
@@ -1461,8 +1461,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getInfoCon"></a>}}
-\if{latex}{\out{\hypertarget{method-getInfoCon}{}}}
+\if{html}{\out{<a id="method-rocker-getInfoCon"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getInfoCon}{}}}
 \subsection{Method \code{getInfoCon()}}{
 Information on connection object.
 \subsection{Usage}{
@@ -1494,8 +1494,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getInfoRes"></a>}}
-\if{latex}{\out{\hypertarget{method-getInfoRes}{}}}
+\if{html}{\out{<a id="method-rocker-getInfoRes"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-getInfoRes}{}}}
 \subsection{Method \code{getInfoRes()}}{
 Information on result object.
 \subsection{Usage}{
@@ -1530,8 +1530,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isValidDrv"></a>}}
-\if{latex}{\out{\hypertarget{method-isValidDrv}{}}}
+\if{html}{\out{<a id="method-rocker-isValidDrv"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-isValidDrv}{}}}
 \subsection{Method \code{isValidDrv()}}{
 Check driver object.
 \subsection{Usage}{
@@ -1563,8 +1563,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isValidCon"></a>}}
-\if{latex}{\out{\hypertarget{method-isValidCon}{}}}
+\if{html}{\out{<a id="method-rocker-isValidCon"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-isValidCon}{}}}
 \subsection{Method \code{isValidCon()}}{
 Check connection object.
 \subsection{Usage}{
@@ -1598,8 +1598,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isValidRes"></a>}}
-\if{latex}{\out{\hypertarget{method-isValidRes}{}}}
+\if{html}{\out{<a id="method-rocker-isValidRes"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-isValidRes}{}}}
 \subsection{Method \code{isValidRes()}}{
 Check result object.
 \subsection{Usage}{
@@ -1636,8 +1636,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-validateCon"></a>}}
-\if{latex}{\out{\hypertarget{method-validateCon}{}}}
+\if{html}{\out{<a id="method-rocker-validateCon"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-validateCon}{}}}
 \subsection{Method \code{validateCon()}}{
 Check if an earlier opened connection is still open.
 \subsection{Usage}{
@@ -1673,8 +1673,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-createTable"></a>}}
-\if{latex}{\out{\hypertarget{method-createTable}{}}}
+\if{html}{\out{<a id="method-rocker-createTable"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-createTable}{}}}
 \subsection{Method \code{createTable()}}{
 Create empty formatted table.
 \subsection{Usage}{
@@ -1710,8 +1710,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-appendTable"></a>}}
-\if{latex}{\out{\hypertarget{method-appendTable}{}}}
+\if{html}{\out{<a id="method-rocker-appendTable"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-appendTable}{}}}
 \subsection{Method \code{appendTable()}}{
 Append data to table.
 \subsection{Usage}{
@@ -1748,8 +1748,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-writeTable"></a>}}
-\if{latex}{\out{\hypertarget{method-writeTable}{}}}
+\if{html}{\out{<a id="method-rocker-writeTable"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-writeTable}{}}}
 \subsection{Method \code{writeTable()}}{
 Write data to table.
 \subsection{Usage}{
@@ -1785,8 +1785,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-readTable"></a>}}
-\if{latex}{\out{\hypertarget{method-readTable}{}}}
+\if{html}{\out{<a id="method-rocker-readTable"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-readTable}{}}}
 \subsection{Method \code{readTable()}}{
 Read table.
 \subsection{Usage}{
@@ -1821,8 +1821,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeTable"></a>}}
-\if{latex}{\out{\hypertarget{method-removeTable}{}}}
+\if{html}{\out{<a id="method-rocker-removeTable"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-removeTable}{}}}
 \subsection{Method \code{removeTable()}}{
 Remove table.
 \subsection{Usage}{
@@ -1857,8 +1857,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-existsTable"></a>}}
-\if{latex}{\out{\hypertarget{method-existsTable}{}}}
+\if{html}{\out{<a id="method-rocker-existsTable"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-existsTable}{}}}
 \subsection{Method \code{existsTable()}}{
 Check if table exists.
 \subsection{Usage}{
@@ -1893,8 +1893,8 @@ db$unloadDriver()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-listFields"></a>}}
-\if{latex}{\out{\hypertarget{method-listFields}{}}}
+\if{html}{\out{<a id="method-rocker-listFields"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-listFields}{}}}
 \subsection{Method \code{listFields()}}{
 List table column names.
 \subsection{Usage}{
@@ -1928,8 +1928,8 @@ db$disconnect()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-listObjects"></a>}}
-\if{latex}{\out{\hypertarget{method-listObjects}{}}}
+\if{html}{\out{<a id="method-rocker-listObjects"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-listObjects}{}}}
 \subsection{Method \code{listObjects()}}{
 List database objects.
 \subsection{Usage}{
@@ -1961,8 +1961,8 @@ db$disconnect()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-listTables"></a>}}
-\if{latex}{\out{\hypertarget{method-listTables}{}}}
+\if{html}{\out{<a id="method-rocker-listTables"></a>}}
+\if{latex}{\out{\hypertarget{method-rocker-listTables}{}}}
 \subsection{Method \code{listTables()}}{
 List database tables.
 \subsection{Usage}{
