@@ -1,3 +1,8 @@
+rocker 0.3.1
+========
+
+* Documentation re-generated (HTML5)
+
 rocker 0.3.0
 ========
 
