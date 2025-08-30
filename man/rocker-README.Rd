@@ -802,33 +802,33 @@ Prepare object
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoDrv() # 'rocker' class function
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Dctr | Driver info 2.2.16 (driver.version), 3.39.2 (client.version)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Dctr | Driver info 2.4.3 (driver.version), 3.50.4 (client.version)
 
 ## $driver.version
-## [1] '2.2.16'
+## [1] '2.4.3'
 ## 
 ## $client.version
-## [1] '3.39.2'
+## [1] '3.50.4'
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{DBI::dbGetInfo(db$.drv) # Direct usage of 'DBI' function on 'rocker' class
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## $driver.version
-## [1] '2.2.16'
+## [1] '2.4.3'
 ## 
 ## $client.version
-## [1] '3.39.2'
+## [1] '3.50.4'
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{RSQLite::dbGetInfo(db$.drv) # Direct usage of driver package, 'RSQLite', function on 'rocker' class
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## $driver.version
-## [1] '2.2.16'
+## [1] '2.4.3'
 ## 
 ## $client.version
-## [1] '3.39.2'
+## [1] '3.50.4'
 }\if{html}{\out{</div>}}
 }
 
@@ -851,10 +851,10 @@ Prepare object
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{db$getInfoCon() # 'rocker' class function
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## DCtr | Connection info 3.39.2 (db.version), :memory: (dbname), NA (username), NA (host), NA (port)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## DCtr | Connection info 3.50.4 (db.version), :memory: (dbname), NA (username), NA (host), NA (port)
 
 ## $db.version
-## [1] "3.39.2"
+## [1] "3.50.4"
 ## 
 ## $dbname
 ## [1] ":memory:"
@@ -873,7 +873,7 @@ Prepare object
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## $db.version
-## [1] "3.39.2"
+## [1] "3.50.4"
 ## 
 ## $dbname
 ## [1] ":memory:"
@@ -892,7 +892,7 @@ Prepare object
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## $db.version
-## [1] "3.39.2"
+## [1] "3.50.4"
 ## 
 ## $dbname
 ## [1] ":memory:"

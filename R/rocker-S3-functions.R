@@ -2,7 +2,7 @@
 #' 'rocker' Database Interface R6 Class - S3 functions
 #'
 #' @description
-#' \link{R6} class interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
+#' \link[R6:R6-package]{R6} class interface for handling database connections using \link[DBI:DBI-package]{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
 #' Although rocker is a R6 class, functions can be also accesses in classical S3 way.
 #' @examples
 #' # New database handling object

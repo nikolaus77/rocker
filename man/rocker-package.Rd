@@ -3,7 +3,6 @@
 \docType{package}
 \name{rocker-package}
 \alias{rocker-package}
-\alias{_PACKAGE}
 \title{rocker: Database Interface Class}
 \description{
 'R6' class interface for handling relational database connections using 'DBI' package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite. The purpose is having an intuitive object allowing straightforward handling of SQL databases.

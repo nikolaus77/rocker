@@ -2,7 +2,7 @@
 #' 'rocker' Database Interface R6 Class
 #'
 #' @description
-#' \link{R6} class interface for handling database connections using \link{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
+#' \link[R6:R6-package]{R6} class interface for handling database connections using \link[DBI:DBI-package]{DBI} package as backend. The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
 #' @format \link[R6:R6Class]{R6Class}
 #' @examples
 #' # New database handling object

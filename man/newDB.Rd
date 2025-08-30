@@ -17,7 +17,7 @@ newDB(verbose = TRUE, id = NULL, ...)
 New instance of rocker class
 }
 \description{
-Function generates a new \link{R6} database handling interface with \link{DBI} backend.
+Function generates a new \link[R6:R6-package]{R6} database handling interface with \link[DBI:DBI-package]{DBI} backend.
 For more information, see \link[rocker:rocker]{rocker} class description.
 }
 \examples{
