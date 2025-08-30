@@ -1,3 +1,8 @@
+rocker 0.3.2
+========
+
+* Fix documentation issue 'Rd file(s) with Rd \link{} targets missing package anchors'
+
 rocker 0.3.1
 ========
 

@@ -1,6 +1,6 @@
 Package: rocker
 Title: Database Interface Class
-Version: 0.3.1.9000
+Version: 0.3.2
 Authors@R: person(given = "Nikolaus", family = "Pawlowski", role = c("aut", "cre", "cph"), email = "niko@fr33.net")
 Description: 'R6' class interface for handling relational database connections using 'DBI' package as backend.
   The class allows handling of connections to e.g. PostgreSQL, MariaDB and SQLite.
